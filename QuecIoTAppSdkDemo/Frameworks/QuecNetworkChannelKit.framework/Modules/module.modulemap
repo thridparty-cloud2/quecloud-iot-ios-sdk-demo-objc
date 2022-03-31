@@ -1,0 +1,6 @@
+framework module QuecNetworkChannelKit {
+  umbrella header "QuecNetworkChannelKit.h"
+
+  export *
+  module * { export * }
+}

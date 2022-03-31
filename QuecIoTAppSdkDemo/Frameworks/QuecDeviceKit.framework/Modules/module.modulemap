@@ -1,0 +1,6 @@
+framework module QuecDeviceKit {
+  umbrella header "QuecDeviceKit.h"
+
+  export *
+  module * { export * }
+}

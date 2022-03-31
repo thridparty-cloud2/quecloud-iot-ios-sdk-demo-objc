@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要您的同意, 才能访问您的相册</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>我们需要使用您的蓝牙连接到您的设备</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要您的同意, 才能访问您的相机</string>
+	<key>Main nib file base name </key>
+	<string></string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+</dict>
+</plist>

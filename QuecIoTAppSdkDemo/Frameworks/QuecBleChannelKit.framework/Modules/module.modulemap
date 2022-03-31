@@ -1,0 +1,6 @@
+framework module QuecBleChannelKit {
+  umbrella header "QuecBleChannelKit.h"
+
+  export *
+  module * { export * }
+}

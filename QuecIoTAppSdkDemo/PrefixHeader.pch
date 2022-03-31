@@ -1,0 +1,30 @@
+//
+//  PrefixHeader.pch
+//  Demo
+//
+//  Created by Tank Tu() on 2022/3/5.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#ifdef __OBJC__
+#import <QuecIoTAppSDK/QuecIoTAppSDK.h>
+#import <QuecNetworkChannelKit/QuecNetworkChannelKit.h>
+#import <QuecCommonKit/QuecCommonKit.h>
+#import <QuecUserKit/QuecUserKit.h>
+#import <QuecLogkit/QuecLog.h>
+#import <QuecDeviceKit/QuecDeviceKit.h>
+#import "MacroDefine.h"
+#import <Masonry.h>
+#endif
+
+
+
+
+
+#endif /* PrefixHeader_pch */
