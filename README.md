@@ -35,4 +35,4 @@ pod install
    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"your user domain XXX" userDomainSecret:@"your user domain secret XXX" cloudServiceType:XXX];
 ```
 ### 参考
-关于移远云IoTSDK的更多信息，请参见[App SDK。](https://github.com/thridparty-cloud2/quecloud-iot-ios-sdk-demo-objc/blob/master/API.md)
+关于移远云IoTSDK的更多信息，请参见[API](https://github.com/thridparty-cloud2/quecloud-iot-ios-sdk-demo-objc/blob/master/API.md)。
