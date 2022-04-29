@@ -355,7 +355,7 @@
 - (void)sendDataToDeviceWithData:(NSDictionary *)data row:(NSInteger)row {
     if ([self.dataModel.deviceStatus isEqualToString:@"离线"]) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[QuecDeviceService sharedInstance] sendDataToDeviceByHttpWithData:@[data].yy_modelToJSONString deviceKey:self.dataModel.deviceKey productKey:self.dataModel.productKey type:2 dataFormat:2 success:^{
+        [[QuecDeviceService sharedInstance] sendDataToDevicesByHttpWithData:@[data].yy_modelToJSONString deviceList:@[@{@"deviceKey":self.dataModel.deviceKey, @"productKey":self.dataModel.productKey}] type:2 dataFormat:2 success:^(NSDictionary *dictionary) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {

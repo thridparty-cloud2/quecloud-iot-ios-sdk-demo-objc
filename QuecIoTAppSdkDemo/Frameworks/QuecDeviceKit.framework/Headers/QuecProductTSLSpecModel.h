@@ -34,7 +34,10 @@
 // 数组大小
 @property (nonatomic, copy) NSString *size;
 // 属性值
-@property (nonatomic, copy) NSString *attributeValue;
+@property (nonatomic, strong) id attributeValue;
+// code
+@property (nonatomic, copy) NSString *code;
+
 
 @end
 

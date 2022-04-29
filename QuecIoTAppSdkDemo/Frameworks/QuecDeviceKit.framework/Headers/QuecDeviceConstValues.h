@@ -73,3 +73,10 @@ extern NSString * const QuecWebSocketMessageTypeMEVENT_WARN;
 extern NSString * const QuecWebSocketMessageTypeMEVENT_ERROR;
 // 设备定位信息上报
 extern NSString * const QuecWebSocketMessageTypeLOCATION_INFO_KV;
+
+// websocket登录token验证失败响应
+extern NSInteger const QuecWebSocketLoginErrorCode;
+// websocket error 用户未登录
+extern NSInteger const QuecWebSocketReceiveLoginErrorCode;
+// websocket login 用户登录成功
+extern NSInteger const QuecWebSocketReceiveLoginSuccessCode;

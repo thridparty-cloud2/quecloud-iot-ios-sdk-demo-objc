@@ -77,7 +77,7 @@
         }
     }
     self.titleLabel.text = [NSString stringWithFormat:@"%@布尔",subType];
-    [_state setOn:model.attributeValue.boolValue];
+    [_state setOn:[model.attributeValue boolValue]];
 }
 
 @end

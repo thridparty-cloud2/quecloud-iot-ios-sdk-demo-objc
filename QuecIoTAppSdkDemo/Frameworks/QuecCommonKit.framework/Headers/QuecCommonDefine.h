@@ -20,6 +20,12 @@ typedef void(^QuecDataBlock)(NSData *result);
 typedef void(^QuecStringBlock)(NSString *result);
 typedef void(^QuecLongLongBlock)(long long result);
 
+// 设备sdk token 过期 通知用户sdk刷新
+extern NSString * const QuecWebSocketRefreshingToken;
+// 用户sdk刷新token 回调设备sdk
+extern NSString * const QuecWebSocketRefreshingTokenResponse;
+
+
 #ifndef weakify
     #if DEBUG
         #if __has_feature(objc_arc)

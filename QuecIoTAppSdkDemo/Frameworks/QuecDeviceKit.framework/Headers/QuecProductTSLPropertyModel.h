@@ -16,7 +16,7 @@
 // 数据类型
 @property (nonatomic, copy) NSString *dataType;
 // 属性值
-@property (nonatomic, copy) NSString *attributeValue;
+@property (nonatomic, strong) id attributeValue;
 
 @end
 

@@ -20,6 +20,9 @@
 // 初始化xlog
 + (void)setupLogWithConfig:(QuecLogConfig *)config;
 
+// 获取日志配置
++ (QuecLogConfig *)getLogConfig;
+
 // 关闭xlog
 + (void)closeLog;
 

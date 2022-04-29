@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/QuecCommonDefine.h</key>
 		<data>
-		a6S6bFGTuQMOJzgJjEO9FJONTYg=
+		rBeS2Z9TFrUpsdkpaUtvL0p972g=
 		</data>
 		<key>Headers/QuecCommonKit.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/QuecGlobleConfig.h</key>
 		<data>
-		RnXYpWo5GRQZJt2Q924xQ6i8Qrw=
+		b7GLdiiT+4/0/T+omTo0qF4pX4w=
 		</data>
 		<key>Headers/QuecMD5Util.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		k88gqrbBJXIMhyP6M+GN83Qqsf0=
+		Ck8MNlXndd6Kzi6JzWk8I7+0OIE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -69,11 +69,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			a6S6bFGTuQMOJzgJjEO9FJONTYg=
+			rBeS2Z9TFrUpsdkpaUtvL0p972g=
 			</data>
 			<key>hash2</key>
 			<data>
-			XKsrU9AbvKgEEOET+93TR2P9+6j35VHt/6IXOuSUUMI=
+			jeVReH3qpsatuRgeHwG3RXSMD7jmcyfod2uN0tJj4H4=
 			</data>
 		</dict>
 		<key>Headers/QuecCommonKit.h</key>
@@ -102,11 +102,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RnXYpWo5GRQZJt2Q924xQ6i8Qrw=
+			b7GLdiiT+4/0/T+omTo0qF4pX4w=
 			</data>
 			<key>hash2</key>
 			<data>
-			LlPRSIlB7ZwRaMZmHGjbIb7Ej+uSImdeE0cNomyjOe4=
+			oeOP4uj3xcVuv5iyQIZRco/dCqvdyL+BY8uLeslEq44=
 			</data>
 		</dict>
 		<key>Headers/QuecMD5Util.h</key>

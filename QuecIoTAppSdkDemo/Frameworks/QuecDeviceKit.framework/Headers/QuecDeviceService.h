@@ -35,6 +35,9 @@
  */
 + (instancetype)sharedInstance;
 
+// webSocket 是否开启
+@property (nonatomic, assign) BOOL webSocketLogin;
+
 /**
  获取设备列表
  
@@ -167,21 +170,6 @@
 @interface QuecDeviceService (Control)
 
 /**
- 设备控制
- 
- @param data 遵循tsl格式的json string 属性：[{"id":62,"value":99,"type":"INT","name":"温度(temp)"},{"id":63,"value":"true","type":"BOOL","name":"开关机状态(powerstate)"},{"id":64,"value":"0.0","type":"FLOAT","name":"容量(size)"},{"id":65,"value":"0.0","type":"DOUBLE","name":"当前容量(currentSize)"},{"id":66,"value":"0","type":"ENUM","name":"工作状态(state)"},{"id":67,"name":"当前工作状态","type":"TEXT","value":"1"},{"id":68,"value":1632758400000,"type":"DATE","name":"加热时间(hotTime)"},{"id":70,"name":"滤芯数组","type":"ARRAY","value":[{"id":0,"name":"","type":"STRUCT","value":[{"id":1,"name":"状态","type":"BOOL","value":"faulse"}]}]},{"id":69,"name":"特征值","type":"STRUCT","value":[{"id":1,"name":"名称","type":"TEXT","value":"${input_data}"},{"id":2,"name":"版本","type":"TEXT","value":"${input_data}"}]}]；服务：[{"id":74,"value":[{"id":62,"value":80,"type":"INT","name":"温度(temp)"},{"id":68,"value":1632758400000,"type":"DATE","name":"加热时间(hotTime)"}]}]
-
- @param deviceKey 设备key
- @param productKey 产品key
- @param type 类型 1：透传 2：属性 3：服务
- @param dataFormat 数据类型 1：Hex 2：Text（当type为透传时，需要指定 dataFormat）
- @param success success block
- @param failure failure block
- */
-- (void)sendDataToDeviceByHttpWithData:(NSString *)data deviceKey:(NSString *)deviceKey productKey:(NSString *)productKey type:(NSInteger)type dataFormat:(NSInteger )dataFormat success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
-
-
-/**
  设备批量控制
  
  @param data 遵循tsl格式的json string
@@ -196,6 +184,13 @@
 @end
 
 @interface QuecDeviceService (WebSocket)
+
+/**
+ 获取websocket是否开启
+ 
+ @return return BOOL
+ */
+- (BOOL)isWebSocketOpen;
 
 /**
  获取websocket是否开启

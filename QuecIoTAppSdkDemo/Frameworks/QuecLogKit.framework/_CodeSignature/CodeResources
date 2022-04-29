@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/QuecLog.h</key>
 		<data>
-		4tVWbrTc960Xbsz23PKrLRrbadA=
+		FS8zEK53t5Do56VDhfunI6YIUDg=
 		</data>
 		<key>Headers/QuecLogConfig.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		z0tNS1zg2nEdLBxsE0AbuFmQonc=
+		ZOB8H8nfzqTTisvhZqJFFH4HTYw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -35,11 +35,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4tVWbrTc960Xbsz23PKrLRrbadA=
+			FS8zEK53t5Do56VDhfunI6YIUDg=
 			</data>
 			<key>hash2</key>
 			<data>
-			p59+LV4LPXHCj9Bd65Io17Cb4dwNgW5lOlfPYhcwMQE=
+			GCxZ1zfCQl5Qozmx24g/dVbjJB0iowG446uWafCDpPA=
 			</data>
 		</dict>
 		<key>Headers/QuecLogConfig.h</key>

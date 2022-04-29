@@ -29,7 +29,7 @@
 /**
  @return return a single instance
  */
-+ (instancetype)sharedInstance;
++ (QuecGlobleConfig *)sharedInstance;
 
 /**
  @return userDomain

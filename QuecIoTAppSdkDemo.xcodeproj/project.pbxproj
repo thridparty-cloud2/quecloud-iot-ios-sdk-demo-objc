@@ -35,8 +35,13 @@
 		223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C227D5959600817F50 /* UpdateInputViewController.m */; };
 		223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C427D5959600817F50 /* UpdatePswViewController.m */; };
 		223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C627D5959600817F50 /* UpdatePhoneViewController.m */; };
-		223613D427D5B36000817F50 /* QuecCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223613D327D5B36000817F50 /* QuecCommonKit.framework */; };
-		223613D627D5B36D00817F50 /* QuecLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223613D527D5B36D00817F50 /* QuecLogKit.framework */; };
+		22A750C1281BDDDE0024DCEC /* QuecCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */; };
+		22A750C2281BDDDE0024DCEC /* QuecDeviceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */; };
+		22A750C3281BDDDE0024DCEC /* QuecBleChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */; };
+		22A750C4281BDDDE0024DCEC /* QuecUserKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */; };
+		22A750C5281BDDDE0024DCEC /* QuecNetworkChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */; };
+		22A750C6281BDDDE0024DCEC /* QuecIoTAppSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */; };
+		22A750C7281BDDDE0024DCEC /* QuecLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */; };
 		22B0F7C827D2FE08001368DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7C727D2FE08001368DF /* AppDelegate.m */; };
 		22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7CA27D2FE08001368DF /* SceneDelegate.m */; };
 		22B0F7D127D2FE08001368DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B0F7CF27D2FE08001368DF /* Main.storyboard */; };
@@ -46,15 +51,10 @@
 		22B0F7E327D2FE09001368DF /* QuecIoTAppSdkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7E227D2FE09001368DF /* QuecIoTAppSdkDemoTests.m */; };
 		22B0F7ED27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EC27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m */; };
 		22B0F7EF27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */; };
-		22B0F80827D30C94001368DF /* QuecNetworkChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80727D30C94001368DF /* QuecNetworkChannelKit.framework */; };
 		22B0F80A27D30EB3001368DF /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80927D30EB3001368DF /* libresolv.9.tbd */; };
 		22B0F80C27D30EF9001368DF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80B27D30EF9001368DF /* libz.tbd */; };
 		22B0F81027D30F13001368DF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80F27D30F13001368DF /* CoreTelephony.framework */; };
 		22B0F81227D30F1C001368DF /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F81127D30F1C001368DF /* libc++.tbd */; };
-		22B0F82327D33D05001368DF /* QuecBleChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F82227D33D05001368DF /* QuecBleChannelKit.framework */; };
-		3049CA0527EAC5F8005F1928 /* QuecUserKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3049CA0427EAC5F8005F1928 /* QuecUserKit.framework */; };
-		3082F49D27F465CA00384BAD /* QuecDeviceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3082F49C27F465CA00384BAD /* QuecDeviceKit.framework */; };
-		30B6587627D9F6EF00C6DDE7 /* QuecIoTAppSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6587527D9F6EF00C6DDE7 /* QuecIoTAppSDK.framework */; };
 		30B6587727DA1E2700C6DDE7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80D27D30F05001368DF /* SystemConfiguration.framework */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 		BBDCD66B4C98F5006B3C8A14 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */; };
@@ -134,8 +134,13 @@
 		223613C627D5959600817F50 /* UpdatePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePhoneViewController.m; sourceTree = "<group>"; };
 		223613C727D5959600817F50 /* UpdatePswViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePswViewController.h; sourceTree = "<group>"; };
 		223613C827D5959600817F50 /* MyCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCenterViewController.h; sourceTree = "<group>"; };
-		223613D327D5B36000817F50 /* QuecCommonKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecCommonKit.framework; sourceTree = "<group>"; };
-		223613D527D5B36D00817F50 /* QuecLogKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecLogKit.framework; sourceTree = "<group>"; };
+		22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecCommonKit.framework; sourceTree = "<group>"; };
+		22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecDeviceKit.framework; sourceTree = "<group>"; };
+		22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecBleChannelKit.framework; sourceTree = "<group>"; };
+		22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecUserKit.framework; sourceTree = "<group>"; };
+		22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
+		22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecIoTAppSDK.framework; sourceTree = "<group>"; };
+		22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecLogKit.framework; sourceTree = "<group>"; };
 		22B0F7C327D2FE08001368DF /* QuecIoTAppSdkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuecIoTAppSdkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B0F7C627D2FE08001368DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B0F7C727D2FE08001368DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -152,7 +157,6 @@
 		22B0F7EC27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecIoTAppSdkDemoUITests.m; sourceTree = "<group>"; };
 		22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecIoTAppSdkDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		22B0F80027D3055E001368DF /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuecNetworkChannelKit.framework; path = ../frame/QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
-		22B0F80727D30C94001368DF /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
 		22B0F80927D30EB3001368DF /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
 		22B0F80B27D30EF9001368DF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		22B0F80D27D30F05001368DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -160,13 +164,9 @@
 		22B0F81127D30F1C001368DF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		22B0F81327D32616001368DF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		22B0F81627D32934001368DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		22B0F82227D33D05001368DF /* QuecBleChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecBleChannelKit.framework; sourceTree = "<group>"; };
 		22BDF77327DA110E00B150F9 /* QuecIoTAppSdkDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuecIoTAppSdkDemo.entitlements; sourceTree = "<group>"; };
 		22D0BFC527F3F9F000211095 /* MacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroDefine.h; sourceTree = "<group>"; };
 		2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		3049CA0427EAC5F8005F1928 /* QuecUserKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecUserKit.framework; sourceTree = "<group>"; };
-		3082F49C27F465CA00384BAD /* QuecDeviceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecDeviceKit.framework; sourceTree = "<group>"; };
-		30B6587527D9F6EF00C6DDE7 /* QuecIoTAppSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecIoTAppSDK.framework; sourceTree = "<group>"; };
 		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -181,20 +181,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A750C5281BDDDE0024DCEC /* QuecNetworkChannelKit.framework in Frameworks */,
 				2236137327D5918F00817F50 /* ExternalAccessory.framework in Frameworks */,
-				30B6587627D9F6EF00C6DDE7 /* QuecIoTAppSDK.framework in Frameworks */,
-				223613D427D5B36000817F50 /* QuecCommonKit.framework in Frameworks */,
-				22B0F82327D33D05001368DF /* QuecBleChannelKit.framework in Frameworks */,
+				22A750C6281BDDDE0024DCEC /* QuecIoTAppSDK.framework in Frameworks */,
 				22B0F81227D30F1C001368DF /* libc++.tbd in Frameworks */,
+				22A750C1281BDDDE0024DCEC /* QuecCommonKit.framework in Frameworks */,
 				30B6587727DA1E2700C6DDE7 /* SystemConfiguration.framework in Frameworks */,
+				22A750C2281BDDDE0024DCEC /* QuecDeviceKit.framework in Frameworks */,
 				22B0F81027D30F13001368DF /* CoreTelephony.framework in Frameworks */,
-				3049CA0527EAC5F8005F1928 /* QuecUserKit.framework in Frameworks */,
 				22B0F80C27D30EF9001368DF /* libz.tbd in Frameworks */,
-				3082F49D27F465CA00384BAD /* QuecDeviceKit.framework in Frameworks */,
+				22A750C4281BDDDE0024DCEC /* QuecUserKit.framework in Frameworks */,
+				22A750C7281BDDDE0024DCEC /* QuecLogKit.framework in Frameworks */,
 				22B0F80A27D30EB3001368DF /* libresolv.9.tbd in Frameworks */,
-				223613D627D5B36D00817F50 /* QuecLogKit.framework in Frameworks */,
-				22B0F80827D30C94001368DF /* QuecNetworkChannelKit.framework in Frameworks */,
 				BBDCD66B4C98F5006B3C8A14 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
+				22A750C3281BDDDE0024DCEC /* QuecBleChannelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,13 +363,13 @@
 		22B0F7FD27D3039E001368DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3082F49C27F465CA00384BAD /* QuecDeviceKit.framework */,
-				30B6587527D9F6EF00C6DDE7 /* QuecIoTAppSDK.framework */,
-				22B0F80727D30C94001368DF /* QuecNetworkChannelKit.framework */,
-				22B0F82227D33D05001368DF /* QuecBleChannelKit.framework */,
-				223613D327D5B36000817F50 /* QuecCommonKit.framework */,
-				3049CA0427EAC5F8005F1928 /* QuecUserKit.framework */,
-				223613D527D5B36D00817F50 /* QuecLogKit.framework */,
+				22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */,
+				22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */,
+				22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */,
+				22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */,
+				22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */,
+				22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */,
+				22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";

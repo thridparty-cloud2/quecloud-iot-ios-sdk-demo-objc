@@ -25,7 +25,6 @@
     [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"XXX" userDomainSecret:@"XXXXXX" cloudServiceType:QuecCloudServiceTypeChina];
     [[QuecIoTAppSDK sharedInstance] setDebugMode:true];
     
-    
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];

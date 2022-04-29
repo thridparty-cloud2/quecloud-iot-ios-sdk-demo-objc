@@ -47,13 +47,11 @@
     _wifiNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200, self.view.frame.size.width - 60, 50)];
     _wifiNameTextField.borderStyle = UITextBorderStyleRoundedRect;
     _wifiNameTextField.placeholder = @"请输入wifi名称";
-    _wifiNameTextField.text = @"Quectel-Customer-2.4G";
     [self.view addSubview:_wifiNameTextField];
     
     _wifiPsdTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 280, self.view.frame.size.width - 60, 50)];
     _wifiPsdTextField.borderStyle = UITextBorderStyleRoundedRect;
     _wifiPsdTextField.placeholder = @"请输入wifi密码";
-    _wifiPsdTextField.text = @"Customer-Quectel";
     [self.view addSubview:_wifiPsdTextField];
     
     UIButton *config = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,7 +80,6 @@
     [self.wifiPsdTextField resignFirstResponder];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecBleManager sharedInstance] sendCommand:[QuecBleCommandModel getCommadnWithCommand:0x7010 payload:@[[QuecPayloadDataModel getPayloadWithId:1 dataType:QuecPlaloadDataTypeBinary value:[self.wifiNameTextField.text dataUsingEncoding:NSUTF8StringEncoding]],[QuecPayloadDataModel getPayloadWithId:2 dataType:QuecPlaloadDataTypeBinary value:[self.wifiPsdTextField.text dataUsingEncoding:NSUTF8StringEncoding]]] writeWithResponse:YES] completion:^(BOOL timeout, QuecBleReceiveModel *response) {
-        NSLog(@"++++++++%@",response);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!timeout) {
                 self.pk = @"";
@@ -109,14 +106,12 @@
                     [self.view makeToast:@"配网失败" duration:3 position:CSToastPositionCenter];
                 }
                 else {
-                    self.queue = dispatch_queue_create("dispatchGroup.quectel", DISPATCH_QUEUE_CONCURRENT);
                     
+                    self.queue = dispatch_queue_create("dispatchGroup.quectel", DISPATCH_QUEUE_CONCURRENT);
                     self.count = 1;
-                    self.timer =[NSTimer scheduledTimerWithTimeInterval:1  target:self  selector:@selector(bindDevice) userInfo:nil  repeats:YES];
+                    self.timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self  selector:@selector(bindDevice) userInfo:nil  repeats:YES];
                     [self.timer fire];
                     
-                    
-//                    [self bindDeviceByDeviceKey:dk productKey:pk authCode:authCode];
                 }
                 return;
             }
@@ -127,8 +122,6 @@
 - (void)bindDevice{
     dispatch_sync(self.queue, ^{
         [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:self.authCode productKey:self.pk deviceKey:self.dk deviceName:self.dk success:^{
-
-                // 配网成功销毁定时器返回上一界面刷新设备列表
                 [self.timer invalidate];
                 self.timer = nil;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -137,18 +130,15 @@
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }];
 
-//                NSLog(@"++++++++++++++");
             } failure:^(NSError *error) {
-                // 配网失败, 继续定时请求接口绑定
-//                NSLog(@"-------------");
+                
         }];
         
     });
     
-    if (_count >= 30) {
+    if (_count >= 10) {
         [_timer invalidate];
         _timer = nil;
-        // 30s 后 停止请求绑定接口, 提示配网失败
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"配网失败" duration:3 position:CSToastPositionCenter];
         [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
@@ -166,11 +156,6 @@
     [_timer invalidate];
     _timer = nil;
 }
-
-
-
-
-
 
 @end
 

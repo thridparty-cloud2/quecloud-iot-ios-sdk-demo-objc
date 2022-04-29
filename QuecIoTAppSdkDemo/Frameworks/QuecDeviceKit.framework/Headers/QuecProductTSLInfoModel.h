@@ -15,7 +15,7 @@
 // 自定义物模型数据上报列表
 @property (nonatomic, strong) NSArray<QuecProductTSLCustomInfoModel *> *customizeTslInfo;
 // 定位信息
-@property (nonatomic, strong) NSArray<QuecProductTSLLocateInfoModel *> *deviceLocateInfo;
+@property (nonatomic, strong) QuecProductTSLLocateInfoModel *deviceLocateInfo;
 // 资源物模型数据
 @property (nonatomic, strong) NSArray<QuecProductTSLResourceInfoModel *> *tslResourcesInfo;
 
