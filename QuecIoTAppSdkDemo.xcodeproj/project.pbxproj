@@ -164,7 +164,6 @@
 		22B0F81127D30F1C001368DF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		22B0F81327D32616001368DF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		22B0F81627D32934001368DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		22BDF77327DA110E00B150F9 /* QuecIoTAppSdkDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuecIoTAppSdkDemo.entitlements; sourceTree = "<group>"; };
 		22D0BFC527F3F9F000211095 /* MacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroDefine.h; sourceTree = "<group>"; };
 		2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -322,7 +321,6 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
-				22BDF77327DA110E00B150F9 /* QuecIoTAppSdkDemo.entitlements */,
 				22B0F7FD27D3039E001368DF /* Frameworks */,
 				2236137727D5949C00817F50 /* Group */,
 				2236137927D5949C00817F50 /* Home */,
@@ -861,8 +859,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuecIoTAppSdkDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "我们需要使用您的蓝牙连接到您的设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App需要您的同意, 才能访问您的相机";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要您的同意, 才能访问您的相册";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要您的同意, 才能访问您的相机";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要您的同意, 才能访问您的相册";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -909,7 +907,7 @@
 					"\"YYModel\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.quectel.SdkDemo.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quectel.SdkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -937,8 +935,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuecIoTAppSdkDemo/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "我们需要使用您的蓝牙连接到您的设备";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App需要您的同意, 才能访问您的相机";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要您的同意, 才能访问您的相册";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要您的同意, 才能访问您的相机";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要您的同意, 才能访问您的相册";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -985,7 +983,7 @@
 					"\"YYModel\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.quectel.SdkDemo.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quectel.SdkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
