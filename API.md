@@ -602,7 +602,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 #### 获取设备业务属性
 
 ```
-- (void)getDeviceBusinessAttributesWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void(^)(QuecProductTSLInfoModel *tslInfoModel))success failure:(void(^)(NSError *error))failure;
+- (void)getDeviceBusinessAttributesWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey gatewayPk:(NSString *)gatewayPk gatewayDk:(NSString *)gatewayDk codeList:(NSString *)codeList type:(NSString *)type  success:(void (^)(QuecProductTSLInfoModel *))success failure:(QuecErrorBlock)failure;
 
 ```
 
@@ -783,7 +783,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 #### 被分享人接受分享
 
 ```
-- (void)acceptShareByShareUserWithShareCode:(NSString *)shareCode success:(void(^)())success failure:(void(^)(NSError *error))failure;
+- (void)acceptShareByShareUserWithShareCode:(NSString *)shareCode deviceName:(NSString *)deviceName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
 
 ```
 
@@ -904,7 +904,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 
 #### 获取分组设备列表
 ```
-- (void)getDeviceListWithDeviceGroupId:(NSString *)deviceGroupId deviceGroupName:(NSString *)deviceGroupName deviceKeyList:(NSString *) deviceKeyList productKey:(NSString *)productKey success:(void(^)(NSArray<NSDictionary *> *data, NSInteger total))success failure:(void(^)(NSError *error))failure;
+- (void)getDeviceListWithDeviceGroupId:(NSString *)deviceGroupId deviceGroupName:(NSString *)deviceGroupName deviceKeyList:(NSString *)deviceKeyList productKey:(NSString *)productKey pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void (^)(NSArray<NSDictionary *> *, NSInteger))success failure:(void (^)(NSError *))failure;
 
 ```
 

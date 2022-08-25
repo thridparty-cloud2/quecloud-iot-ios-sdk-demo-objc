@@ -433,3 +433,8 @@ Pods/YYModel/YYModel/NSObject+YYModel.m
 Pods/YYModel/YYModel/YYClassInfo.h
 Pods/YYModel/YYModel/YYClassInfo.m
 Pods/YYModel/YYModel/YYModel.h
+
+*.xcuserstate 
+*.xcuserdata
+*/xcuserdata/
+.DS_Store
