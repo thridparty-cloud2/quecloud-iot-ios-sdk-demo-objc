@@ -17,7 +17,6 @@
 
 @property (nonatomic, assign) NSInteger count;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) dispatch_queue_t queue;
 
 @property (nonatomic, copy) NSString *pk;
 @property (nonatomic, copy) NSString *dk;
@@ -107,7 +106,6 @@
                 }
                 else {
                     
-                    self.queue = dispatch_queue_create("dispatchGroup.quectel", DISPATCH_QUEUE_CONCURRENT);
                     self.count = 1;
                     self.timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self  selector:@selector(bindDevice) userInfo:nil  repeats:YES];
                     [self.timer fire];
@@ -120,21 +118,18 @@
 }
 
 - (void)bindDevice{
-    dispatch_sync(self.queue, ^{
-        [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:self.authCode productKey:self.pk deviceKey:self.dk deviceName:self.dk success:^{
-                [self.timer invalidate];
-                self.timer = nil;
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.view makeToast:@"配网成功" duration:3 position:CSToastPositionCenter];
-                [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }];
+    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:self.authCode productKey:self.pk deviceKey:self.dk deviceName:self.dk success:^{
+            [self.timer invalidate];
+            self.timer = nil;
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.view makeToast:@"配网成功" duration:3 position:CSToastPositionCenter];
+            [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
 
-            } failure:^(NSError *error) {
-                
-        }];
-        
-    });
+        } failure:^(NSError *error) {
+            
+    }];
     
     if (_count >= 10) {
         [_timer invalidate];

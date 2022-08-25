@@ -17,6 +17,10 @@
 #import "QuecDeviceOTAQueryModel.h"
 #import "QuecDeviceOTAPlanModel.h"
 #import "QuecWebSocketActionModel.h"
+#import "QuecLocationHistoryModel.h"
+#import "QuecPropertyDataListModel.h"
+#import "QuecCornJobModel.h"
+
 
 @protocol QuecDeviceServiceWebSocketDelegate <NSObject>
 
@@ -47,6 +51,15 @@
  @param failure failure block
  */
 - (void)getDeviceListWithPageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+/**
+ 获取设备列表-根据设备名称搜索
+ @param deviceName 设备名称
+ @param pageNumber 页码
+ @param pageSize 页大小
+ @param success success block
+ @param failure failure block
+ */
+- (void)getDeviceListByDeviceName:(NSString *)deviceName pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
 
 /**
  通过SN绑定设备
@@ -130,6 +143,8 @@
  
  @param productKey 产品key
  @param deviceKey 设备key
+ @param gatewayDk 网关设备的 Device Key
+ @param gatewayPk 网关设备的 Product Key
  @param codeList 查询的属性标识符
  和查询类型配合使用，如果查询多个属性，使用英文逗号分隔
  @param type 查询类型
@@ -140,7 +155,7 @@
  @param success success block
  @param failure failure block
  */
-- (void)getDeviceBusinessAttributesWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey codeList:(NSString *)codeList type:(NSString *)type  success:(void (^)(QuecProductTSLInfoModel *))success failure:(QuecErrorBlock)failure;
+- (void)getDeviceBusinessAttributesWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey gatewayPk:(NSString *)gatewayPk gatewayDk:(NSString *)gatewayDk codeList:(NSString *)codeList type:(NSString *)type  success:(void (^)(QuecProductTSLInfoModel *))success failure:(QuecErrorBlock)failure;
 
 /**
  查询设备升级信息
@@ -165,6 +180,80 @@
  */
 - (void)reportDeviceUpgradeStatusWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey componentNo:(NSString *)componentNo reportStatus:(NSInteger)reportStatus success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
 
+/**
+ 
+ 获取设备历史轨迹
+ 
+ @param productKey 产品key
+ @param deviceKey 设备key
+ @param startTimestamp 开始时间（毫秒时间戳）
+ @param endTimestamp 结束时间（毫秒时间戳）
+ @param gatewayDk 网关设备的 Device Key
+ @param gatewayPk 网关设备的 Product Key
+ @param locateTypes 定位类型（默认查询所有类型的定位），查询多种定位时使用英文逗号分隔
+    GNSS-全球导航卫星系统
+    GPS-美国导航定位系统
+    GL-俄罗斯格洛纳导航定位系统
+    GA-欧盟伽利略卫星导航系统
+    BD/PQ-中国导航定位系统
+    LBS-基于通信运营商的基站定位系统
+ @param success success block
+ @param failure failure block
+ */
+- (void)getLocationHistoryWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey startTimestamp:(NSInteger)startTimestamp endTimestamp:(NSInteger)endTimestamp gatewayDk:(NSString *)gatewayDk gatewayPk:(NSString *)gatewayPk locateTypes:(NSString *)locateTypes success:(void(^)(NSArray<QuecLocationHistoryModel *> *list))success failure:(QuecErrorBlock)failure;
+
+/**
+ 获取设备属性图表列表
+ 
+ @param productKey 产品key
+ @param deviceKey 设备key
+ @param startTimestamp 开始时间（毫秒时间戳）
+ @param endTimestamp 结束时间（毫秒时间戳）
+ @param attributeCode 物模型属性标识符，查询多个属性时使用英文逗号分隔
+ @param gatewayDk 网关设备的 Device Key
+ @param gatewayPk 网关设备的 Product Key
+ @param countType 聚合类型（默认3）：1-最大值 2-最小值 3-平均值 4-差值
+ @param timeGranularity 统计时间粒度（默认2）：1-月 2-日 3-小时 4-分钟 5-秒
+ @param success success block
+ @param failure failure block
+ */
+- (void)getPropertyChartListWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey startTimestamp:(NSInteger)startTimestamp endTimestamp:(NSInteger)endTimestamp attributeCode:(NSString *)attributeCode gatewayDk:(NSString *)gatewayDk gatewayPk:(NSString *)gatewayPk countType:(NSInteger)countType timeGranularity:(NSInteger)timeGranularity success:(void(^)(NSArray *dataArray))success failure:(QuecErrorBlock)failure;
+
+/**
+ 
+ 获取设备属性环比统计数据
+ 
+ @param productKey 产品key
+ @param deviceKey 设备key
+ @param currentTimestamp 当前时间（毫秒时间戳
+ @param attributeCode 物模型属性标识符，查询多个属性时使用英文逗号分隔
+ @param gatewayDk 网关设备的 Device Key
+ @param gatewayPk 网关设备的 Product Key
+ @param countType 聚合类型（默认3）：1-最大值 2-最小值 3-平均值 4-差值
+ @param timeGranularities 统计时间粒度，查询多个粒度时使用英文逗号分隔（默认1）：1-日 2-周 3-月 4-年
+ @param success success block
+ @param failure failure block
+ */
+- (void)getPropertyStatisticsPathWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey currentTimestamp:(NSInteger)currentTimestamp attributeCode:(NSString *)attributeCode gatewayDk:(NSString *)gatewayDk gatewayPk:(NSString *)gatewayPk countType:(NSInteger)countType timeGranularities:(NSString *)timeGranularities success:(void(^)(NSArray *dataArray))success failure:(QuecErrorBlock)failure;
+
+/**
+ 
+ 获取设备属性数据列表
+ 
+ @param productKey 产品key
+ @param deviceKey 设备key
+ @param startTimestamp 开始时间（毫秒时间戳）
+ @param endTimestamp 结束时间（毫秒时间戳）
+ @param attributeCode 物模型属性标识符，查询多个属性时使用英文逗号分隔
+ @param gatewayDk 网关设备的 Device Key
+ @param gatewayPk 网关设备的 Product Key
+ @param pageNumber 当前页，默认为第 1 页
+ @param pageSize 页大小，默认为 10 条
+ @param success success block
+ @param failure failure block
+ */
+- (void)getPropertyDataListWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey startTimestamp:(NSInteger)startTimestamp endTimestamp:(NSInteger)endTimestamp attributeCode:(NSString *)attributeCode gatewayDk:(NSString *)gatewayDk gatewayPk:(NSString *)gatewayPk pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecPropertyDataListModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
 @end
 
 @interface QuecDeviceService (Control)
@@ -185,12 +274,6 @@
 
 @interface QuecDeviceService (WebSocket)
 
-/**
- 获取websocket是否开启
- 
- @return return BOOL
- */
-- (BOOL)isWebSocketOpen;
 
 /**
  获取websocket是否开启
@@ -297,7 +380,7 @@
  @param success success block
  @param failure failure block
  */
-- (void)acceptShareByShareUserWithShareCode:(NSString *)shareCode success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+- (void)acceptShareByShareUserWithShareCode:(NSString *)shareCode deviceName:(NSString *)deviceName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
 
 /**
  分享人设置分享信息
@@ -377,10 +460,12 @@
  @param deviceGroupName 分组名称
  @param deviceKeyList  device key列表，多个device key，使用英文逗号分隔
  @param productKey 产品key
+ @param pageNumber 当前页，默认为第 1 页
+ @param pageSize 页大小，默认为 10 条
  @param success success block
  @param failure failure block
  */
-- (void)getDeviceListWithDeviceGroupId:(NSString *)deviceGroupId deviceGroupName:(NSString *)deviceGroupName deviceKeyList:(NSString *)deviceKeyList productKey:(NSString *)productKey success:(void(^)(NSArray<NSDictionary *> *data, NSInteger total))success failure:(QuecErrorBlock)failure;
+- (void)getDeviceListWithDeviceGroupId:(NSString *)deviceGroupId deviceGroupName:(NSString *)deviceGroupName deviceKeyList:(NSString *)deviceKeyList productKey:(NSString *)productKey pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void (^)(NSArray<NSDictionary *> *, NSInteger))success failure:(void (^)(NSError *))failure;
 
 /**
  设备添加到设备组中
@@ -411,5 +496,78 @@
  @param failure failure block
  */
 - (void)getDeviceGroupListWithDeviceKey:(NSString *)deviceKey productKey:(NSString *)productKey success:(void(^)(NSArray<QuecDeviceGroupInfoModel *> *list))success failure:(QuecErrorBlock)failure;
+/**
+ 查询网关设备下子设备列表
+ @param deviceKey 网关设备deviceKey
+ @param productKey 网关设备productKey
+ @param pageNumber 页码
+ @param pageSize 页大小
+ @param success success block
+ @param failure failure block
+ */
+- (void)getGatewayDeviceChildListWithDeviceKey:(NSString *)deviceKey productKey:(NSString *)productKey pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+/**
+ 查询不在设备组内的设备列表
+ @param pageNumber 页码
+ @param pageSize 页大小
+ @param success success block
+ @param failure failure block
+ */
+- (void)getDeviceListByNotInDeviceGroupWithPageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize groupId:(NSString *)groupId success:(void(^)(NSArray <QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+/**
+ 创建定时任务
+ @param cornJobModel QuecCornJobModel
+ @param success success block
+ @param failure failure block
+ */
+- (void)addCornJobWithCornJobModel:(QuecCornJobModel *)cornJobModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+/**
+ 修改定时任务
+ @param cornJobModel QuecCornJobModel
+ @param success success block
+ @param failure failure block
+ */
+- (void)setCronJobWithCornJobModel:(QuecCornJobModel *)cornJobModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+/**
+
+ 查询设备下定时任务列表
+ @param productKey 产品key
+ @param deviceKey 设备key
+ @param type 定时任务类型，once: 执行一次，day-repeat: 每天重复，custom-repeat: 自定义重复，multi-section: 多段执行，random: 随机执行，delay: 延迟执行（倒计时）
+ @param pageNumber 分页页码，默认: 1
+ @param pageSize 分页大小，默认: 10
+ @param success success block
+ @param failure failure block
+ */
+- (void)getCronJobListWithDeviceKey:(NSString *)deviceKey productKey:(NSString *)productKey type:(NSString *)type pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecCornJobModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+/**
+
+ 查询定时任务详情
+ @param ruleId 定时任务ID
+ @param success success block
+ @param failure failure block
+ */
+- (void)getCronJobInfoWithRuleId:(NSString *)ruleId success:(void(^)(QuecCornJobModel *))success failure:(QuecErrorBlock)failure;
+
+/**
+ 批量删除定时任务
+ @param params  {ruleIdList:[String 定时任务ID数组]}
+ @param success success block
+ @param failure failure block
+ */
+- (void)batchDeleteCronJobWithParams:(NSDictionary *)params success:(void(^)(NSDictionary *data))success failure:(QuecErrorBlock)failure;
+
+/**
+ 查询产品下定时任务限制数
+ @param productKey 产品key
+ @param success success block
+ @param failure failure block
+ */
+- (void)getProductCornJobLimitWithProductKey:(NSString *)productKey success:(void(^)(NSInteger limit))success failure:(QuecErrorBlock)failure;
 
 @end

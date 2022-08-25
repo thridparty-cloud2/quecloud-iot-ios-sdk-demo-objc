@@ -4,13 +4,17 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/QuecCornJobModel.h</key>
+		<data>
+		CO55J2JQo17wwqUpsXeifRTXxF8=
+		</data>
 		<key>Headers/QuecDeviceConstValues.h</key>
 		<data>
 		gaCdKwwTY9kVJx/gqewD1AwxI8M=
 		</data>
 		<key>Headers/QuecDeviceGroupInfoModel.h</key>
 		<data>
-		Q+rbXdoo2DfjZsqrzwk1ie+Ha+8=
+		Og4LzEntf9rmqS3H3ozBxFF/wmg=
 		</data>
 		<key>Headers/QuecDeviceGroupParamModel.h</key>
 		<data>
@@ -18,11 +22,11 @@
 		</data>
 		<key>Headers/QuecDeviceKit.h</key>
 		<data>
-		UbOVvMnKl2US10gEOR8mNxr+R3s=
+		4pl23dwSqQB3xGkMjkrc4Z8YR44=
 		</data>
 		<key>Headers/QuecDeviceModel.h</key>
 		<data>
-		XSKAh1E1NecXrkizCG5TBDc6/5c=
+		f/nKyycYfwyRCwkyTSgvhop8sJY=
 		</data>
 		<key>Headers/QuecDeviceOTAPlanModel.h</key>
 		<data>
@@ -34,7 +38,11 @@
 		</data>
 		<key>Headers/QuecDeviceService.h</key>
 		<data>
-		0edqyh/PmD1zrTyQU5u0MbrkHmE=
+		05e9ukRCAzyWZY8sM+6SglM7W1I=
+		</data>
+		<key>Headers/QuecLocationHistoryModel.h</key>
+		<data>
+		imACIBFwtIdxaMq5QIclr0JxV8g=
 		</data>
 		<key>Headers/QuecProductTSLContentBaseModel.h</key>
 		<data>
@@ -54,7 +62,7 @@
 		</data>
 		<key>Headers/QuecProductTSLLocateInfoModel.h</key>
 		<data>
-		IbXBJijcalSH+Q1oSi7US/njb6Q=
+		idP/6aYEZpHEtmPI2Mffs0SYc2g=
 		</data>
 		<key>Headers/QuecProductTSLModel.h</key>
 		<data>
@@ -79,6 +87,10 @@
 		<key>Headers/QuecProductTSLSpecModel.h</key>
 		<data>
 		otNbOh/4z868+NlBeWeHHIn5zHA=
+		</data>
+		<key>Headers/QuecPropertyDataListModel.h</key>
+		<data>
+		VR2LuG+RKtaH5nx3XZQpsrZQ6vw=
 		</data>
 		<key>Headers/QuecShareUserInfoModel.h</key>
 		<data>
@@ -106,7 +118,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		iTOEBX6+cQqfralDCChIxWlQVY0=
+		t+oSZzbGIazMtJt1ylvtQlnD8CY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -115,6 +127,17 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/QuecCornJobModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CO55J2JQo17wwqUpsXeifRTXxF8=
+			</data>
+			<key>hash2</key>
+			<data>
+			MYUWhQRCV5FZmvcUMyC30o8uWN21Gt/v/7M4Y1M2vt0=
+			</data>
+		</dict>
 		<key>Headers/QuecDeviceConstValues.h</key>
 		<dict>
 			<key>hash</key>
@@ -130,11 +153,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Q+rbXdoo2DfjZsqrzwk1ie+Ha+8=
+			Og4LzEntf9rmqS3H3ozBxFF/wmg=
 			</data>
 			<key>hash2</key>
 			<data>
-			p6/fzxaJz3etni5fGGLQlYa/5vxqPzEI3KbUlkIaVYQ=
+			QlpVLDJ8bKEqOUtfzrbktllj4ShiwKW0YaAu4FrhI0A=
 			</data>
 		</dict>
 		<key>Headers/QuecDeviceGroupParamModel.h</key>
@@ -152,22 +175,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UbOVvMnKl2US10gEOR8mNxr+R3s=
+			4pl23dwSqQB3xGkMjkrc4Z8YR44=
 			</data>
 			<key>hash2</key>
 			<data>
-			yvLBge1d9KWDP+hc9EYMiDHciDrrN1YCg8kXuFvgKmo=
+			lpPn9hjjQJK88FC2MRnYalp7M6UZEnLTolT9HuQQ79U=
 			</data>
 		</dict>
 		<key>Headers/QuecDeviceModel.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XSKAh1E1NecXrkizCG5TBDc6/5c=
+			f/nKyycYfwyRCwkyTSgvhop8sJY=
 			</data>
 			<key>hash2</key>
 			<data>
-			l+h1SeflWx3y4jlx0FE8isGYSB+dsCYFIY0Jdroz7e8=
+			6lc0HjLSXlR12Zg9sSTDaLUq/khwHC6CfO0hjy+Fqjk=
 			</data>
 		</dict>
 		<key>Headers/QuecDeviceOTAPlanModel.h</key>
@@ -196,11 +219,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0edqyh/PmD1zrTyQU5u0MbrkHmE=
+			05e9ukRCAzyWZY8sM+6SglM7W1I=
 			</data>
 			<key>hash2</key>
 			<data>
-			hxtFtYDUgh2inxIz1FqY3SSWLSjbomu9uuQOb9T83d4=
+			mWAR+/NvWSAL4DyGXLTVSznxKdfYrlcmZCXUCLwYvYc=
+			</data>
+		</dict>
+		<key>Headers/QuecLocationHistoryModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			imACIBFwtIdxaMq5QIclr0JxV8g=
+			</data>
+			<key>hash2</key>
+			<data>
+			JtXUDc58yI/zksEkqWTAu12lEsiaunEo08Ut9g17L24=
 			</data>
 		</dict>
 		<key>Headers/QuecProductTSLContentBaseModel.h</key>
@@ -251,11 +285,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IbXBJijcalSH+Q1oSi7US/njb6Q=
+			idP/6aYEZpHEtmPI2Mffs0SYc2g=
 			</data>
 			<key>hash2</key>
 			<data>
-			znoqg5PwrGoL0iWxgHQPscUimyIBlHm3qbkW6SmAhy4=
+			goYZJROwRshglggL79zZgPm1K96Usja3Xjxae9F5eRI=
 			</data>
 		</dict>
 		<key>Headers/QuecProductTSLModel.h</key>
@@ -322,6 +356,17 @@
 			<key>hash2</key>
 			<data>
 			RgIiZVoK2dB88tPBvuJc8XUw4UrL4MOIbwVtDAVTysk=
+			</data>
+		</dict>
+		<key>Headers/QuecPropertyDataListModel.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VR2LuG+RKtaH5nx3XZQpsrZQ6vw=
+			</data>
+			<key>hash2</key>
+			<data>
+			PlJGIIWS/k0FshcI/BYC6WPwXCCFafRrdGI5HwqQcR0=
 			</data>
 		</dict>
 		<key>Headers/QuecShareUserInfoModel.h</key>

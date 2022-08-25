@@ -429,7 +429,7 @@
 // 发起分享设备绑定
 - (void)requestBindDeviceByShare_code:(NSString *)share_code{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:share_code success:^{
+    [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:share_code deviceName:@"Test Share Bind" success:^{
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(NSError *error) {

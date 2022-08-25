@@ -7,3 +7,4 @@
 
 #import <Foundation/Foundation.h>
 #import <QuecUserKit/QuecUserService.h>
+#import <QuecUserKit/QuecUserMessageListModel.h>

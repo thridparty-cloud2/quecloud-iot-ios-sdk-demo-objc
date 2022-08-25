@@ -25,6 +25,16 @@
 @property (nonatomic, copy) NSString *loginStid;
 //企业注册短信模板ID
 @property (nonatomic, copy) NSString *registerStid;
+//企业注销短信模板ID
+@property (nonatomic, copy) NSString *cancelStid;
+//邮件账号ID
+@property (nonatomic, copy) NSString *eaid;
+//邮箱重置密码模板ID
+@property (nonatomic, copy) NSString *resetPswEtid;
+//邮箱注册模板ID
+@property (nonatomic, copy) NSString *registerEtid;
+//邮箱注销模板ID
+@property (nonatomic, copy) NSString *cancelEtid;
 
 /**
  @return return a single instance
@@ -70,6 +80,31 @@
  @return registerStid
  */
 + (NSString *)getRegisterStid;
+
+/**
+ @return cancelStid
+ */
++ (NSString *)getCancelStid;
+
+/**
+ @return eaid
+ */
++ (NSString *)getEaid;
+
+/**
+ @return resetPswEtid
+ */
++ (NSString *)getResetPswEtid;
+
+/**
+ @return registerEtid
+ */
++ (NSString *)getRegisterEtid;
+
+/**
+ @return cancelEtid
+ */
++ (NSString *)getCancelEtid;
 
 @end
 

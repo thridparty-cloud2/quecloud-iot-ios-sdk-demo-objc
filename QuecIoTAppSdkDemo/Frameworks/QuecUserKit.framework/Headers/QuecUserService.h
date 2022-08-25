@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "QuecUserMessageListModel.h"
 
 @interface QuecUserService : NSObject
 
@@ -125,7 +126,30 @@
  @param failure failure block
  */
 - (void)sendVerifyCodeByEmail:(NSString *)email type:(NSInteger)type success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+/**
+ 发送邮件
+ 
+ @param eaid 邮件账号ID  国内:C1  国外:E1
+ @param email 收件人邮箱
+ @param type 类型, 1: 账号注册, 2: 密码重置 3: 注销邮箱
+ @param etid 邮件模板ID
+ 国内:账号注册 C1  密码重置 C2 注销邮箱 C5
+ 国外:账号注册 E1  密码重置 E2 注销邮箱 E5
+ @param success success block
+ @param failure failure block
+ */
+- (void)sendEmailByEaid:(NSString *)eaid email:(NSString *)email type:(NSInteger)type etid:(NSString *)etid success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
+/**
+ 验证用户发送的邮件验证码
+ 
+ @param code 验证码
+ @param email 邮箱
+ @param isDisabled 验证码验证后是否失效，1：失效 2：不失效，默认 1
+ @param success success block
+ @param failure failure block
+ */
+- (void)validateEmailCodeByUserEmail:(NSString *)email code:(NSString *)code isDisabled:(NSInteger)isDisabled success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 /**
  手机号密码登录
  
@@ -168,7 +192,7 @@
  
  @param phone 手机号
  @param internationalCode 国际代码，默认为国内
- @param type 类型, 1: 注册验证码, 2: 密码重置验证码, 3: 登录验证码
+ @param type 类型, 1: 注册验证码, 2: 密码重置验证码, 3: 登录验证码 4: 注销
  @param ssid 短信签名ID，DMP创建，不传使用系统默认
  @param stid 短信模板ID，DMP创建，不传使用系统默认
  @param success success block
@@ -234,6 +258,14 @@
  @param failure failure block
  */
 - (void)updateUserHeadIcon:(UIImage *)headImage success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+/**
+ 根据图片地址修改用户头像
+ 
+ @param imagePath 头像地址
+ @param success success block
+ @param failure failure block
+ */
+- (void)updateUserIconWithImagePath:(NSString *)imagePath success:(void (^)(void))success failure:(void (^)(NSError *))failure;
 
 /**
  修改语言
@@ -338,6 +370,90 @@
  @param failure failure block
  */
 - (void)resetPasswordByEmail:(NSString *)email code:(NSString *)code internationalCode:(NSString *)internationalCode password:(NSString *)password success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 本机号码一键登录
+ 
+ @param appid 中国移动开放平台申请appid
+ @param msgid uuid
+ @param strictcheck 0不对服务器ip白名单进行强校验,1对服务器ip白名单进行强校验
+ @param systemtime 系统时间 yyyyMMddHHmmssSSS
+ @param appSecret 中国移动开放平台申请appSecret
+ @param loginToken 获取权限后移动SDK返回token
+ @param version 版本
+ @param success success block
+ @param failure failure block
+ */
+- (void)oneKeyLoginByAppid:(NSString *)appid
+                     msgid:(NSString *)msgid
+               strictcheck:(NSString *)strictcheck
+                systemtime:(NSString *)systemtime
+                 appSecret:(NSString *)appSecret
+                loginToken:(NSString *)loginToken
+                   version:(NSString *)version
+                   success:(void(^)(void))success
+                   failure:(void(^)(NSError *error))failure;
+
+/**
+ 删除消息
+
+ @param msgId 阅读的消息ID列表 多个ID使用英文逗号分隔
+ @param language language
+ @param success success block
+ @param failure failure block
+ */
+- (void)deleteMessageByMsgId:(NSString *)msgId language:(NSString *)language success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 查询用户接收推送的消息类型
+ @param success success block
+ @param failure failure block
+ */
+- (void)getReceiveMessagePushTypeWithSuccess:(void(^)(NSString *result))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 阅读消息
+
+ @param msgIdList 阅读的消息ID列表 多个ID使用英文逗号分隔,如果不传，会阅读所有消息
+ @param msgType 接收消息推送类型：
+ 1-设备通知  2-设备告警  3-设备故障  4-系统消息
+ 接收的消息类型和任意组合
+ 多个类型使用英文逗号分隔
+ 
+ 如果 msgIdList 和 msgType 都为空，则阅读所有消息
+ 
+ @param success success block
+ @param failure failure block
+ */
+- (void)readMessageByMsgIdList:(NSString *)msgIdList msgType:(int)msgType success:(void(^)(NSDictionary *resultDict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 设置消息类型
+
+ @param msgType 接收消息推送类型：
+ 1-设备通知  2-设备告警  3-设备故障  4-系统消息
+ 接收的消息类型和任意组合
+ 多个类型使用英文逗号分隔
+ @param success success block
+ @param failure failure block
+ */
+- (void)setReceiveMessagePushTypeByMsgType:(NSString *)msgType success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 
+ 查询消息列表
+
+ @param pageNumber 查询的列表页，默认为 1
+ @param pageSize 查询的页大小，默认 10
+ @param msgType 1-设备通知  2-设备告警  3-设备故障  4-系统消息
+ @param isRead 是否已读
+ @param deviceKey deviceKey
+ @param productKey productKey
+ @param success success block
+ @param failure failure block
+ */
+- (void)getUserMessageListByPageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize msgType:(NSInteger)msgType isRead:(BOOL)isRead deviceKey:(NSString *)deviceKey productKey:(NSString *)productKey success:(void(^)(NSArray<QuecUserMessageListModel *> *list, NSInteger total))success failure:(void(^)(NSError *error))failure;
+
 
 @end
 

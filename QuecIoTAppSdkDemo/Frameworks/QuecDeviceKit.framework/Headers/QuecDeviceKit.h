@@ -30,3 +30,6 @@
 #import <QuecDeviceKit/QuecDeviceOTAQueryModel.h>
 #import <QuecDeviceKit/QuecDeviceOTAPlanModel.h>
 #import <QuecDeviceKit/QuecWebSocketActionModel.h>
+#import <QuecDeviceKit/QuecLocationHistoryModel.h>
+#import <QuecDeviceKit/QuecPropertyDataListModel.h>
+#import <QuecDeviceKit/QuecCornJobModel.h>

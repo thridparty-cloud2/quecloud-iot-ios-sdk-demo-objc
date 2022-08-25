@@ -35,6 +35,8 @@
 @property (nonatomic, copy) NSString *owner;
 // 添加时间
 @property (nonatomic, copy) NSString *addTime;
+// 添加时间戳
+@property (nonatomic, assign) NSInteger addTimeTs;
 
 @end
 

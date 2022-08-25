@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0EE93959FE412C2AD5A809FA /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */; };
+		2200A38E28B7478E003EC8AE /* QuecUserKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A38D28B7478E003EC8AE /* QuecUserKit.framework */; };
+		2200A39028B747EA003EC8AE /* QuecNetworkChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */; };
+		2200A39228B747FA003EC8AE /* QuecLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39128B747FA003EC8AE /* QuecLogKit.framework */; };
+		2200A39428B74805003EC8AE /* QuecIoTAppSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */; };
+		2200A39628B74812003EC8AE /* QuecDeviceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39528B74812003EC8AE /* QuecDeviceKit.framework */; };
+		2200A39C28B74827003EC8AE /* QuecCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39B28B74827003EC8AE /* QuecCommonKit.framework */; };
+		2200A39E28B74831003EC8AE /* QuecBleChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */; };
 		2236137327D5918F00817F50 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2236137227D5918F00817F50 /* ExternalAccessory.framework */; };
 		2236138127D5956800817F50 /* DeviceSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137C27D5956800817F50 /* DeviceSelectViewController.m */; };
 		2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137E27D5956800817F50 /* DeviceGroupViewController.m */; };
@@ -35,13 +42,6 @@
 		223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C227D5959600817F50 /* UpdateInputViewController.m */; };
 		223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C427D5959600817F50 /* UpdatePswViewController.m */; };
 		223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C627D5959600817F50 /* UpdatePhoneViewController.m */; };
-		22A750C1281BDDDE0024DCEC /* QuecCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */; };
-		22A750C2281BDDDE0024DCEC /* QuecDeviceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */; };
-		22A750C3281BDDDE0024DCEC /* QuecBleChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */; };
-		22A750C4281BDDDE0024DCEC /* QuecUserKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */; };
-		22A750C5281BDDDE0024DCEC /* QuecNetworkChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */; };
-		22A750C6281BDDDE0024DCEC /* QuecIoTAppSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */; };
-		22A750C7281BDDDE0024DCEC /* QuecLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */; };
 		22B0F7C827D2FE08001368DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7C727D2FE08001368DF /* AppDelegate.m */; };
 		22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7CA27D2FE08001368DF /* SceneDelegate.m */; };
 		22B0F7D127D2FE08001368DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B0F7CF27D2FE08001368DF /* Main.storyboard */; };
@@ -79,6 +79,13 @@
 
 /* Begin PBXFileReference section */
 		0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2200A38D28B7478E003EC8AE /* QuecUserKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecUserKit.framework; sourceTree = "<group>"; };
+		2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
+		2200A39128B747FA003EC8AE /* QuecLogKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecLogKit.framework; sourceTree = "<group>"; };
+		2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecIoTAppSDK.framework; sourceTree = "<group>"; };
+		2200A39528B74812003EC8AE /* QuecDeviceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecDeviceKit.framework; sourceTree = "<group>"; };
+		2200A39B28B74827003EC8AE /* QuecCommonKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecCommonKit.framework; sourceTree = "<group>"; };
+		2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecBleChannelKit.framework; sourceTree = "<group>"; };
 		2236136E27D5917700817F50 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2236137027D5918400817F50 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		2236137227D5918F00817F50 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -134,13 +141,6 @@
 		223613C627D5959600817F50 /* UpdatePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePhoneViewController.m; sourceTree = "<group>"; };
 		223613C727D5959600817F50 /* UpdatePswViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePswViewController.h; sourceTree = "<group>"; };
 		223613C827D5959600817F50 /* MyCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCenterViewController.h; sourceTree = "<group>"; };
-		22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecCommonKit.framework; sourceTree = "<group>"; };
-		22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecDeviceKit.framework; sourceTree = "<group>"; };
-		22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecBleChannelKit.framework; sourceTree = "<group>"; };
-		22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecUserKit.framework; sourceTree = "<group>"; };
-		22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
-		22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecIoTAppSDK.framework; sourceTree = "<group>"; };
-		22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecLogKit.framework; sourceTree = "<group>"; };
 		22B0F7C327D2FE08001368DF /* QuecIoTAppSdkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuecIoTAppSdkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B0F7C627D2FE08001368DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B0F7C727D2FE08001368DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -180,20 +180,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A750C5281BDDDE0024DCEC /* QuecNetworkChannelKit.framework in Frameworks */,
 				2236137327D5918F00817F50 /* ExternalAccessory.framework in Frameworks */,
-				22A750C6281BDDDE0024DCEC /* QuecIoTAppSDK.framework in Frameworks */,
 				22B0F81227D30F1C001368DF /* libc++.tbd in Frameworks */,
-				22A750C1281BDDDE0024DCEC /* QuecCommonKit.framework in Frameworks */,
 				30B6587727DA1E2700C6DDE7 /* SystemConfiguration.framework in Frameworks */,
-				22A750C2281BDDDE0024DCEC /* QuecDeviceKit.framework in Frameworks */,
 				22B0F81027D30F13001368DF /* CoreTelephony.framework in Frameworks */,
+				2200A38E28B7478E003EC8AE /* QuecUserKit.framework in Frameworks */,
 				22B0F80C27D30EF9001368DF /* libz.tbd in Frameworks */,
-				22A750C4281BDDDE0024DCEC /* QuecUserKit.framework in Frameworks */,
-				22A750C7281BDDDE0024DCEC /* QuecLogKit.framework in Frameworks */,
+				2200A39428B74805003EC8AE /* QuecIoTAppSDK.framework in Frameworks */,
+				2200A39028B747EA003EC8AE /* QuecNetworkChannelKit.framework in Frameworks */,
+				2200A39628B74812003EC8AE /* QuecDeviceKit.framework in Frameworks */,
+				2200A39E28B74831003EC8AE /* QuecBleChannelKit.framework in Frameworks */,
+				2200A39228B747FA003EC8AE /* QuecLogKit.framework in Frameworks */,
+				2200A39C28B74827003EC8AE /* QuecCommonKit.framework in Frameworks */,
 				22B0F80A27D30EB3001368DF /* libresolv.9.tbd in Frameworks */,
 				BBDCD66B4C98F5006B3C8A14 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
-				22A750C3281BDDDE0024DCEC /* QuecBleChannelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,13 +361,13 @@
 		22B0F7FD27D3039E001368DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				22A750BC281BDDDD0024DCEC /* QuecBleChannelKit.framework */,
-				22A750BA281BDDDD0024DCEC /* QuecCommonKit.framework */,
-				22A750BB281BDDDD0024DCEC /* QuecDeviceKit.framework */,
-				22A750BF281BDDDE0024DCEC /* QuecIoTAppSDK.framework */,
-				22A750C0281BDDDE0024DCEC /* QuecLogKit.framework */,
-				22A750BE281BDDDE0024DCEC /* QuecNetworkChannelKit.framework */,
-				22A750BD281BDDDD0024DCEC /* QuecUserKit.framework */,
+				2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */,
+				2200A39B28B74827003EC8AE /* QuecCommonKit.framework */,
+				2200A39528B74812003EC8AE /* QuecDeviceKit.framework */,
+				2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */,
+				2200A39128B747FA003EC8AE /* QuecLogKit.framework */,
+				2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */,
+				2200A38D28B7478E003EC8AE /* QuecUserKit.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -854,6 +854,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/QuecIoTAppSdkDemo",
 					"$(PROJECT_DIR)/QuecIoTAppSdkDemo/Frameworks",
+					"$(PROJECT_DIR)/QuecIoTAppSdkDemo/Frameworks/QuecCommonKit/QuecCommonKit",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/QuecIoTAppSdkDemo/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -930,6 +931,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/QuecIoTAppSdkDemo",
 					"$(PROJECT_DIR)/QuecIoTAppSdkDemo/Frameworks",
+					"$(PROJECT_DIR)/QuecIoTAppSdkDemo/Frameworks/QuecCommonKit/QuecCommonKit",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/QuecIoTAppSdkDemo/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;

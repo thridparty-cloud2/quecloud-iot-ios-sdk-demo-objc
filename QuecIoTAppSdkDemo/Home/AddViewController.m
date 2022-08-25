@@ -99,7 +99,7 @@
 
 - (void)addButtonClick {
     if (self.shareCodeTextField.text.length) {
-        [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:self.shareCodeTextField.text success:^{
+        [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:self.shareCodeTextField.text deviceName:@"Test Share Bind" success:^{
             [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         } failure:^(NSError *error) {

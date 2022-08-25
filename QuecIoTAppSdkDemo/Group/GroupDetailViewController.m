@@ -81,14 +81,15 @@
 
 - (void)getDeviceList {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] getDeviceListWithDeviceGroupId:self.dataModel.dgid deviceGroupName:@"" deviceKeyList:@"" productKey:@"" success:^(NSArray<NSDictionary *> *data, NSInteger total) {
+    [[QuecDeviceService sharedInstance] getDeviceListWithDeviceGroupId:self.dataModel.dgid deviceGroupName:@"" deviceKeyList:@"" productKey:@"" pageNumber:1 pageSize:10 success:^(NSArray<NSDictionary *> *data, NSInteger total) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataArray = data.copy;
         [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+    
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource

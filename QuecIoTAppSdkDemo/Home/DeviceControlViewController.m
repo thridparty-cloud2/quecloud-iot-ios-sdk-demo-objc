@@ -103,7 +103,7 @@
 }
 
 - (void)getTslValue {
-    [[QuecDeviceService sharedInstance] getDeviceBusinessAttributesWithProductKey:self.dataModel.productKey deviceKey:self.dataModel.deviceKey codeList:@"" type:@"" success:^(QuecProductTSLInfoModel *tslInfoModel) {
+    [[QuecDeviceService sharedInstance] getDeviceBusinessAttributesWithProductKey:self.dataModel.productKey deviceKey:self.dataModel.deviceKey gatewayPk:@"" gatewayDk:@"" codeList:@"" type:@"" success:^(QuecProductTSLInfoModel *tslInfoModel) {
         [self handleDataWithDataModel:tslInfoModel];
     } failure:^(NSError *error) {
         
