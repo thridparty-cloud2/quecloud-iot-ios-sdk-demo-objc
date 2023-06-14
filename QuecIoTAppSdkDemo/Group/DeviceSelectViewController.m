@@ -9,6 +9,7 @@
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <YYModel/YYModel.h>
+
 @interface DeviceSelectViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,13 +34,15 @@
 
 - (void)getDeviceList {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    @weakify(self);
+    @quec_weakify(self);
     [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+        @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        weak_self.dataArray = list.copy;
-        [weak_self.tableView reloadData];
+        self.dataArray = list.copy;
+        [self.tableView reloadData];
         [self getGroupList];
     } failure:^(NSError *error) {
+        @quec_strongify(self);
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];

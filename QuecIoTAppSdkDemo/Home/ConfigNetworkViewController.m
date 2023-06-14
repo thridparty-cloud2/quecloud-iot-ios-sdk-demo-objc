@@ -77,80 +77,15 @@
     }
     [self.wifiNameTextField resignFirstResponder];
     [self.wifiPsdTextField resignFirstResponder];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecBleManager sharedInstance] sendCommand:[QuecBleCommandModel getCommadnWithCommand:0x7010 payload:@[[QuecPayloadDataModel getPayloadWithId:1 dataType:QuecPlaloadDataTypeBinary value:[self.wifiNameTextField.text dataUsingEncoding:NSUTF8StringEncoding]],[QuecPayloadDataModel getPayloadWithId:2 dataType:QuecPlaloadDataTypeBinary value:[self.wifiPsdTextField.text dataUsingEncoding:NSUTF8StringEncoding]]] writeWithResponse:YES] completion:^(BOOL timeout, QuecBleReceiveModel *response) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!timeout) {
-                self.pk = @"";
-                self.dk = @"";
-                self.authCode = @"";
-                for (int i = 0; i < response.payload.count; i ++) {
-                    QuecPayloadDataModel *payloadModel = response.payload[i];
-                    if (payloadModel.Id == 7) {
-                        self.pk = [[NSString alloc] initWithData:payloadModel.value encoding:NSUTF8StringEncoding];
-                        NSLog(@"pk: %@",self.pk);
-                    }
-                    else if (payloadModel.Id == 8) {
-                        self.dk = [[NSString alloc] initWithData:payloadModel.value encoding:NSUTF8StringEncoding];
-                        NSLog(@"dk: %@",self.dk);
-                    }
-                    else if (payloadModel.Id == 9) {
-                        self.authCode = [[NSString alloc] initWithData:payloadModel.value encoding:NSUTF8StringEncoding];
-                        NSLog(@"authCode: %@",self.authCode);
-                    }
-                }
-                QuecPayloadDataModel *model = response.payload.firstObject;
-                if (![model.value boolValue]) {
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [self.view makeToast:@"配网失败" duration:3 position:CSToastPositionCenter];
-                }
-                else {
-                    
-                    self.count = 1;
-                    self.timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self  selector:@selector(bindDevice) userInfo:nil  repeats:YES];
-                    [self.timer fire];
-                    
-                }
-                return;
-            }
-        });
-    }];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)bindDevice{
-    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:self.authCode productKey:self.pk deviceKey:self.dk deviceName:self.dk success:^{
-            [self.timer invalidate];
-            self.timer = nil;
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:@"配网成功" duration:3 position:CSToastPositionCenter];
-            [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }];
 
-        } failure:^(NSError *error) {
-            
-    }];
-    
-    if (_count >= 10) {
-        [_timer invalidate];
-        _timer = nil;
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"配网失败" duration:3 position:CSToastPositionCenter];
-        [NSTimer scheduledTimerWithTimeInterval:3 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }];
-        
-    }
-    _count++;
     
     
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    [_timer invalidate];
-    _timer = nil;
-}
 
 @end
 

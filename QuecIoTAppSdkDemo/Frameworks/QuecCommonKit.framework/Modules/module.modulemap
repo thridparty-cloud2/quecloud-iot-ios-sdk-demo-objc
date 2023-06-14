@@ -1,6 +1,0 @@
-framework module QuecCommonKit {
-  umbrella header "QuecCommonKit.h"
-
-  export *
-  module * { export * }
-}

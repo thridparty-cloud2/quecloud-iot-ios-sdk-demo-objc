@@ -7,15 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0186BE3EF7E2DC5FCABDF274 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */; };
 		0EE93959FE412C2AD5A809FA /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */; };
-		2200A38E28B7478E003EC8AE /* QuecUserKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A38D28B7478E003EC8AE /* QuecUserKit.framework */; };
-		2200A39028B747EA003EC8AE /* QuecNetworkChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */; };
-		2200A39228B747FA003EC8AE /* QuecLogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39128B747FA003EC8AE /* QuecLogKit.framework */; };
-		2200A39428B74805003EC8AE /* QuecIoTAppSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */; };
-		2200A39628B74812003EC8AE /* QuecDeviceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39528B74812003EC8AE /* QuecDeviceKit.framework */; };
-		2200A39C28B74827003EC8AE /* QuecCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39B28B74827003EC8AE /* QuecCommonKit.framework */; };
-		2200A39E28B74831003EC8AE /* QuecBleChannelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */; };
-		2236137327D5918F00817F50 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2236137227D5918F00817F50 /* ExternalAccessory.framework */; };
 		2236138127D5956800817F50 /* DeviceSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137C27D5956800817F50 /* DeviceSelectViewController.m */; };
 		2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137E27D5956800817F50 /* DeviceGroupViewController.m */; };
 		2236138327D5956800817F50 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137F27D5956800817F50 /* GroupDetailViewController.m */; };
@@ -51,13 +44,8 @@
 		22B0F7E327D2FE09001368DF /* QuecIoTAppSdkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7E227D2FE09001368DF /* QuecIoTAppSdkDemoTests.m */; };
 		22B0F7ED27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EC27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m */; };
 		22B0F7EF27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */; };
-		22B0F80A27D30EB3001368DF /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80927D30EB3001368DF /* libresolv.9.tbd */; };
-		22B0F80C27D30EF9001368DF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80B27D30EF9001368DF /* libz.tbd */; };
-		22B0F81027D30F13001368DF /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80F27D30F13001368DF /* CoreTelephony.framework */; };
-		22B0F81227D30F1C001368DF /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F81127D30F1C001368DF /* libc++.tbd */; };
-		30B6587727DA1E2700C6DDE7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B0F80D27D30F05001368DF /* SystemConfiguration.framework */; };
+		22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
-		BBDCD66B4C98F5006B3C8A14 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,13 +67,6 @@
 
 /* Begin PBXFileReference section */
 		0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2200A38D28B7478E003EC8AE /* QuecUserKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecUserKit.framework; sourceTree = "<group>"; };
-		2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecNetworkChannelKit.framework; sourceTree = "<group>"; };
-		2200A39128B747FA003EC8AE /* QuecLogKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecLogKit.framework; sourceTree = "<group>"; };
-		2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecIoTAppSDK.framework; sourceTree = "<group>"; };
-		2200A39528B74812003EC8AE /* QuecDeviceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecDeviceKit.framework; sourceTree = "<group>"; };
-		2200A39B28B74827003EC8AE /* QuecCommonKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecCommonKit.framework; sourceTree = "<group>"; };
-		2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuecBleChannelKit.framework; sourceTree = "<group>"; };
 		2236136E27D5917700817F50 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2236137027D5918400817F50 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		2236137227D5918F00817F50 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -165,6 +146,8 @@
 		22B0F81327D32616001368DF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		22B0F81627D32934001368DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22D0BFC527F3F9F000211095 /* MacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroDefine.h; sourceTree = "<group>"; };
+		22E0E92D2A399CAE0074B60C /* BleDeviceListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleDeviceListTableViewCell.h; sourceTree = "<group>"; };
+		22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleDeviceListTableViewCell.m; sourceTree = "<group>"; };
 		2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,20 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2236137327D5918F00817F50 /* ExternalAccessory.framework in Frameworks */,
-				22B0F81227D30F1C001368DF /* libc++.tbd in Frameworks */,
-				30B6587727DA1E2700C6DDE7 /* SystemConfiguration.framework in Frameworks */,
-				22B0F81027D30F13001368DF /* CoreTelephony.framework in Frameworks */,
-				2200A38E28B7478E003EC8AE /* QuecUserKit.framework in Frameworks */,
-				22B0F80C27D30EF9001368DF /* libz.tbd in Frameworks */,
-				2200A39428B74805003EC8AE /* QuecIoTAppSDK.framework in Frameworks */,
-				2200A39028B747EA003EC8AE /* QuecNetworkChannelKit.framework in Frameworks */,
-				2200A39628B74812003EC8AE /* QuecDeviceKit.framework in Frameworks */,
-				2200A39E28B74831003EC8AE /* QuecBleChannelKit.framework in Frameworks */,
-				2200A39228B747FA003EC8AE /* QuecLogKit.framework in Frameworks */,
-				2200A39C28B74827003EC8AE /* QuecCommonKit.framework in Frameworks */,
-				22B0F80A27D30EB3001368DF /* libresolv.9.tbd in Frameworks */,
-				BBDCD66B4C98F5006B3C8A14 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
+				0186BE3EF7E2DC5FCABDF274 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +227,8 @@
 				2236138627D5957600817F50 /* AddViewController.m */,
 				2236138B27D5957600817F50 /* BleDeviceListViewController.h */,
 				2236139827D5957600817F50 /* BleDeviceListViewController.m */,
+				22E0E92D2A399CAE0074B60C /* BleDeviceListTableViewCell.h */,
+				22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */,
 				2236139227D5957600817F50 /* ConfigNetworkViewController.h */,
 				2236139B27D5957600817F50 /* ConfigNetworkViewController.m */,
 				2236139527D5957600817F50 /* DeviceControlViewController.h */,
@@ -321,7 +293,6 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
-				22B0F7FD27D3039E001368DF /* Frameworks */,
 				2236137727D5949C00817F50 /* Group */,
 				2236137927D5949C00817F50 /* Home */,
 				2236137827D5949C00817F50 /* LoginAndRegister */,
@@ -356,20 +327,6 @@
 				22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */,
 			);
 			path = QuecIoTAppSdkDemoUITests;
-			sourceTree = "<group>";
-		};
-		22B0F7FD27D3039E001368DF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2200A39D28B74831003EC8AE /* QuecBleChannelKit.framework */,
-				2200A39B28B74827003EC8AE /* QuecCommonKit.framework */,
-				2200A39528B74812003EC8AE /* QuecDeviceKit.framework */,
-				2200A39328B74805003EC8AE /* QuecIoTAppSDK.framework */,
-				2200A39128B747FA003EC8AE /* QuecLogKit.framework */,
-				2200A38F28B747EA003EC8AE /* QuecNetworkChannelKit.framework */,
-				2200A38D28B7478E003EC8AE /* QuecUserKit.framework */,
-			);
-			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		3725CEBF97E831FB460FC865 /* Pods */ = {
@@ -417,6 +374,7 @@
 				22B0F7C027D2FE08001368DF /* Frameworks */,
 				22B0F7C127D2FE08001368DF /* Resources */,
 				54773B158CA8BC90F6D8E8B4 /* [CP] Embed Pods Frameworks */,
+				F195CE8F0C98240576A9D940 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -455,6 +413,7 @@
 				22B0F7E527D2FE09001368DF /* Frameworks */,
 				22B0F7E627D2FE09001368DF /* Resources */,
 				1BDB5F49F5BC28136F6DF938 /* [CP] Embed Pods Frameworks */,
+				999A6777482302D1B69976B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -613,6 +572,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		999A6777482302D1B69976B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B35C5936F9F51164D81202AA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,6 +609,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F195CE8F0C98240576A9D940 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -659,6 +652,7 @@
 				223613BC27D5958800817F50 /* RegisterViewController.m in Sources */,
 				223613BA27D5958800817F50 /* LoginViewController.m in Sources */,
 				223613A727D5957600817F50 /* DeviceControlViewController.m in Sources */,
+				22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */,
 				223613A127D5957600817F50 /* TslBoolTableViewCell.m in Sources */,
 				223613A027D5957600817F50 /* HomeViewController.m in Sources */,
 				22B0F7D927D2FE09001368DF /* main.m in Sources */,
@@ -868,7 +862,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -945,7 +939,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

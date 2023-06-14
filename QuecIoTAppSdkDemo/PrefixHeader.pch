@@ -13,12 +13,9 @@
 
 
 #ifdef __OBJC__
-#import <QuecIoTAppSDK/QuecIoTAppSDK.h>
-#import <QuecNetworkChannelKit/QuecNetworkChannelKit.h>
-#import <QuecCommonKit/QuecCommonKit.h>
+#import <QuecIotSdk/QuecIotSdk.h>
 #import <QuecUserKit/QuecUserKit.h>
-#import <QuecLogkit/QuecLog.h>
-#import <QuecDeviceKit/QuecDeviceKit.h>
+#import <QuecFoundationKit/QuecFoundationKit.h>
 #import "MacroDefine.h"
 #import <Masonry.h>
 #endif

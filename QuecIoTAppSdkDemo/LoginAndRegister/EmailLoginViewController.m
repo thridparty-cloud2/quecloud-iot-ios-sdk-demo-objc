@@ -85,6 +85,7 @@
     [[QuecUserService sharedInstance] loginByEmail:self.phoneTextField.text password:self.pswTextField.text success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:@"86"];
         [self loginSuccess];
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];

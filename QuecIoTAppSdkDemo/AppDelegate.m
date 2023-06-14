@@ -22,23 +22,23 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"XXX" userDomainSecret:@"XXXXXX" cloudServiceType:QuecCloudServiceTypeChina];
+    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"" userDomainSecret:@"" cloudServiceType:QuecCloudServiceTypeChina];
     [[QuecIoTAppSDK sharedInstance] setDebugMode:true];
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];
-    if ([QuecUserService sharedInstance].isLogon) {
+    if ([QuecUserService sharedInstance].isLogin) {
         self.window.rootViewController = [self getMainController];
     }
     else {
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     }
     [self.window makeKeyAndVisible];
-    @weakify(self);
-   
+    @quec_weakify(self);
     [[QuecUserService sharedInstance] setTokenInvalidCallBack:^{
-        weak_self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        @quec_strongify(self);
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     }];
     
     [[IQKeyboardManager sharedManager] setEnable:YES];

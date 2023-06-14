@@ -17,7 +17,7 @@
 #import <YYModel/YYModel.h>
 #import "BRPickerView.h"
 
-@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate, QuecDeviceServiceWebSocketDelegate>
+@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -74,12 +74,13 @@
     _datePickerView.selectDate = [NSDate date];
     _datePickerView.minDate = [NSDate br_setYear:1949 month:3 day:12];
     _datePickerView.isAutoSelect = YES;
-    @weakify(self);
+    @quec_weakify(self);
     _datePickerView.resultBlock = ^(NSDate *selectDate, NSString *selectValue) {
         NSLog(@"选择的值：%@", selectValue);
-        QuecProductTSLPropertyModel *model = weak_self.dataArray[weak_self.dateIndex];
+        @quec_strongify(self);
+        QuecProductTSLPropertyModel *model = self.dataArray[self.dateIndex];
         NSDictionary *dic = @{@"id":@(model.itemId),@"value":@(selectDate.timeIntervalSince1970),@"type":model.dataType,@"name":model.name};
-        [weak_self sendDataToDeviceWithData:dic row:weak_self.dateIndex];
+        [self sendDataToDeviceWithData:dic row:self.dateIndex];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -90,7 +91,7 @@
     
     [self getTls];
     
-    [[QuecDeviceService sharedInstance] setWebScoketDelegate:self];
+//    [[QuecDeviceService sharedInstance] setWebScoketDelegate:self];
 }
 
 - (void)getTls {

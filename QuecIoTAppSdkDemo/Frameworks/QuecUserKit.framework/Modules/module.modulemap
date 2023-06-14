@@ -1,6 +1,0 @@
-framework module QuecUserKit {
-  umbrella header "QuecUserKit.h"
-
-  export *
-  module * { export * }
-}

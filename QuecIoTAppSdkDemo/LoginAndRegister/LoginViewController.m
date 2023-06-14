@@ -138,6 +138,7 @@
     [[QuecUserService sharedInstance] loginByPhone:self.phoneTextField.text password:self.pswTextField.text internationalCode:@"86" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:@"86"];
         [self loginSuccess];
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];

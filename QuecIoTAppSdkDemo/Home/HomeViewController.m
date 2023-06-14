@@ -7,7 +7,6 @@
 
 #import "HomeViewController.h"
 #import <QuecDeviceKit/QuecDeviceKit.h>
-#import <QuecCommonKit/QuecCommonKit.h>
 #import "AddViewController.h"
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
@@ -269,10 +268,11 @@
 }
 
 - (void)getData {
-    @weakify(self);
+    @quec_weakify(self);
     [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
-        weak_self.dataArray = list.copy;
-        [weak_self.tableView reloadData];
+        @quec_strongify(self);
+        self.dataArray = list.copy;
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];

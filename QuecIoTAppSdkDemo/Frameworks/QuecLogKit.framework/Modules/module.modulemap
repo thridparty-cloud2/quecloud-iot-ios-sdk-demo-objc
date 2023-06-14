@@ -1,6 +1,0 @@
-framework module QuecLogKit {
-  umbrella header "QuecLogKit.h"
-
-  export *
-  module * { export * }
-}

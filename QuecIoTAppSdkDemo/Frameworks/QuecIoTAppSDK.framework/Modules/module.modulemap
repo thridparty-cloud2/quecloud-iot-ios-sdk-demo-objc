@@ -1,6 +1,0 @@
-framework module QuecIoTAppSDK {
-  umbrella header "QuecIoTAppSDK.h"
-
-  export *
-  module * { export * }
-}

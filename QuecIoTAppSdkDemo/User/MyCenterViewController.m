@@ -6,7 +6,6 @@
 //
 
 #import "MyCenterViewController.h"
-#import <QuecCommonKit/QuecCommonKit.h>
 #import <Toast/Toast.h>
 #import <QuecUserKit/QuecUserKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>

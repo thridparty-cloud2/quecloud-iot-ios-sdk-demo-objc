@@ -8,12 +8,13 @@
 #import "BleDeviceListViewController.h"
 #import <QuecBleChannelKit/QuecBleChannelKit.h>
 #import "ConfigNetworkViewController.h"
+#import "BleDeviceListTableViewCell.h"
+#import <QuecSmartConfigKit/QuecSmartConfigKit.h>
 
-@interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate>
+@interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate, QuecSmartConfigDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) QuecPeripheralModel *currentConnectDevice;
 
 @end
 
@@ -22,11 +23,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[QuecBleManager sharedInstance] addListener:self];
+    [[QuecSmartConfigService sharedInstance] addSmartConfigDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[QuecBleManager sharedInstance] removeListener:self];
+    [[QuecSmartConfigService sharedInstance] cancelConfigDevices];
+    [[QuecSmartConfigService sharedInstance] removeSmartConfigDelegate:self];
 }
 
 - (void)viewDidLoad {
@@ -36,6 +40,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView registerClass:BleDeviceListTableViewCell.class forCellReuseIdentifier:NSStringFromClass(BleDeviceListTableViewCell.class)];
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.dataArray = @[].mutableCopy;
@@ -68,22 +73,50 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
-    }
-    QuecPeripheralModel *model = self.dataArray[indexPath.row];
-    cell.textLabel.text = model.name;
-    cell.textLabel.textColor = [UIColor lightGrayColor];
-    cell.detailTextLabel.text = model.mac;
+    BleDeviceListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(BleDeviceListTableViewCell.class) forIndexPath:indexPath];
+    BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
+    [cell configureModel:model indexPath:indexPath];
+    @quec_weakify(self);
+    cell.bindAction = ^(NSIndexPath * _Nonnull indexPath) {
+        @quec_strongify(self);
+        [self startBinding:indexPath];
+    };
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [[QuecBleManager sharedInstance] connectPeripheral:self.dataArray[indexPath.row]];
-    self.currentConnectDevice = self.dataArray[indexPath.row];
-    [[QuecBleManager sharedInstance] stopScan];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+}
+
+- (void)startBinding:(NSIndexPath *)indexPath{
+    BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
+    [[QuecSmartConfigService sharedInstance] startConfigDevices:@[model.peripheralModel] ssid:@"QUEC_WIFI_TEST" password:@"12332112"];
+    model.bindState = QuecBinding;
+    [self.tableView reloadData];
+}
+
+#pragma mark - QuecSmartConfigDelegate
+- (void)didUpdateConfigResult:(QuecPeripheralModel *)device result:(BOOL)result error:(NSError *)error{
+    NSLog(@"deviceName:%@--------result:%d-----error: %@", device.name, result, error);
+    NSInteger row = 99999;
+    for (int i = 0; i < self.dataArray.count; i++) {
+        BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:i];
+        if ([device.uuid isEqualToString:model.peripheralModel.uuid]){
+            row = i;
+            break;
+        }
+    }
+    if (row != 99999){
+        BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:row];
+        if (result){
+            model.bindState = QuecBindingSucc;
+        }else{
+            model.bindState = QuecBindingFail;
+            model.errorMsg = error.localizedDescription;
+        }
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - QuecBleManagerDelegate
@@ -95,31 +128,25 @@
 
 - (void)centralDidDiscoverPeripheral:(QuecPeripheralModel *)peripheral {
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (![peripheral.name hasPrefix:@"QUEC"]) {
+            return;
+        }
         BOOL isExist = NO;
         for (int i = 0; i < self.dataArray.count; i ++) {
-            QuecPeripheralModel *model = self.dataArray[i];
-            if ([model.uuid isEqualToString:peripheral.uuid]) {
+            BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:i];
+            if ([model.peripheralModel.uuid isEqualToString:peripheral.uuid]) {
                 isExist = YES;
             }
         }
         if (!isExist) {
-            [self.dataArray addObject:peripheral];
+            BleDeviceBindModel *model = BleDeviceBindModel.new;
+            model.peripheralModel = peripheral;
+            model.bindState = QuecWaitingBind;
+            [self.dataArray quec_safeAddObject:model];
             [self.tableView reloadData];
         }
     });
 }
 
-- (void)peripheralDidUpdateConnectState:(BOOL)connectState {
-    NSLog(@"peripheralDidUpdateConnectState:%ld",connectState);
-    if (connectState) {
-        ConfigNetworkViewController *configVc = [[ConfigNetworkViewController alloc] init];
-        configVc.currentConnectdevice = self.currentConnectDevice;
-        [self.navigationController pushViewController:configVc animated:YES];
-    }
-}
-
-- (void)didReceivePeripheralData:(QuecBleReceiveModel *)data {
-    
-}
 
 @end
