@@ -16,6 +16,7 @@
 #import <QuecUserKit/QuecUserKit.h>
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "ThirdLoginViewController.h"
 
 @interface LoginViewController ()
 
@@ -58,9 +59,11 @@
     self.pswTextField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:self.pswTextField];
     
+    CGFloat buttonWidth = 80;
+    CGFloat marginLeft = (viewWidth - 4 * buttonWidth) / 5;
     UIButton *smsLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [smsLoginButton setTitle:@"验证码登录" forState:UIControlStateNormal];
-    smsLoginButton.frame = CGRectMake(30, 350, 100, 30);
+    smsLoginButton.frame = CGRectMake(marginLeft, 350, buttonWidth + marginLeft, 30);
     [smsLoginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     smsLoginButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [smsLoginButton addTarget:self action:@selector(smsLoginButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -68,7 +71,7 @@
     
     UIButton *emailLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [emailLoginButton setTitle:@"邮箱登录" forState:UIControlStateNormal];
-    emailLoginButton.frame = CGRectMake((viewWidth - 100) / 2.0, 350, 100, 30);
+    emailLoginButton.frame = CGRectMake(marginLeft * 2 + buttonWidth, 350, buttonWidth, 30);
     [emailLoginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     emailLoginButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [emailLoginButton addTarget:self action:@selector(emailLoginButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -76,12 +79,19 @@
     
     UIButton *forgetPswButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [forgetPswButton setTitle:@"忘记密码" forState:UIControlStateNormal];
-    forgetPswButton.frame = CGRectMake(viewWidth - 130, 350, 100, 30);
+    forgetPswButton.frame = CGRectMake(marginLeft * 3 + buttonWidth * 2, 350, buttonWidth, 30);
     [forgetPswButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     forgetPswButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [forgetPswButton addTarget:self action:@selector(forgetPswButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:forgetPswButton];
     
+    UIButton *otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [otherButton setTitle:@"其他登录" forState:UIControlStateNormal];
+    otherButton.frame = CGRectMake(marginLeft * 4 + buttonWidth * 3, 350, buttonWidth, 30);
+    [otherButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    otherButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [otherButton addTarget:self action:@selector(otherButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:otherButton];
     
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     loginButton.layer.cornerRadius = 10.0;
@@ -131,6 +141,10 @@
 
 - (void)emailLoginButtonClick {
     [self.navigationController pushViewController:[[EmailLoginViewController alloc] init] animated:YES];
+}
+
+- (void)otherButtonClick {
+    [self.navigationController pushViewController:[[ThirdLoginViewController alloc] init] animated:YES];
 }
 
 - (void)loginButtonClick {

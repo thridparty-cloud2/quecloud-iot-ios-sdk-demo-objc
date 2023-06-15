@@ -22,19 +22,32 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"" userDomainSecret:@"" cloudServiceType:QuecCloudServiceTypeChina];
+    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"C.DM.5903.1" userDomainSecret:@"EufftRJSuWuVY7c6txzGifV9bJcfXHAFa7hXY5doXSn7" cloudServiceType:QuecCloudServiceTypeChina];
     [[QuecIoTAppSDK sharedInstance] setDebugMode:true];
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];
+    // 同步检查登录状态
     if ([QuecUserService sharedInstance].isLogin) {
         self.window.rootViewController = [self getMainController];
     }
     else {
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     }
+    // 异步检查是否登录状态
+    [[QuecUserService sharedInstance] checkUserLoginState:^(BOOL isLogin) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (isLogin) {
+                self.window.rootViewController = [self getMainController];
+            }
+            else  {
+                self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+            }
+        });
+    }];
     [self.window makeKeyAndVisible];
+    // 设置token失效监听
     @quec_weakify(self);
     [[QuecUserService sharedInstance] setTokenInvalidCallBack:^{
         @quec_strongify(self);
