@@ -1,0 +1,86 @@
+//
+//  QuecThirdLoginViewController.m
+//  QuecIoTAppSdkDemo
+//
+//  Created by quectel.steven on 2023/6/15.
+//
+
+#import "ThirdLoginViewController.h"
+#import <Toast/Toast.h>
+#import <QuecUserKit/QuecUserKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "HomeViewController.h"
+#import "MyCenterViewController.h"
+#import "DeviceGroupViewController.h"
+
+@interface ThirdLoginViewController ()
+@property (nonatomic, strong) UITextField *phoneTextField;
+@property (nonatomic, strong) UITextField *pswTextField;
+@end
+
+@implementation ThirdLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.title = @"第三方登录";
+    self.view.backgroundColor = [UIColor whiteColor];
+    CGFloat viewWidth = self.view.frame.size.width;
+    self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 60, 50)];
+    self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
+    self.phoneTextField.placeholder = @"请输入authCode";
+    self.phoneTextField.textColor = [UIColor lightGrayColor];
+    self.phoneTextField.font = [UIFont systemFontOfSize:16];
+    self.phoneTextField.returnKeyType = UIReturnKeyDone;
+    [self.view addSubview:self.phoneTextField];
+    
+    
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    loginButton.layer.cornerRadius = 10.0;
+    loginButton.layer.borderColor = [UIColor grayColor].CGColor;
+    loginButton.layer.borderWidth = 0.5;
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    loginButton.frame = CGRectMake(30, 430, viewWidth - 60, 44);
+    [loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [loginButton addTarget:self action:@selector(loginButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginButton];
+    
+}
+
+- (void)loginButtonClick {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[QuecUserService sharedInstance] loginByAuthCode:self.phoneTextField.text success:^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:@"86"];
+        [self loginSuccess];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
+    
+}
+
+
+- (void)loginSuccess {
+    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
+    HomeViewController *homeVc=[[HomeViewController alloc]init];
+    homeVc.tabBarItem.title=@"首页";
+    homeVc.view.backgroundColor = [UIColor whiteColor];
+    
+    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
+    groupVc.tabBarItem.title=@"分组";
+    groupVc.view.backgroundColor = [UIColor whiteColor];
+    
+    MyCenterViewController *myVc=[[MyCenterViewController alloc]init];
+    myVc.tabBarItem.title=@"我的";
+    myVc.view.backgroundColor = [UIColor whiteColor];
+    
+    tabbarVc.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:homeVc],[[UINavigationController alloc] initWithRootViewController:groupVc],[[UINavigationController alloc] initWithRootViewController:myVc]];
+    
+    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarVc;
+}
+
+
+@end
