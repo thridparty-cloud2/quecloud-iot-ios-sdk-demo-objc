@@ -1,6 +1,9 @@
 *.xcuserstate 
 *.xcuserdata
 */xcuserdata/
+xcuserdata
+*.xccheckout
+*.pbxuser
 # Cocoapods
 Pods
 .DS_Store

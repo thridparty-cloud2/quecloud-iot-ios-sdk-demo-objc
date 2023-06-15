@@ -84,11 +84,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-}
-
 - (void)startBinding:(NSIndexPath *)indexPath{
     BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
     [[QuecSmartConfigService sharedInstance] startConfigDevices:@[model.peripheralModel] ssid:@"QUEC_WIFI_TEST" password:@"12332112"];

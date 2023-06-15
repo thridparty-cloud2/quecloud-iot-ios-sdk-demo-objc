@@ -17,13 +17,15 @@
 #import <YYModel/YYModel.h>
 #import "BRPickerView.h"
 
-@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate>
+
+@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate, QuecDeviceDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) BRDatePickerView *datePickerView;
 @property (nonatomic, assign) NSInteger dateIndex;
 @property (nonatomic, assign) NSInteger enumIndex;
+@property (nonatomic, strong) QuecDevice *currentDevice;
 
 @end
 
@@ -36,21 +38,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![[QuecDeviceService sharedInstance] isWebSocketOpen]) {
-        [self startWebSocket];
-    }
-    else {
-        [self subscribeDevice];
-    }
     
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    if ([[QuecDeviceService sharedInstance] isWebSocketOpen]) {
-        [self unSubscribeDevice];
-        [[QuecDeviceService sharedInstance] closeWebSocket];
-    }
 }
 
 - (void)viewDidLoad {
@@ -90,8 +82,23 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     [self getTls];
-    
-//    [[QuecDeviceService sharedInstance] setWebScoketDelegate:self];
+    [self device];
+}
+/// device init
+- (void)device{
+    [QuecIotCacheService.sharedInstance addDeviceModelList:@[self.dataModel]];
+    NSLog(@"111222===========%@", [self.dataModel yy_modelToJSONObject]);
+    self.currentDevice = [QuecDevice deviceWithPk:self.dataModel.productKey dk:self.dataModel.deviceKey];
+    self.currentDevice.delegate = self;
+    [self.currentDevice updateDeviceCloudOnlineStatus:self.dataModel.onlineStatus];
+    [self.currentDevice connect];
+}
+
+/// The DP updates.
+/// @param device device instance.
+/// @param dps  command dictionary.
+- (void)device:(QuecDevice *)device dpsUpdate:(QuecIotDataPointsModel *)dps{
+    NSLog(@"111222--------%@", [dps yy_modelToJSONObject]);
 }
 
 - (void)getTls {
@@ -158,28 +165,6 @@
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 
-- (void)startWebSocket {
-    [[QuecDeviceService sharedInstance] openWebSocket];
-}
-
-- (void)subscribeDevice {
-    //订阅设备
-    QuecWebSocketActionModel *dataModel = [[QuecWebSocketActionModel alloc] init];
-    dataModel.deviceKey = self.dataModel.deviceKey;
-    dataModel.productKey = self.dataModel.productKey;
-    dataModel.messageType = QuecWebSocketOptionsMessageTypeONLINE;
-    [[QuecDeviceService sharedInstance] subscribeDevicesWithList:@[dataModel]];
-}
-
-- (void)unSubscribeDevice {
-    //取消订阅
-    QuecWebSocketActionModel *dataModel = [[QuecWebSocketActionModel alloc] init];
-    dataModel.deviceKey = self.dataModel.deviceKey;
-    dataModel.productKey = self.dataModel.productKey;
-    dataModel.messageType = QuecWebSocketOptionsMessageTypeALL;
-    [[QuecDeviceService sharedInstance] unSubscribeDevicesWithList:@[dataModel]];
-}
-
 - (void)handleWebSocketDataWithModel:(QuecWebSocketDataModel *)dataModel {
     NSDictionary *dictionary = dataModel.data;
     if ([dictionary[@"type"] isEqualToString:@"MATTR"]) {
@@ -212,40 +197,27 @@
     }
 }
 
-#pragma mark - QuecDeviceServiceWebSocketDelegate
-- (void)quecWebSocketDidOpen {
-    [self subscribeDevice];
-}
-
-- (void)quecWebSocketDidCloseWithCode:(NSInteger)code reason:(NSString *)reason {
-    NSLog(@"quecWebSocketDidCloseWithCode:  %ld %@",(long)code,reason);
-}
-
-- (void)quecWebSocketDidReceiveMessageWithDataModel:(QuecWebSocketDataModel *)dataModel {
-    if ([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeSend_ack]) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"status"];
-        if ([toast isEqualToString:@"succ"]) {
-            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
-        }
-        else {
-            [self.view makeToast:@"下发失败" duration:3 position:CSToastPositionCenter];
-        }
-    }
-    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeError]) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"msg"];
-        [self.view makeToast:toast duration:3 position:CSToastPositionCenter];
-        [self.tableView reloadData];
-    }
-    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeMessage]) {
-        [self handleWebSocketDataWithModel:dataModel];
-    }
-}
-
-- (void)quecWebSocketDidFailWithError:(NSError *)error {
-    
-}
+//- (void)quecWebSocketDidReceiveMessageWithDataModel:(QuecWebSocketDataModel *)dataModel {
+//    if ([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeSend_ack]) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"status"];
+//        if ([toast isEqualToString:@"succ"]) {
+//            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
+//        }
+//        else {
+//            [self.view makeToast:@"下发失败" duration:3 position:CSToastPositionCenter];
+//        }
+//    }
+//    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeError]) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"msg"];
+//        [self.view makeToast:toast duration:3 position:CSToastPositionCenter];
+//        [self.tableView reloadData];
+//    }
+//    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeMessage]) {
+//        [self handleWebSocketDataWithModel:dataModel];
+//    }
+//}
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -349,8 +321,21 @@
 #pragma mark - TslBoolTableViewCellDelegate
 - (void)stateChanged:(NSString *)state index:(NSInteger)index {
     QuecProductTSLPropertyModel *model = self.dataArray[index];
-    NSDictionary *dic = @{@"id":@(model.itemId),@"value":state,@"type":model.dataType,@"name":model.name};
-    [self sendDataToDeviceWithData:dic row:index];
+    QuecIotDataPoint *dataPoint = QuecIotDataPoint.new;
+    dataPoint.Id = (int)model.itemId;
+    dataPoint.dataType = QuecIotDataPointDataTypeBOOL;
+    dataPoint.code = model.code;
+    dataPoint.value = state;
+    NSLog(@"111222-------%@", [dataPoint yy_modelToJSONObject]);
+    [self.currentDevice writeDps:@[dataPoint] success:^{
+        quec_async_on_main(^{
+            NSLog(@"111222-------writeDpsSuccess");
+        });
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"111222-------writeDpsFail----%@", error.localizedDescription);
+    }];
+//    NSDictionary *dic =  @{@"id":@(model.itemId),@"value":state,@"type":model.dataType,@"name":model.name};
+//    [self sendDataToDeviceWithData:dic row:index];
 }
 
 - (void)sendDataToDeviceWithData:(NSDictionary *)data row:(NSInteger)row {
@@ -378,7 +363,8 @@
         [dataDictionary setValue:@[contentDictionary].yy_modelToJSONString forKey:@"kv"];
         
         dataModel.data = dataDictionary;
-        [[QuecDeviceService sharedInstance] sendDataToDeviceByWebSocketWithDataModel:dataModel];
+//        [[QuecDeviceService sharedInstance] sendDataToDeviceByWebSocketWithDataModel:dataModel];
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
