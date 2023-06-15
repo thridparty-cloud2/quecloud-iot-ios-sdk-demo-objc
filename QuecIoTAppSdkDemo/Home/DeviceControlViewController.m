@@ -71,8 +71,12 @@
         NSLog(@"选择的值：%@", selectValue);
         @quec_strongify(self);
         QuecProductTSLPropertyModel *model = self.dataArray[self.dateIndex];
-        NSDictionary *dic = @{@"id":@(model.itemId),@"value":@(selectDate.timeIntervalSince1970),@"type":model.dataType,@"name":model.name};
-        [self sendDataToDeviceWithData:dic row:self.dateIndex];
+        QuecIotDataPoint *dataPoint = QuecIotDataPoint.new;
+        dataPoint.Id = (int)model.itemId;
+        dataPoint.dataType = QuecIotDataPointDataTypeDATE;
+        dataPoint.code = model.code;
+        dataPoint.value = @([self getTimeStrWithString:selectValue]);
+        [self sendDps:@[dataPoint]];
     };
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -84,10 +88,17 @@
     [self getTls];
     [self device];
 }
+
+- (long)getTimeStrWithString:(NSString*)str {
+    NSDateFormatter*dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *tempDate = [dateFormatter dateFromString:str];
+    return (long)[tempDate timeIntervalSince1970]*1000;
+}
+
 /// device init
 - (void)device{
     [QuecIotCacheService.sharedInstance addDeviceModelList:@[self.dataModel]];
-    NSLog(@"111222===========%@", [self.dataModel yy_modelToJSONObject]);
     self.currentDevice = [QuecDevice deviceWithPk:self.dataModel.productKey dk:self.dataModel.deviceKey];
     self.currentDevice.delegate = self;
     [self.currentDevice updateDeviceCloudOnlineStatus:self.dataModel.onlineStatus];
@@ -122,23 +133,20 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < self.dataArray.count; i ++) {
         QuecProductTSLPropertyModel *model = self.dataArray[i];
-        if (![model.subType isEqualToString:QuecProductionTslSubTypeRW]) {
+        if ([model.subType isEqualToString:QuecProductionTslSubTypeR]) {
             continue;
         }
         if (![self isAllowedDataType:model.dataType]) {
             continue;
         }
-        
         for (int j = 0; j < tslInfoModel.customizeTslInfo.count; j ++) {
             QuecProductTSLCustomInfoModel *infoModel = tslInfoModel.customizeTslInfo[j];
-            
             if ([model.code isEqualToString:infoModel.resourceCode]) {
                 model.attributeValue = infoModel.resourceValue;
-                [tempArray addObject:model];
                 break;
             }
         }
-        
+        [tempArray addObject:model];
     }
     if (tempArray.count) {
         self.dataArray = tempArray.mutableCopy;
@@ -256,6 +264,7 @@
         }
         [cell refreshCellWithModel:self.dataArray[indexPath.row] index:indexPath.row];
         cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if ([QuecProductionTslDataTypeTEXT isEqualToString:model.dataType] ) {
@@ -264,6 +273,7 @@
             cell = [[TlsTextTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TextCellID"];
         }
         [cell refreshCellWithModel:self.dataArray[indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if ([QuecProductionTslDataTypeINT isEqualToString:model.dataType]
@@ -275,6 +285,7 @@
         }
         [cell refreshCellWithModel:self.dataArray[indexPath.row] index:indexPath.row];
         cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if ([QuecProductionTslDataTypeENUM isEqualToString:model.dataType]
@@ -284,6 +295,7 @@
             cell = [[TslEnumAndDateTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"EnumAndDateCellID"];
         }
         [cell refreshCellWithModel:self.dataArray[indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else {
@@ -291,6 +303,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -314,8 +327,18 @@
 #pragma -TslNumberUTableViewCellDelegate
 - (void)valueChanged:(NSString *)value index:(NSInteger)index {
     QuecProductTSLPropertyModel *model = self.dataArray[index];
-    NSDictionary *dic = @{@"id":@(model.itemId),@"value":value,@"type":model.dataType,@"name":model.name};
-    [self sendDataToDeviceWithData:dic row:index];
+    QuecIotDataPoint *dataPoint = QuecIotDataPoint.new;
+    dataPoint.Id = (int)model.itemId;
+    if ([model.dataType isEqualToString:QuecProductionTslDataTypeINT]){
+        dataPoint.dataType = QuecIotDataPointDataTypeINT;
+    }else if ([model.dataType isEqualToString:QuecProductionTslDataTypeFLOAT]){
+        dataPoint.dataType = QuecIotDataPointDataTypeFLOAT;
+    }else if ([model.dataType isEqualToString:QuecProductionTslDataTypeDOUBLE]){
+        dataPoint.dataType = QuecIotDataPointDataTypeDOUBLE;
+    }
+    dataPoint.code = model.code;
+    dataPoint.value = value;
+    [self sendDps:@[dataPoint]];
 }
 
 #pragma mark - TslBoolTableViewCellDelegate
@@ -326,16 +349,23 @@
     dataPoint.dataType = QuecIotDataPointDataTypeBOOL;
     dataPoint.code = model.code;
     dataPoint.value = state;
-    NSLog(@"111222-------%@", [dataPoint yy_modelToJSONObject]);
-    [self.currentDevice writeDps:@[dataPoint] success:^{
+    [self sendDps:@[dataPoint]];
+}
+
+- (void)sendDps:(NSArray<QuecIotDataPoint*> *)dps{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self.currentDevice writeDps:dps success:^{
         quec_async_on_main(^{
-            NSLog(@"111222-------writeDpsSuccess");
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
         });
     } failure:^(NSError * _Nonnull error) {
-        NSLog(@"111222-------writeDpsFail----%@", error.localizedDescription);
+        quec_async_on_main(^{
+            NSLog(@"111222===========%@", error.localizedDescription);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.view makeToast:@"下发失败" duration:3 position:CSToastPositionCenter];
+        });
     }];
-//    NSDictionary *dic =  @{@"id":@(model.itemId),@"value":state,@"type":model.dataType,@"name":model.name};
-//    [self sendDataToDeviceWithData:dic row:index];
 }
 
 - (void)sendDataToDeviceWithData:(NSDictionary *)data row:(NSInteger)row {
@@ -391,8 +421,12 @@
 
 - (void)updateTextWithText:(NSString *)text row:(NSInteger)row {
     QuecProductTSLPropertyModel *model = self.dataArray[row];
-    NSDictionary *dic = @{@"id":@(model.itemId),@"value":text,@"type":model.dataType,@"name":model.name};
-    [self sendDataToDeviceWithData:dic row:row];
+    QuecIotDataPoint *dataPoint = QuecIotDataPoint.new;
+    dataPoint.Id = (int)model.itemId;
+    dataPoint.dataType = QuecIotDataPointDataTypeTEXT;
+    dataPoint.code = model.code;
+    dataPoint.value = text;
+    [self sendDps:@[dataPoint]];
 }
 
 - (void)showActionSheet {
@@ -415,8 +449,12 @@
 
 - (void)updateEnumValueWithValue:(NSString *)value {
     QuecProductTSLPropertyModel *model = self.dataArray[self.enumIndex];
-    NSDictionary *dic = @{@"id":@(model.itemId),@"value":value,@"type":model.dataType,@"name":model.name};
-    [self sendDataToDeviceWithData:dic row:self.enumIndex];
+    QuecIotDataPoint *dataPoint = QuecIotDataPoint.new;
+    dataPoint.Id = (int)model.itemId;
+    dataPoint.dataType = QuecIotDataPointDataTypeENUM;
+    dataPoint.code = model.code;
+    dataPoint.value = value;
+    [self sendDps:@[dataPoint]];
 }
 
 @end
