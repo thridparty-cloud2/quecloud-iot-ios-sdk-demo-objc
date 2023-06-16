@@ -379,7 +379,7 @@
 				22B0F7C027D2FE08001368DF /* Frameworks */,
 				22B0F7C127D2FE08001368DF /* Resources */,
 				54773B158CA8BC90F6D8E8B4 /* [CP] Embed Pods Frameworks */,
-				F195CE8F0C98240576A9D940 /* [CP] Copy Pods Resources */,
+				683745F5C193B34D3F9813E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -418,7 +418,7 @@
 				22B0F7E527D2FE09001368DF /* Frameworks */,
 				22B0F7E627D2FE09001368DF /* Resources */,
 				1BDB5F49F5BC28136F6DF938 /* [CP] Embed Pods Frameworks */,
-				999A6777482302D1B69976B7 /* [CP] Copy Pods Resources */,
+				6FFE0904FBA88906ACC0D0A5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -555,6 +555,40 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		683745F5C193B34D3F9813E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FFE0904FBA88906ACC0D0A5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		85BA6B492B481719E5BBBF2A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,23 +611,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		999A6777482302D1B69976B7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B35C5936F9F51164D81202AA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -614,23 +631,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F195CE8F0C98240576A9D940 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

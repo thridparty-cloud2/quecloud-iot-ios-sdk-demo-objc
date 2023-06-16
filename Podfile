@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '13.0'
 source 'https://github.com/CocoaPods/Specs.git'
-source 'ssh://git@gitlab.quectel.com:8061/frontend/app/iOS/PodSpec/QuecPrivateSpecs.git'
+source 'https://github.com/thridparty-cloud2/QuecPublicSpecs.git'
 
 def commpod
   pod 'Toast', '~> 4.0.0'

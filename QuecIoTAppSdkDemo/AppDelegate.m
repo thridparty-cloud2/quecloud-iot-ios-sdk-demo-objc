@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"C.DM.5903.1" userDomainSecret:@"EufftRJSuWuVY7c6txzGifV9bJcfXHAFa7hXY5doXSn7" cloudServiceType:QuecCloudServiceTypeChina];
+    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"" userDomainSecret:@"" cloudServiceType:QuecCloudServiceTypeChina];
     [[QuecIoTAppSDK sharedInstance] setDebugMode:true];
     
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

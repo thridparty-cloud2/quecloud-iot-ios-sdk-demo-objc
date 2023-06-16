@@ -27,7 +27,7 @@ PODS:
   - BRPickerView/StringPickerView (2.8.1):
     - BRPickerView/Base
   - CocoaAsyncSocket (7.6.5)
-  - IQKeyboardManager (6.5.11)
+  - IQKeyboardManager (6.5.12)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - QuecBleChannelKit (1.1.2):
@@ -69,7 +69,7 @@ PODS:
     - AFNetworking
     - QuecLogKit
   - QuecSdkConfig (0.3.2)
-  - QuecSmartConfigKit (0.0.3):
+  - QuecSmartConfigKit (0.0.4):
     - QuecBleChannelKit
     - QuecDeviceKit
     - QuecSdkConfig
@@ -117,7 +117,7 @@ SPEC REPOS:
     - SocketRocket
     - Toast
     - YYModel
-  "ssh://git@gitlab.quectel.com:8061/frontend/app/iOS/PodSpec/QuecPrivateSpecs.git":
+  https://github.com/thridparty-cloud2/QuecPublicSpecs:
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -137,7 +137,7 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   BRPickerView: 2531a2d4d0fea0b57a1c738de215af0f88863a2f
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  IQKeyboardManager: ef43ce1ba1e5aaf4adf222c0a46f39761f246879
+  IQKeyboardManager: b1fd66ccf7a79095bdcc4a2735231586f744216e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   QuecBleChannelKit: 4c03e04486900820671bd7d55c28d667e864100a
@@ -150,7 +150,7 @@ SPEC CHECKSUMS:
   QuecLogKit: 5f1e73a0fa6c8c046623cc8fa4e0799daf83cff4
   QuecNetworkChannelKit: 40924ca4c44e5919bd0ac6b42cb388a27adaefa4
   QuecSdkConfig: f01848b06012dc58529e2f08654c5292af17b980
-  QuecSmartConfigKit: d38e904bf7b40fb4b23ba417880ef47146cd8668
+  QuecSmartConfigKit: d2576e17610df9c82422b550c251287534a831e8
   QuecSocketChannelKit: 4550b495bd1057cfe8dc91a8136dd4eeeb78388e
   QuecUserKit: 07c8a52631f3d84ca8a3a90c84d7f1abb5d50e9e
   QuecWebSocketChannelKit: 0d994935d2c3616fbfaa14c2bf6aa3bb32a52314
@@ -159,6 +159,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 575c317f16d288df8848fe2833a21bcc6e01f145
+PODFILE CHECKSUM: 535784e57ddcacb76ce98d63203122365632d66c
 
 COCOAPODS: 1.11.3
