@@ -1902,4 +1902,48 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 
 ```
  
+#### 设备配网相关（QuecSmartConfigKit）
+#### 添加配网监听
 
+```
+- (void)addSmartConfigDelegate:(id<QuecSmartConfigDelegate>)delegate;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| delegate |	是| 遵循QuecSmartConfigDelegate协议对象	| 
+
+
+#### 移除配网监听
+
+```
+- (void)removeSmartConfigDelegate:(id<QuecSmartConfigDelegate>)delegate;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| delegate |	是| 遵循QuecSmartConfigDelegate协议对象	| 
+
+
+#### 开启配网(适用wifi+BLE类型设备配网)
+
+```
+- (void)startConfigDevices:(NSArray<QuecPeripheralModel *> *)devices ssid:(NSString *)ssid password:(NSString *)password;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| devices |	是| BleChannel获取到的外设数据，支持批量加入	| 
+| ssid |	否| wifi名称	| 
+| password |	否| wifi密码	| 
+
+
+#### 取消进行域配网所有操作
+
+```
+- (void)cancelConfigDevices;
+
+```
