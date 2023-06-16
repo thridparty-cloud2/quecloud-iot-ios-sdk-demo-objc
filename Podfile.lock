@@ -56,7 +56,7 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (1.2.3):
+  - QuecIotSdk (1.9.0-beta.1):
     - QuecBleChannelKit
     - QuecDeviceKit
     - QuecLogKit
@@ -101,7 +101,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Masonry
   - MBProgressHUD (~> 1.2.0)
-  - QuecIotSdk
+  - QuecIotSdk (~> 1.9.0-beta.1)
   - SDWebImage (~> 5.11.1)
   - Toast (~> 4.0.0)
 
@@ -117,7 +117,7 @@ SPEC REPOS:
     - SocketRocket
     - Toast
     - YYModel
-  https://github.com/thridparty-cloud2/QuecPublicSpecs:
+  https://github.com/thridparty-cloud2/QuecPublicSpecs.git:
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -146,7 +146,7 @@ SPEC CHECKSUMS:
   QuecDeviceKit: 28b72a6af1a9fdc7c5d8b6900a20d7032df5635a
   QuecFoundationKit: 08b64b08555b2a7795ab9a45be6b2f5851a7bd78
   QuecIotChannelKit: 9423271eba176c465914e8c8adb514db3f48567c
-  QuecIotSdk: da766572c358ef61ca1d435955c342943aa68d42
+  QuecIotSdk: 109d3f215d204f6e56626f22dfa1eafb4a7c01da
   QuecLogKit: 5f1e73a0fa6c8c046623cc8fa4e0799daf83cff4
   QuecNetworkChannelKit: 40924ca4c44e5919bd0ac6b42cb388a27adaefa4
   QuecSdkConfig: f01848b06012dc58529e2f08654c5292af17b980
@@ -159,6 +159,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 535784e57ddcacb76ce98d63203122365632d66c
+PODFILE CHECKSUM: c4427df202c8022d2acb95e9e7a5159658c6dfa1
 
 COCOAPODS: 1.11.3

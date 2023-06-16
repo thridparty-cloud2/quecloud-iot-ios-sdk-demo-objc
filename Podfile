@@ -18,7 +18,7 @@ target 'QuecIoTAppSdkDemo' do
 
   commpod
   # Pods for QuecIoTAppSdkDemo
-  pod 'QuecIotSdk'
+  pod 'QuecIotSdk' , '~> 1.9.0-beta.1'
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|
