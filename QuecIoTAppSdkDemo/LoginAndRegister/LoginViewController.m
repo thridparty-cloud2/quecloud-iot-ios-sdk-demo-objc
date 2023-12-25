@@ -18,14 +18,27 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ThirdLoginViewController.h"
 
+static NSString * const UserDomainCN = @"";
+static NSString * const UserSecretCN = @"";
+static NSString * const UserDomainEU = @"";
+static NSString * const UserSecretEU = @"";
+static NSString * const UserDomainNA = @"";
+static NSString * const UserSecretNA = @"";
+
 @interface LoginViewController ()
 
+@property (nonatomic, strong) UIButton *serviceTypeButton;
+@property (nonatomic, strong) UITextField *countryCodeField;
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *pswTextField;
 
 @end
 
 @implementation LoginViewController
+
+- (void)startWithUserDomain:(NSString *)userDomain userDomainSecret:(NSString *)userDomainSecret cloudServiceType:(QuecCloudServiceType)cloudServiceType{
+    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:userDomain userDomainSecret:userDomainSecret cloudServiceType:cloudServiceType];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +47,36 @@
     self.view.backgroundColor = [UIColor whiteColor];
     CGFloat viewWidth = self.view.frame.size.width;
     CGFloat viewHeight = self.view.frame.size.height;
-    self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 110, 50)];
+    
+    NSString *currentDomian = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuecUserDomain"];
+    /// 默认缓存国内
+    if (currentDomian.length == 0) {
+        [self cacheUserDomain:UserDomainCN userDomainSecret:UserSecretCN cloudServiceType:QuecCloudServiceTypeChina];
+    }
+    NSString *cloudTitle = @"数据中心: 国内";
+    if ([currentDomian isEqualToString:UserDomainEU]) {
+        cloudTitle = @"数据中心: 欧洲";
+    }else if ([currentDomian isEqualToString:UserDomainNA]) {
+        cloudTitle = @"数据中心: 北美";
+    }
+    _serviceTypeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_serviceTypeButton setTitle:cloudTitle forState:UIControlStateNormal];
+    _serviceTypeButton.frame = CGRectMake(30, 130, 100, 30);
+    [_serviceTypeButton setTitleColor:UIColor.blueColor forState:UIControlStateNormal];
+    _serviceTypeButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_serviceTypeButton addTarget:self action:@selector(_serviceTypeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_serviceTypeButton];
+    
+    self.countryCodeField = [[UITextField alloc] initWithFrame:CGRectMake(30, 170,viewWidth - 110, 50)];
+    self.countryCodeField.borderStyle = UITextBorderStyleRoundedRect;
+    self.countryCodeField.placeholder = @"请输入国家码";
+    self.countryCodeField.keyboardType = UIKeyboardTypeNumberPad;
+    self.countryCodeField.textColor = [UIColor lightGrayColor];
+    self.countryCodeField.font = [UIFont systemFontOfSize:16];
+    self.countryCodeField.returnKeyType = UIReturnKeyDone;
+    [self.view addSubview:self.countryCodeField];
+    
+    self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 250,viewWidth - 110, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.phoneTextField.placeholder = @"请输入手机号";
     self.phoneTextField.textColor = [UIColor lightGrayColor];
@@ -44,14 +86,14 @@
     
     UIButton *phoneCheckButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [phoneCheckButton setTitle:@"校验" forState:UIControlStateNormal];
-    phoneCheckButton.frame = CGRectMake(viewWidth - 80, 200, 50, 50);
+    phoneCheckButton.frame = CGRectMake(viewWidth - 80, 250, 50, 50);
     [phoneCheckButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     phoneCheckButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [phoneCheckButton addTarget:self action:@selector(phoneCheckButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:phoneCheckButton];
     
     
-    self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 280,viewWidth - 60, 50)];
+    self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 330,viewWidth - 60, 50)];
     self.pswTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.pswTextField.placeholder = @"请输入密码";
     self.pswTextField.textColor = [UIColor lightGrayColor];
@@ -63,7 +105,7 @@
     CGFloat marginLeft = (viewWidth - 4 * buttonWidth) / 5;
     UIButton *smsLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [smsLoginButton setTitle:@"验证码登录" forState:UIControlStateNormal];
-    smsLoginButton.frame = CGRectMake(marginLeft, 350, buttonWidth + marginLeft, 30);
+    smsLoginButton.frame = CGRectMake(marginLeft, 400, buttonWidth + marginLeft, 30);
     [smsLoginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     smsLoginButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [smsLoginButton addTarget:self action:@selector(smsLoginButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -71,7 +113,7 @@
     
     UIButton *emailLoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [emailLoginButton setTitle:@"邮箱登录" forState:UIControlStateNormal];
-    emailLoginButton.frame = CGRectMake(marginLeft * 2 + buttonWidth, 350, buttonWidth, 30);
+    emailLoginButton.frame = CGRectMake(marginLeft * 2 + buttonWidth, 400, buttonWidth, 30);
     [emailLoginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     emailLoginButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [emailLoginButton addTarget:self action:@selector(emailLoginButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -79,7 +121,7 @@
     
     UIButton *forgetPswButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [forgetPswButton setTitle:@"忘记密码" forState:UIControlStateNormal];
-    forgetPswButton.frame = CGRectMake(marginLeft * 3 + buttonWidth * 2, 350, buttonWidth, 30);
+    forgetPswButton.frame = CGRectMake(marginLeft * 3 + buttonWidth * 2, 400, buttonWidth, 30);
     [forgetPswButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     forgetPswButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [forgetPswButton addTarget:self action:@selector(forgetPswButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -87,7 +129,7 @@
     
     UIButton *otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [otherButton setTitle:@"其他登录" forState:UIControlStateNormal];
-    otherButton.frame = CGRectMake(marginLeft * 4 + buttonWidth * 3, 350, buttonWidth, 30);
+    otherButton.frame = CGRectMake(marginLeft * 4 + buttonWidth * 3, 400, buttonWidth, 30);
     [otherButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     otherButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [otherButton addTarget:self action:@selector(otherButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -98,7 +140,7 @@
     loginButton.layer.borderColor = [UIColor grayColor].CGColor;
     loginButton.layer.borderWidth = 0.5;
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    loginButton.frame = CGRectMake(30, 430, viewWidth - 60, 44);
+    loginButton.frame = CGRectMake(30, 460, viewWidth - 60, 44);
     [loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [loginButton addTarget:self action:@selector(loginButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -112,11 +154,52 @@
     [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
     
+    
+    
+}
+
+- (void)_serviceTypeButtonClick{
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请选择数据中心" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    @quec_weakify(self);
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"国内" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @quec_strongify(self);
+        [self startWithUserDomain:UserDomainCN userDomainSecret:UserSecretCN cloudServiceType:QuecCloudServiceTypeChina];
+        [self cacheUserDomain:UserDomainCN userDomainSecret:UserSecretCN cloudServiceType:QuecCloudServiceTypeChina];
+        [self.serviceTypeButton setTitle:@"数据中心: 国内" forState:(UIControlStateNormal)];
+    }];
+    [alertVc addAction:action1];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"欧洲" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @quec_strongify(self);
+        [self startWithUserDomain:UserDomainEU userDomainSecret:UserSecretEU cloudServiceType:QuecCloudServiceTypeEurope];
+        [self cacheUserDomain:UserDomainEU userDomainSecret:UserSecretEU cloudServiceType:QuecCloudServiceTypeEurope];
+        [self.serviceTypeButton setTitle:@"数据中心: 欧洲" forState:(UIControlStateNormal)];
+    }];
+    [alertVc addAction:action2];
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"北美" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @quec_strongify(self);
+        [self startWithUserDomain:UserDomainNA userDomainSecret:UserSecretNA cloudServiceType:QuecCloudServiceTypeNorthAmerica];
+        [self cacheUserDomain:UserDomainNA userDomainSecret:UserSecretNA cloudServiceType:QuecCloudServiceTypeNorthAmerica];
+        [self.serviceTypeButton setTitle:@"数据中心: 北美" forState:(UIControlStateNormal)];
+    }];
+    [alertVc addAction:action3];
+    
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVc addAction:cancleAction];
+    [self presentViewController:alertVc animated:true completion:nil];
+}
+
+- (void)cacheUserDomain:(NSString *)userDomain userDomainSecret:(NSString *)userDomainSecret cloudServiceType:(QuecCloudServiceType)cloudServiceType{
+    [[NSUserDefaults standardUserDefaults] setObject:userDomain ? : @"" forKey:@"QuecUserDomain"];
+    [[NSUserDefaults standardUserDefaults] setObject:userDomainSecret ? : @"" forKey:@"QuecUserDomainSecret"];
+    [[NSUserDefaults standardUserDefaults] setObject:@(cloudServiceType) forKey:@"QuecCloudServiceType"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)phoneCheckButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] queryPhoneIsRegister:self.phoneTextField.text internationalCode:@"86" success:^(BOOL isRegister) {
+    [[QuecUserService sharedInstance] queryPhoneIsRegister:self.phoneTextField.text internationalCode:self.countryCodeField.text ? : @"86" success:^(BOOL isRegister) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if (isRegister) {
             [self.view makeToast:@"手机号已注册" duration:3 position:CSToastPositionCenter];
@@ -149,10 +232,12 @@
 
 - (void)loginButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] loginByPhone:self.phoneTextField.text password:self.pswTextField.text internationalCode:@"86" success:^{
+    [[QuecUserService sharedInstance] loginByPhone:self.phoneTextField.text password:self.pswTextField.text internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
-        [[QuecIoTAppSDK sharedInstance] setCountryCode:@"86"];
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];
+        [[NSUserDefaults standardUserDefaults] setObject:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" forKey:@"QuecCountryCode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self loginSuccess];
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];

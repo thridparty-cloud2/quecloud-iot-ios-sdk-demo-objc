@@ -47,18 +47,6 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
-    [[QuecDeviceService sharedInstance] getFetchPlanWithProductKey:@"p111ti" deviceKey:@"888866669999001" extraInfo:nil success:^(QuecDeviceOTAPlanModel *planModel) {
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    
-    [[QuecDeviceService sharedInstance] reportDeviceUpgradeStatusWithProductKey:@"p111ti" deviceKey:@"888866669999001" componentNo:@"666666" reportStatus:2 success:^{
-            
-        } failure:^(NSError *error) {
-            
-        }];
 }
 
 - (void)addButtonClick {
@@ -235,27 +223,33 @@
 
 - (void)showActionSheet {
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请选择设备类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    QuecWeakSelf(self);
     UIAlertAction *authCodePSWDKPKAction = [UIAlertAction actionWithTitle:@"蓝牙设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self);
         [self jumpToAuthCodePSWDKPK];
     }];
     [alertVc addAction:authCodePSWDKPKAction];
     
     UIAlertAction *authCodeDKPKAction = [UIAlertAction actionWithTitle:@"WIFI设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self);
         [self jumpToAuthCodeDKPK];
     }];
     [alertVc addAction:authCodeDKPKAction];
     
     UIAlertAction *share_codeAction = [UIAlertAction actionWithTitle:@"分享设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self);
         [self jumpToShare_code];
     }];
     [alertVc addAction:share_codeAction];
     
     UIAlertAction *jumpSNAndPKAction = [UIAlertAction actionWithTitle:@"SN设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self);
         [self jumpToSNAndPK];
     }];
     [alertVc addAction:jumpSNAndPKAction];
     
     UIAlertAction *bleAction = [UIAlertAction actionWithTitle:@"WIFI/蓝牙设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self);
         [self jumpToAddBle];
     }];
     [alertVc addAction:bleAction];
@@ -268,13 +262,13 @@
 }
 
 - (void)getData {
-    @quec_weakify(self);
+    QuecWeakSelf(self);
     [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
-        @quec_strongify(self);
+        QuecStrongSelf(self);
         self.dataArray = list.copy;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        NSLog(@"getDeviceList error:%@", error.localizedDescription);
     }];
 }
 
@@ -307,18 +301,21 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     //重命名
+    QuecWeakSelf(self)
     UITableViewRowAction *renameRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"重命名" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        
+        QuecStrongSelf(self)
         [self updateDeviceNameWithRow:indexPath.row];
     }];
     renameRowAction.backgroundColor = [UIColor lightGrayColor];
     //解绑
     UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"解绑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        QuecStrongSelf(self)
         [self unbindDeviceWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor blueColor];
     //分享
     UITableViewRowAction *shareRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"分享" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        QuecStrongSelf(self)
         ShareInfoViewController *shareInfoVc = [[ShareInfoViewController alloc] init];
         shareInfoVc.hidesBottomBarWhenPushed = YES;
         shareInfoVc.dataModel = self.dataArray[indexPath.row];
@@ -350,25 +347,30 @@
 - (void)updateDeviceNameWithName:(NSString *)deviceName row:(NSInteger)row {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecDeviceModel *model = self.dataArray[row];
+    QuecWeakSelf(self)
     if (model.deviceType == 1) {
         [[QuecDeviceService sharedInstance] updateDeviceName:deviceName productKey:model.productKey deviceKey:model.deviceKey success:^{
+            QuecStrongSelf(self)
             [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
+            QuecStrongSelf(self)
             [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     }
     else {
         [[QuecDeviceService sharedInstance] updateDeviceNameByShareUserWithDeviceName:deviceName shareCode:model.shareCode success:^{
+            QuecStrongSelf(self)
             [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
-                } failure:^(NSError *error) {
-                    [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                }];
+        } failure:^(NSError *error) {
+            QuecStrongSelf(self)
+            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
     }
   
 }
@@ -376,25 +378,30 @@
 - (void)unbindDeviceWithRow:(NSInteger)row {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecDeviceModel *model = self.dataArray[row];
+    QuecWeakSelf(self)
     if (model.deviceType == 1) {
         [[QuecDeviceService sharedInstance] unbindDeviceWithDeviceKey:model.deviceKey productKey:model.productKey success:^{
+            QuecStrongSelf(self)
             [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
+            QuecStrongSelf(self)
             [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     }
     else {
         [[QuecDeviceService sharedInstance] unShareDeviceByShareUserWithShareCode:model.shareCode success:^{
+            QuecStrongSelf(self)
             [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
-                } failure:^(NSError *error) {
-                    [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                }];
+        } failure:^(NSError *error) {
+            QuecStrongSelf(self)
+            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
     }
 }
 
@@ -407,12 +414,15 @@
 
 // 发起蓝牙设备绑定
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk passwod:(NSString *)password name:(NSString *)name{
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self)
     [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk password:password deviceName:name success:^{
+        QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
     } failure:^(NSError *error) {
+        QuecStrongSelf(self)
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -420,10 +430,14 @@
 // 发起WIFI设备绑定
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk name:(NSString *)name{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self)
     [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk deviceName:name success:^{
+        QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
     } failure:^(NSError *error) {
+        QuecStrongSelf(self)
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -431,22 +445,29 @@
 // 发起分享设备绑定
 - (void)requestBindDeviceByShare_code:(NSString *)share_code{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self)
     [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:share_code deviceName:@"Test Share Bind" success:^{
+        QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
     } failure:^(NSError *error) {
+        QuecStrongSelf(self)
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 // 发起SN设备绑定
 - (void)requestBindDeviceBySn:(NSString *)sn pk:(NSString *)pk name:(NSString *)name{
-    
+    QuecWeakSelf(self)
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:sn productKey:pk deviceName:name success:^{
+        QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
     } failure:^(NSError *error) {
+        QuecStrongSelf(self)
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];

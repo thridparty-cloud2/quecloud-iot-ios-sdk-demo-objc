@@ -10,11 +10,15 @@
 #import "ConfigNetworkViewController.h"
 #import "BleDeviceListTableViewCell.h"
 #import <QuecSmartConfigKit/QuecSmartConfigKit.h>
+#import <Toast/Toast.h>
+#import <QuecDeviceKit/QuecDeviceKit.h>
 
 @interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate, QuecSmartConfigDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, copy) NSString *ssid;
+@property (nonatomic, copy) NSString *pwd;
 
 @end
 
@@ -51,8 +55,9 @@
     [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [addButton addTarget:self action:@selector(startScan) forControlEvents:UIControlEventTouchUpInside];
-   
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+//    self.ssid = @"no_connect";
+//    self.pwd = @"123456123";
 }
 
 - (void)startScan {
@@ -79,6 +84,10 @@
     @quec_weakify(self);
     cell.bindAction = ^(NSIndexPath * _Nonnull indexPath) {
         @quec_strongify(self);
+        if (self.ssid.length == 0 || !self.ssid){
+            [self configWifiWithIndex:indexPath];
+            return;
+        }
         [self startBinding:indexPath];
     };
     return cell;
@@ -86,9 +95,15 @@
 
 - (void)startBinding:(NSIndexPath *)indexPath{
     BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
-    [[QuecSmartConfigService sharedInstance] startConfigDevices:@[model.peripheralModel] ssid:@"QUEC_WIFI_TEST" password:@"12332112"];
+//    [[QuecDeviceService sharedInstance] unbindDeviceWithDeviceKey:model.peripheralModel.dk productKey:model.peripheralModel.pk success:^{
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
+    [[QuecSmartConfigService sharedInstance] startConfigDevices:@[model.peripheralModel] ssid:self.ssid password:self.pwd ? : @""];
     model.bindState = QuecBinding;
     [self.tableView reloadData];
+    
 }
 
 #pragma mark - QuecSmartConfigDelegate
@@ -129,7 +144,7 @@
         BOOL isExist = NO;
         for (int i = 0; i < self.dataArray.count; i ++) {
             BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:i];
-            if ([model.peripheralModel.uuid isEqualToString:peripheral.uuid]) {
+            if ([model.peripheralModel.name isEqualToString:peripheral.name]) {
                 isExist = YES;
             }
         }
@@ -141,6 +156,32 @@
             [self.tableView reloadData];
         }
     });
+}
+
+- (void)configWifiWithIndex:(NSIndexPath *)index{
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请输入wifi信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.ssid = alertVc.textFields[0].text;
+        self.pwd = alertVc.textFields[1].text;
+        if (self.ssid.length == 0) {
+            [self.view makeToast:@"请输入wifi名称" duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil];
+            return;
+        }
+        [self startBinding:index];
+    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入wifi名称";
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入wifi密码";
+    }];
+    [alertVc addAction:sureAction];
+    [alertVc addAction:cancleAction];
+    [self presentViewController:alertVc animated:true completion:nil];
 }
 
 

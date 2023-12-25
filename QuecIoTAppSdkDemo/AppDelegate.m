@@ -22,9 +22,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"" userDomainSecret:@"" cloudServiceType:QuecCloudServiceTypeChina];
     [[QuecIoTAppSDK sharedInstance] setDebugMode:true];
-    
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuecCountryCode"];
+    NSString *userDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuecUserDomain"];
+    NSString *userDomainSecret = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuecUserDomainSecret"];
+    NSNumber *cloudServiceType = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuecCloudServiceType"];
+    if (userDomain && userDomainSecret){
+        [[QuecIoTAppSDK sharedInstance] startWithUserDomain:userDomain userDomainSecret:userDomainSecret cloudServiceType:[cloudServiceType quec_uInt]];
+    }
+    if (countryCode && countryCode.length > 0){
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:countryCode];
+    }
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     self.window.backgroundColor = [UIColor whiteColor];

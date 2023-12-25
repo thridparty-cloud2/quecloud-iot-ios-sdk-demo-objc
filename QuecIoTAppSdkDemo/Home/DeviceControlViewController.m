@@ -101,7 +101,7 @@
     [QuecIotCacheService.sharedInstance addDeviceModelList:@[self.dataModel]];
     self.currentDevice = [QuecDevice deviceWithPk:self.dataModel.productKey dk:self.dataModel.deviceKey];
     self.currentDevice.delegate = self;
-    [self.currentDevice updateDeviceCloudOnlineStatus:self.dataModel.onlineStatus];
+//    [self.currentDevice updateDeviceCloudOnlineStatus:self.dataModel.onlineStatus];
     [self.currentDevice connect];
 }
 
@@ -109,7 +109,7 @@
 /// @param device device instance.
 /// @param dps  command dictionary.
 - (void)device:(QuecDevice *)device dpsUpdate:(QuecIotDataPointsModel *)dps{
-    NSLog(@"111222--------%@", [dps yy_modelToJSONObject]);
+    NSLog(@"dpsUpdate-------->%@", [dps yy_modelToJSONObject]);
 }
 
 - (void)getTls {

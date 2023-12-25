@@ -14,6 +14,7 @@
 #import "DeviceGroupViewController.h"
 
 @interface ThirdLoginViewController ()
+@property (nonatomic, strong) UITextField *countryCodeField;
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *pswTextField;
 @end
@@ -26,7 +27,17 @@
     self.title = @"第三方登录";
     self.view.backgroundColor = [UIColor whiteColor];
     CGFloat viewWidth = self.view.frame.size.width;
-    self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 60, 50)];
+    
+    self.countryCodeField = [[UITextField alloc] initWithFrame:CGRectMake(30, 150,viewWidth - 60, 50)];
+    self.countryCodeField.borderStyle = UITextBorderStyleRoundedRect;
+    self.countryCodeField.placeholder = @"请输入国家码";
+    self.countryCodeField.keyboardType = UIKeyboardTypeNumberPad;
+    self.countryCodeField.textColor = [UIColor lightGrayColor];
+    self.countryCodeField.font = [UIFont systemFontOfSize:16];
+    self.countryCodeField.returnKeyType = UIReturnKeyDone;
+    [self.view addSubview:self.countryCodeField];
+    
+    self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 230,viewWidth - 60, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.phoneTextField.placeholder = @"请输入authCode";
     self.phoneTextField.textColor = [UIColor lightGrayColor];
@@ -53,7 +64,9 @@
     [[QuecUserService sharedInstance] loginByAuthCode:self.phoneTextField.text success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
-        [[QuecIoTAppSDK sharedInstance] setCountryCode:@"86"];
+        [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];
+        [[NSUserDefaults standardUserDefaults] setObject:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" forKey:@"QuecCountryCode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self loginSuccess];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
