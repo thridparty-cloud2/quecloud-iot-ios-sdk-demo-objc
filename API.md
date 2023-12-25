@@ -10,6 +10,7 @@
 typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
     QuecCloudServiceTypeChina = 0, //国内
     QuecCloudServiceTypeEurope,    //欧洲
+    QuecCloudServiceTypeNorthAmerica,    //北美
 };
 
 - (void)startWithUserDomain:(NSString *)userDomain userDomainSecret:(NSString *)userDomainSecret cloudServiceType:(QuecCloudServiceType)cloudServiceType;
