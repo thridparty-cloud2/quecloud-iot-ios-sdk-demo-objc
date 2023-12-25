@@ -29,10 +29,15 @@ pod install
 
 #### 4. 打开 QuecIoTAppSdkDemo.xworkspace
 
-#### 5.  替换AppDelegate中SDK初始化方法的userDomain和userDomainSecret
+#### 5.  补充LoginViewController文件中初始化userDomain、userDomainSecret配置，启动后选择对应数据中心
 
 ```
-   [[QuecIoTAppSDK sharedInstance] startWithUserDomain:@"your user domain XXX" userDomainSecret:@"your user domain secret XXX" cloudServiceType:XXX];
+   static NSString * const UserDomainCN = @"";
+   static NSString * const UserSecretCN = @"";
+   static NSString * const UserDomainEU = @"";
+   static NSString * const UserSecretEU = @"";
+   static NSString * const UserDomainNA = @"";
+   static NSString * const UserSecretNA = @"";
 ```
 ### 参考
 关于移远云IoTSDK的更多信息，请参见[API](https://github.com/thridparty-cloud2/quecloud-iot-ios-sdk-demo-objc/blob/master/API.md)。
