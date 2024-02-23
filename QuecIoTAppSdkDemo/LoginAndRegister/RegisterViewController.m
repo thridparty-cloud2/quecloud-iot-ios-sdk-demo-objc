@@ -144,7 +144,7 @@
 }
 - (void)checkPhoneButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] validateInternationalPhone:self.phoneTextField.text internationalCode:@"86" success:^(NSDictionary *data) {
+    [[QuecUserService sharedInstance] validateInternationalPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" success:^(NSDictionary *data) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"手机号验证成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {
@@ -154,7 +154,7 @@
 }
 - (void)checksmsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] validateSmsCode:self.phoneTextField.text smsCode:self.smsTextField.text internationalCode:@"86" type:1 success:^{
+    [[QuecUserService sharedInstance] validateSmsCode:self.phoneTextField.text ? : @"" smsCode:self.smsTextField.text ? : @"" internationalCode:@"86" type:1 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"短信验证码有效" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {
@@ -165,7 +165,7 @@
 
 - (void)registerButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] registerByPhone:self.phoneTextField.text code:self.smsTextField.text password:self.pswTextField.text internationalCode:@"86" nationality:0 lang:0 timezone:0 success:^{
+    [[QuecUserService sharedInstance] registerByPhone:self.phoneTextField.text ? : @"" code:self.smsTextField.text ? : @"" password:self.pswTextField.text ? : @"" internationalCode:@"86" nationality:0 lang:0 timezone:0 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"注册成功" duration:3 position:CSToastPositionCenter];
         [self.navigationController popoverPresentationController];
@@ -177,7 +177,7 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text internationalCode:@"86" type:3 ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:3 ssid:nil stid:nil success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {

@@ -232,7 +232,7 @@ static NSString * const UserSecretNA = @"";
 
 - (void)loginButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] loginByPhone:self.phoneTextField.text password:self.pswTextField.text internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" success:^{
+    [[QuecUserService sharedInstance] loginByPhone:self.phoneTextField.text ? : @"" password:self.pswTextField.text ? : @"" internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
         [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];

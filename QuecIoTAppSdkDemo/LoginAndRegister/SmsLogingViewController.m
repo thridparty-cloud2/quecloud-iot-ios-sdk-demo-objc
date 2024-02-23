@@ -77,7 +77,7 @@
 
 - (void)loginButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] loginWithMobile:self.phoneTextField.text code:self.pswTextField.text internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" success:^{
+    [[QuecUserService sharedInstance] loginWithMobile:self.phoneTextField.text ? : @"" code:self.pswTextField.text ? : @"" internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
         [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];
@@ -92,7 +92,7 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" type:1 ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" type:1 ssid:nil stid:nil success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {

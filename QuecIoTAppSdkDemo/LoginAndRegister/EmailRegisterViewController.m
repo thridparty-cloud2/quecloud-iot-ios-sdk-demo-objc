@@ -69,7 +69,7 @@
 
 - (void)registerButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] registerByEmail:self.phoneTextField.text code:self.smsTextField.text password:self.pswTextField.text nationality:0 lang:0 timezone:0 success:^{
+    [[QuecUserService sharedInstance] registerByEmail:self.phoneTextField.text ? : @"" code:self.smsTextField.text ? : @"" password:self.pswTextField.text ? : @"" nationality:0 lang:0 timezone:0 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"注册成功" duration:3 position:CSToastPositionCenter];
         [self.navigationController popoverPresentationController];
@@ -81,7 +81,7 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByEmail:self.phoneTextField.text type:1 success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByEmail:self.phoneTextField.text ? : @"" type:1 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {
