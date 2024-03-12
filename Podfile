@@ -15,6 +15,7 @@ target 'QuecIoTAppSdkDemo' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+
   commpod
   # Pods for QuecIoTAppSdkDemo
   pod 'QuecIotSdk' , '~> 1.10.0'
