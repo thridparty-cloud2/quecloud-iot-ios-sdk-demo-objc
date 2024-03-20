@@ -177,13 +177,13 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:3 ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:QuecVerifyCodeTypeRegister ssid:nil stid:nil success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.phoneTextField resignFirstResponder];

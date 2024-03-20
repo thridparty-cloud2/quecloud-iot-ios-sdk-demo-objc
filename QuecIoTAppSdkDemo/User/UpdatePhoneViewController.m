@@ -104,7 +104,7 @@
 
 - (void)oldSmsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.oldPhoneTextField.text internationalCode:@"86" type:2 ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.oldPhoneTextField.text internationalCode:@"86" type:QuecVerifyCodeTypeLogout ssid:nil stid:nil success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {
