@@ -461,7 +461,7 @@
 - (void)requestBindDeviceBySn:(NSString *)sn pk:(NSString *)pk name:(NSString *)name{
     QuecWeakSelf(self)
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:sn productKey:pk deviceName:name success:^{
+    [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:sn productKey:pk deviceName:name success:^(NSString *productKey, NSString *deviceKey){
         QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];

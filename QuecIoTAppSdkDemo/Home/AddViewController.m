@@ -135,13 +135,13 @@
         
     }
     else {
-        [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:self.snTextField.text productKey:self.pkTextField.text deviceName:self.nameTextField.text success:^{
-            [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        } failure:^(NSError *error) {
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+        [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:self.snTextField.text productKey:self.pkTextField.text deviceName:self.nameTextField.text success:^(NSString *productKey, NSString *deviceKey) {
+                    [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                } failure:^(NSError *error) {
+                    [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                }];
     }
     
     

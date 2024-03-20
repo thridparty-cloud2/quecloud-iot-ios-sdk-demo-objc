@@ -27,63 +27,91 @@ PODS:
   - BRPickerView/StringPickerView (2.8.1):
     - BRPickerView/Base
   - CocoaAsyncSocket (7.6.5)
-  - IQKeyboardManager (6.5.16)
+  - IQKeyboardManager (6.5.17)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
-  - QuecBleChannelKit (1.1.2):
+  - MQTTClient (0.15.4):
+    - MQTTClient/Core (= 0.15.4)
+  - MQTTClient/Core (0.15.4):
+    - MQTTClient/Manager
+    - MQTTClient/Min
+  - MQTTClient/Manager (0.15.4):
+    - MQTTClient/Min
+  - MQTTClient/Min (0.15.4)
+  - MQTTClient/Websocket (0.15.4):
+    - MQTTClient/Min
+    - SocketRocket
+  - QuecBleChannelKit (1.4.1):
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
-  - QuecCommonUtil (0.1.2):
+  - QuecCommonUtil (0.3.2):
     - QuecFoundationKit
   - QuecConnectivityKit (0.2.2)
-  - QuecDeviceKit (1.2.7):
+  - QuecDeviceKit (1.6.3):
     - QuecCommonUtil
     - QuecConnectivityKit
     - QuecFoundationKit
     - QuecIotChannelKit
     - QuecNetworkChannelKit
     - QuecSdkConfig
-    - SocketRocket (~> 0.6.0)
     - YYModel (~> 1.0.4)
-  - QuecFoundationKit (0.7.0)
-  - QuecIotChannelKit (0.1.8):
+  - QuecFoundationKit (0.8.3)
+  - QuecIotChannelKit (0.5.9):
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
     - QuecFoundationKit
     - QuecLogKit
+    - QuecMQTTChannelKit
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (1.10.0):
-    - QuecBleChannelKit
-    - QuecDeviceKit
+  - QuecIotSdk (1.11.0-beta.3):
+    - QuecBleChannelKit (= 1.4.1)
+    - QuecCommonUtil (= 0.3.2)
+    - QuecConnectivityKit (= 0.2.2)
+    - QuecDeviceKit (= 1.6.3)
+    - QuecFoundationKit (= 0.8.3)
+    - QuecIotChannelKit (= 0.5.9)
+    - QuecLogKit (= 1.2.0)
+    - QuecMQTTChannelKit (= 0.0.5)
+    - QuecNetworkChannelKit (= 1.1.4)
+    - QuecSdkConfig (= 0.4.1)
+    - QuecSmartConfigKit (= 0.0.9)
+    - QuecSocketChannelKit (= 0.1.5)
+    - QuecUserKit (= 1.4.4)
+    - QuecWebSocketChannelKit (= 0.2.5)
+  - QuecLogKit (1.2.0)
+  - QuecMQTTChannelKit (0.0.5):
+    - MQTTClient/Websocket
+    - QuecCommonUtil
+    - QuecFoundationKit
     - QuecLogKit
-    - QuecNetworkChannelKit
     - QuecSdkConfig
-    - QuecSmartConfigKit
-    - QuecUserKit
-  - QuecLogKit (1.1.4)
-  - QuecNetworkChannelKit (1.1.3):
+    - SocketRocket
+    - YYModel
+  - QuecNetworkChannelKit (1.1.4):
     - AFNetworking
     - QuecLogKit
-  - QuecSdkConfig (0.3.2)
+  - QuecSdkConfig (0.4.1)
   - QuecSmartConfigKit (0.0.9):
     - QuecBleChannelKit
     - QuecDeviceKit
     - QuecSdkConfig
-  - QuecSocketChannelKit (0.1.0):
+  - QuecSocketChannelKit (0.1.5):
     - CocoaAsyncSocket (~> 7.6.5)
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
-  - QuecUserKit (1.2.1):
+  - QuecUserKit (1.4.4):
     - QuecFoundationKit
+    - QuecLogKit
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel (~> 1.0.4)
-  - QuecWebSocketChannelKit (0.1.1):
+  - QuecWebSocketChannelKit (0.2.5):
+    - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
     - QuecSdkConfig
@@ -92,7 +120,7 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
-  - SocketRocket (0.6.1)
+  - SocketRocket (0.7.0)
   - Toast (4.0.0)
   - YYModel (1.0.4)
 
@@ -101,7 +129,8 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Masonry
   - MBProgressHUD (~> 1.2.0)
-  - QuecIotSdk (~> 1.10.0)
+  - MQTTClient (~> 0.15.4)
+  - QuecIotSdk (~> 1.11.0-beta.3)
   - SDWebImage (~> 5.11.1)
   - Toast (~> 4.0.0)
 
@@ -118,6 +147,7 @@ SPEC REPOS:
     - Toast
     - YYModel
   https://github.com/thridparty-cloud2/QuecPublicSpecs.git:
+    - MQTTClient
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -126,6 +156,7 @@ SPEC REPOS:
     - QuecIotChannelKit
     - QuecIotSdk
     - QuecLogKit
+    - QuecMQTTChannelKit
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - QuecSmartConfigKit
@@ -137,28 +168,30 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   BRPickerView: 2531a2d4d0fea0b57a1c738de215af0f88863a2f
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  IQKeyboardManager: 024b54d7dcb765c5bc99882cb4d5ea24a8cb7c3c
+  IQKeyboardManager: 904d013844bbae0abe073f015487bfebe5476335
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  QuecBleChannelKit: 4c03e04486900820671bd7d55c28d667e864100a
-  QuecCommonUtil: 17b6b80003d4fff98be731d040cc83eca5ecc5ae
-  QuecConnectivityKit: 3be39297a1ec0943a05361ea292d284690fe0c5b
-  QuecDeviceKit: 28b72a6af1a9fdc7c5d8b6900a20d7032df5635a
-  QuecFoundationKit: 08b64b08555b2a7795ab9a45be6b2f5851a7bd78
-  QuecIotChannelKit: 9423271eba176c465914e8c8adb514db3f48567c
-  QuecIotSdk: 2bc87f6076cdcfde673d5291bb9aefb3b08f2dc2
-  QuecLogKit: 5f1e73a0fa6c8c046623cc8fa4e0799daf83cff4
-  QuecNetworkChannelKit: 40924ca4c44e5919bd0ac6b42cb388a27adaefa4
-  QuecSdkConfig: f01848b06012dc58529e2f08654c5292af17b980
+  MQTTClient: a1006050a14baf983a58e83f216beef24b263b90
+  QuecBleChannelKit: 40c793c717d11e14d4c6234c0a66163217cf4eae
+  QuecCommonUtil: 376123fd1bebf95b0a8bf00ca0347ad979f72bef
+  QuecConnectivityKit: 6f470e25d76480e9493cafeeb523428fbace446f
+  QuecDeviceKit: 34be91d55aef24c696cc37dec8352e3a8f7eb156
+  QuecFoundationKit: 306457978bae802973d875fb6a49c85843b755a3
+  QuecIotChannelKit: 1c6a08f4eda11178c5001c62b1910a6f1f8e63ce
+  QuecIotSdk: 79c810aa5f894eb0d8ad0ac70150087b056059de
+  QuecLogKit: b097e1c2dd09e3d3ee3bcf9fb5397e4ab5a02faa
+  QuecMQTTChannelKit: ac68836a7c6ba7957b9ddb39ebbc7f055a9bfa45
+  QuecNetworkChannelKit: a71ad2565d3c5cd1e76a87bac587a5883f586bf7
+  QuecSdkConfig: 6461d66641ebd87d911db71bcf4719efdba765fb
   QuecSmartConfigKit: a458ffae9eb901f8c7754faf1cceab09e2ce8e21
-  QuecSocketChannelKit: 4550b495bd1057cfe8dc91a8136dd4eeeb78388e
-  QuecUserKit: 07c8a52631f3d84ca8a3a90c84d7f1abb5d50e9e
-  QuecWebSocketChannelKit: 0d994935d2c3616fbfaa14c2bf6aa3bb32a52314
+  QuecSocketChannelKit: fd51be0d89da3ca70caf5e5ba38fdf6ddbc83927
+  QuecUserKit: 558440cf2e057a62cf1857acbfd4249d0fbff2da
+  QuecWebSocketChannelKit: b271bcd7f26cd6cfd8a74d2eb3ab3bc9939d79d0
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
-  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: d822c2d131387a5dd2e6bbb38b773f1ca108d0ca
+PODFILE CHECKSUM: 15de76c4cf0c25f3cb5e6bfc9f9cf11e8ca80568
 
 COCOAPODS: 1.11.3

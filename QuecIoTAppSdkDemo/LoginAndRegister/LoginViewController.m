@@ -28,6 +28,7 @@ static NSString * const UserSecretNA = @"";
 @interface LoginViewController ()
 
 @property (nonatomic, strong) UIButton *serviceTypeButton;
+@property (nonatomic, strong) UIButton *privateServiceButton;
 @property (nonatomic, strong) UITextField *countryCodeField;
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *pswTextField;
@@ -52,6 +53,7 @@ static NSString * const UserSecretNA = @"";
     /// 默认缓存国内
     if (currentDomian.length == 0) {
         [self cacheUserDomain:UserDomainCN userDomainSecret:UserSecretCN cloudServiceType:QuecCloudServiceTypeChina];
+        [self startWithUserDomain:UserDomainCN userDomainSecret:UserSecretCN cloudServiceType:QuecCloudServiceTypeChina];
     }
     NSString *cloudTitle = @"数据中心: 国内";
     if ([currentDomian isEqualToString:UserDomainEU]) {
@@ -66,6 +68,15 @@ static NSString * const UserSecretNA = @"";
     _serviceTypeButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [_serviceTypeButton addTarget:self action:@selector(_serviceTypeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_serviceTypeButton];
+    
+    
+    _privateServiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_privateServiceButton setTitle:@"私有云" forState:UIControlStateNormal];
+    _privateServiceButton.frame = CGRectMake(160, 130, 100, 30);
+    [_privateServiceButton setTitleColor:UIColor.blueColor forState:UIControlStateNormal];
+    _privateServiceButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [_privateServiceButton addTarget:self action:@selector(_privateServiceButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_privateServiceButton];
     
     self.countryCodeField = [[UITextField alloc] initWithFrame:CGRectMake(30, 170,viewWidth - 110, 50)];
     self.countryCodeField.borderStyle = UITextBorderStyleRoundedRect;
@@ -153,9 +164,6 @@ static NSString * const UserSecretNA = @"";
     registerButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
-    
-    
-    
 }
 
 - (void)_serviceTypeButtonClick{
@@ -188,6 +196,99 @@ static NSString * const UserSecretNA = @"";
     }];
     [alertVc addAction:cancleAction];
     [self presentViewController:alertVc animated:true completion:nil];
+}
+
+- (void)_privateServiceButtonClick {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"配置" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self startPrivate:alertVc];
+    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入userDomain";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入userDomainSecret";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入baseUrl";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入webSocketUrl";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入webSocketV2Url";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入mcc";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入tcpAddr";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入pskAddr";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入tlsAddr";
+        
+    }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入cerAddr";
+        
+    }];
+    [alertVc addAction:sureAction];
+    [alertVc addAction:cancleAction];
+    [self presentViewController:alertVc animated:true completion:nil];
+}
+
+- (void)startPrivate:(UIAlertController *)alert {
+    QuecPublicConfig *config = [[QuecPublicConfig alloc] init];
+    for(int i = 0; i < alert.textFields.count; i ++) {
+        NSString *value = alert.textFields[i].text ? (alert.textFields[i].text) : (@"");
+        switch (i) {
+            case 0:
+                config.userDomain = value;
+                break;
+            case 1:
+                config.userDomainSecret = value;
+                break;
+            case 2:
+                config.baseUrl = value;
+                break;
+            case 3:
+                config.webSocketUrl = value;
+                break;
+            case 4:
+                config.webSocketV2Url = value;
+                break;
+            case 5:
+                config.mcc = value;
+                break;
+            case 6:
+                config.tcpAddr = value;
+                break;
+            case 7:
+                config.pskAddr = value;
+                break;
+            case 8:
+                config.tlsAddr = value;
+                break;
+            case 9:
+                config.cerAddr = value;
+                break;
+        }
+    }
+    [[QuecIoTAppSDK sharedInstance] startWithConfig:config];
 }
 
 - (void)cacheUserDomain:(NSString *)userDomain userDomainSecret:(NSString *)userDomainSecret cloudServiceType:(QuecCloudServiceType)cloudServiceType{
