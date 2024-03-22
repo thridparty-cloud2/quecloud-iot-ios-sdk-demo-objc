@@ -22,6 +22,21 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | userDomainSecret |	是|用户域秘钥，DMP平台创建APP生成	| 
 | cloudServiceType |	是|云服务类型，指定连接的云服务| 
 
+
+#### 通过配置初始化SDK（可用于私有化部署）
+```
+//该接口执行后，其他接口功能才能正常执行
+
+- (void)startWithConfig:(QuecPublicConfig *)config;
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| config |	是| 初始化SDK的配置	| 
+
+
+
+
 #### 更改debug模式
 
 ```
@@ -158,7 +173,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 #### 发送邮箱验证码
 
 ```
-- (void)sendVerifyCodeByEmail:(NSString *)email type:(NSInteger)type success:(void(^)())success failure:(void(^)(NSError *error))failure;
+- (void)sendEmailWithType:(QuecEmailCodeType)type email:(NSString *)email success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
 ```
 
@@ -166,7 +181,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
 | email |	是|邮箱| 
-| type |是|类型, 1: 注册验证码, 2: 密码重置验证码| 
+| type |是| QuecEmailCodeType类型| 
 | success |	否|接口请求成功回调	| 
 | failure |	否|接口请求失败回调	| 
 
@@ -227,10 +242,10 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
 - (void)sendVerifyCodeByPhone:(NSString *)phone
             internationalCode:(NSString *)internationalCode
-                         type:(NSInteger)type
+                         type:(QuecVerifyCodeType)type
                          ssid:(NSString *)ssid
                          stid:(NSString *)stid
-            success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
+                      success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
 ```
 
@@ -239,9 +254,9 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | --- | --- | --- | 
 | phone |	是|手机号| 
 | internationalCode |是|国际代码| 
-| type |是|类型, 1: 注册验证码, 2: 密码重置验证码, 3: 登录验证码代码| 
-| ssid |是|短信签名ID，DMP创建，不传使用系统默认| 
-| stid |是|短信模板ID，DMP创建，不传使用系统默认| 
+| type |是| QuecVerifyCodeType类型| 
+| ssid |否|使用type，可不传| 
+| stid |否|使用type，可不传| 
 | success |	否|接口请求成功回调	| 
 | failure |	否|接口请求失败回调	| 
 
@@ -442,13 +457,14 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 #### 用户退出登录
 
 ```
-- (void)logoutWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure;
+- (void)logoutWithParams:(NSDictionary *)params success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
 ```
 
 
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
+| params |	否|退出登录需要清除的信息，如deviceId（推送id）| 
 | success |	否|接口请求成功回调	| 
 | failure |	否|接口请求失败回调	|
 
@@ -610,6 +626,20 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | completion |	是|回调| 
 
 
+#### 查询邮箱是否已注册
+
+```
+- (void)checkEmailRegister:(NSString *)email
+                   success:(void(^)(BOOL isRegister))success
+                   failure:(void(^)(NSError *error))failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
 #### 第三方用户登录
 
 ```
@@ -636,6 +666,18 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    | 
 
+#### 获取设备列表
+```
+- (void)getDeviceListWithParams:(QuecDeviceListParamsModel *)params success:(void(^)(NSArray<QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| params |    否| QuecDeviceListParamsModel类型  | 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    | 
+
 
 #### 获取设备列表-根据设备名称搜索
 ```
@@ -650,6 +692,8 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | pageSize |    否|页大小，默认为 10 条    | 
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    | 
+
+
 
 
 #### 通过SN绑定设备
@@ -704,7 +748,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | failure |    否|接口请求失败回调    | 
 
 
-#### 设备解除绑定
+#### 设备解绑
 
 ```
 - (void)unbindDeviceWithDeviceKey:(NSString *)deviceKey productKey:(NSString *)productKey success:(void(^)())success failure:(void(^)(NSError *error))failure;
@@ -718,7 +762,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    | 
 
-#### 更改设备名称
+#### 设备重命名
 
 ```
 - (void)updateDeviceName:(NSString *)deviceName productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void(^)())success failure:(void(^)(NSError *error))failure;
@@ -1080,6 +1124,22 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | failure |    否|failure block|
 
 
+####  获取设备物模型
+缓存最新物模型,无网络默认读取缓存
+
+```
+- (void)getProductTSLWithCacheByProductKey:(NSString *)productKey success:(void (^)(NSArray *properties))success failure:(QuecErrorBlock)failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| productKey |    是|product key|
+| success |    否|success block|
+| failure |    否|failure block|
+
+
 #### 设备批量控制
 
 ```
@@ -1097,79 +1157,28 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    |  
 
-#### QuecDeviceService (WebSocket) 方法
 
-#### 获取websocket是否开启
-
-```
-- (BOOL)isWebSocketOpen
+#### 设备批量控制
 
 ```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| |    | | 
-
-
-#### 开启websocket
-
-```
-- (void)openWebSocket
-
-```
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| |    | | 
-
-#### 关闭WebSocket
-
-```
-- (void)clodseWebSocket
-
-```
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-
-
-#### 发送数据
-
-```
-- (void)sendDataToDeviceByWebSocketWithDataModel:(QuecWebSocketDataModel *)dataModel;
+- (void)sendDataToDevicesByHttpWithData:(NSString *)data
+                             deviceList:(NSArray *)deviceList
+                                   type:(NSInteger)type
+                              extraData:(NSDictionary *)extraData
+                                success:(QuecDictionaryBlock)success
+                                failure:(QuecErrorBlock)failure;
 
 ```
 
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
-| dataModel |    是|指令数据 | 
-
-#### 订阅设备（订阅结果QuecDeviceServiceWebSocketDelegate返回）
-
-```
-- (void)subscribeDevicesWithList:(NSArray<QuecWebSocketActionModel *> *)list;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| list |    是|设备数据 | 
-
-#### 取消订阅设备（取消订阅结果QuecDeviceServiceWebSocketDelegate返回）
-
-```
-- (void)unSubscribeDevicesWithList:(NSArray<QuecWebSocketActionModel *> *)list;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| list |    是|设备数据 | 
-
+| data |    是|遵循tsl格式的json string|
+| deviceList |    是|设备列表 [{"deviceKey":"", "productKey":""}]| 
+| type |    是|类型 1：透传 2：属性 3：服务|
+| extraData |    否| {"cacheTime": 0, "isCache": 0,"isCover": 0,"qos": 0}|
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    | 
 
 #### QuecDeviceService (Share) 方法
 
@@ -1612,9 +1621,9 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | failure |    否|接口请求失败回调    |
 
 
-#### 设备升级 -  查询设备升级状态
+#### 设备升级 -  查询设备最近一次升级状态
 ```
-- (void)otaDeviceProductWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure;
+- (void)getLatestUpgradeDetailsWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure;
 
 ```
 
@@ -1623,6 +1632,117 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | --- | --- | --- | 
 | productKey |    是|   product key | 
 | deviceKey |    是 | device key | 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+
+#### 设备升级 -  按照planid查询设备升级状态
+```
+- (void)getUpgradeDetailsByPlanId:(NSString *)planId productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| planId |    是|  计划id | 
+| productKey |    是|   product key | 
+| deviceKey |    是 | device key | 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+#### 设备升级 -  用户批量确认升级计划
+```
+- (void)userBatchConfirmUpgradeWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSDictionary *data))success failure:(QuecErrorBlock)failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| list |    是|  计划列表 | 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+#### 设备升级 -  批量查询升级状态
+```
+- (void)getBatchUpgradeDetailsWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSArray<QuecOTAPlanModel *> *data))success failure:(QuecErrorBlock)failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| list |    是|  计划列表 | 
+| productKey |    是|   product key | 
+| deviceKey |    是 | device key | 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+
+
+#### 设备关联管理 - 绑定设备
+```
+- (void)deviceAssociationWithList:(NSArray<QuecDeviceModel *> *)list master:(QuecDeviceModel *)masterDevice fid:(NSString *)fid success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| list |    是|  设备列表 | 
+| masterDevice |    是|   主设备 | 
+| fid |    否|家庭id，家居模式下必传| 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+#### 设备关联管理 - 关联关系查询
+```
+- (void)deviceAssociationWithMaster:(QuecDeviceModel *)masterDevice fid:(NSString *)fid code:(NSString *)code success:(void(^)(NSDictionary *data))success failure:(void (^)(NSError *))failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| masterDevice |    是|   主设备 | 
+| fid |    否|家庭id，家居模式下必传| 
+| code |    否|物模型code|
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+
+#### 设备关联管理 - 关联关系解除
+```
+- (void)deviceDisassociationWithDevice:(QuecDeviceModel *)model fid:(NSString *)fid success:(void (^)(void))success failure:(void (^)(NSError *))failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| model |    是|   设备 | 
+| fid |    否|家庭id，家居模式下必传| 
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    |
+
+
+#### 设备关联管理 - 关联关系配置
+```
+- (void)deviceAssociationConfigWithProductKey:(NSString *)productKey success:(void(^)(QuecDeviceAssociationConfig *config))success failure:(void (^)(NSError *))failure;
+
+```
+
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| productKey |    是|   product key | 
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    |
 
