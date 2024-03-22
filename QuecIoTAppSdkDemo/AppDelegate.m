@@ -10,7 +10,7 @@
 #import "HomeViewController.h"
 #import "MyCenterViewController.h"
 #import "DeviceGroupViewController.h"
-#import "IQKeyboardManager.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 

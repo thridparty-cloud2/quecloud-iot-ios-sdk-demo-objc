@@ -27,7 +27,7 @@ PODS:
   - BRPickerView/StringPickerView (2.8.1):
     - BRPickerView/Base
   - CocoaAsyncSocket (7.6.5)
-  - IQKeyboardManager (6.5.17)
+  - IQKeyboardManager (6.5.18)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MQTTClient (0.15.4):
@@ -168,7 +168,7 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   BRPickerView: 2531a2d4d0fea0b57a1c738de215af0f88863a2f
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  IQKeyboardManager: 904d013844bbae0abe073f015487bfebe5476335
+  IQKeyboardManager: 67f92bb29b650c094c40bd11c0545b47bdd25c5b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MQTTClient: a1006050a14baf983a58e83f216beef24b263b90
