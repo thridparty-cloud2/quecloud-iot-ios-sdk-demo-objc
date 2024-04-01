@@ -106,7 +106,8 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
     }
-    cell.textLabel.text = self.dataArray[indexPath.row][@"dk"];
+    QuecDeviceModel *model = self.dataArray[indexPath.row];
+    cell.textLabel.text = model.deviceKey;
     cell.textLabel.textColor = [UIColor lightGrayColor];
     return cell;
 }
