@@ -127,7 +127,8 @@
 }
 
 - (void)deleteDeviceFromGroupWithRow:(NSInteger)row {
-    [[QuecDeviceService sharedInstance] deleteDeviceFromGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":self.dataArray[row][@"dk"], @"pk": self.dataArray[row][@"pk"]}] success:^(NSDictionary *data) {
+    QuecDeviceModel *deviceModel = self.dataArray[row];
+    [[QuecDeviceService sharedInstance] deleteDeviceFromGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":deviceModel.deviceKey, @"pk": deviceModel.productKey}] success:^(NSDictionary *data) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"删除成功" duration:3 position:CSToastPositionCenter];
         [self getDeviceList];
