@@ -12,7 +12,6 @@
 		2236138127D5956800817F50 /* DeviceSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137C27D5956800817F50 /* DeviceSelectViewController.m */; };
 		2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137E27D5956800817F50 /* DeviceGroupViewController.m */; };
 		2236138327D5956800817F50 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137F27D5956800817F50 /* GroupDetailViewController.m */; };
-		2236139F27D5957600817F50 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236138627D5957600817F50 /* AddViewController.m */; };
 		223613A027D5957600817F50 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236138A27D5957600817F50 /* HomeViewController.m */; };
 		223613A127D5957600817F50 /* TslBoolTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236138C27D5957600817F50 /* TslBoolTableViewCell.m */; };
 		223613A227D5957600817F50 /* TslNumberUTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236138D27D5957600817F50 /* TslNumberUTableViewCell.m */; };
@@ -79,7 +78,6 @@
 		2236138027D5956800817F50 /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
 		2236138427D5957600817F50 /* TslEnumAndDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TslEnumAndDateTableViewCell.h; sourceTree = "<group>"; };
 		2236138527D5957600817F50 /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
-		2236138627D5957600817F50 /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
 		2236138727D5957600817F50 /* ShareInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInfoViewController.h; sourceTree = "<group>"; };
 		2236138827D5957600817F50 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2236138927D5957600817F50 /* TlsTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TlsTextTableViewCell.h; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 		2236139927D5957600817F50 /* TslBoolTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TslBoolTableViewCell.h; sourceTree = "<group>"; };
 		2236139A27D5957600817F50 /* WifiBleDeviceBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiBleDeviceBindViewController.m; sourceTree = "<group>"; };
 		2236139B27D5957600817F50 /* ConfigNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigNetworkViewController.m; sourceTree = "<group>"; };
-		2236139D27D5957600817F50 /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
 		2236139E27D5957600817F50 /* TlsTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TlsTextTableViewCell.m; sourceTree = "<group>"; };
 		223613AC27D5958800817F50 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		223613AD27D5958800817F50 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -228,8 +225,6 @@
 		2236137927D5949C00817F50 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				2236139D27D5957600817F50 /* AddViewController.h */,
-				2236138627D5957600817F50 /* AddViewController.m */,
 				2236138B27D5957600817F50 /* BleDeviceListViewController.h */,
 				2236139827D5957600817F50 /* BleDeviceListViewController.m */,
 				22E0E92D2A399CAE0074B60C /* BleDeviceListTableViewCell.h */,
@@ -666,7 +661,6 @@
 				223613BB27D5958800817F50 /* QueryDataViewController.m in Sources */,
 				223613BF27D5958800817F50 /* EmailLoginViewController.m in Sources */,
 				223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */,
-				2236139F27D5957600817F50 /* AddViewController.m in Sources */,
 				223613A527D5957600817F50 /* TslEnumAndDateTableViewCell.m in Sources */,
 				223613C927D5959600817F50 /* MyCenterViewController.m in Sources */,
 				22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */,

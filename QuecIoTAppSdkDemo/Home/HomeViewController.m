@@ -7,7 +7,6 @@
 
 #import "HomeViewController.h"
 #import <QuecDeviceKit/QuecDeviceKit.h>
-#import "AddViewController.h"
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DeviceControlViewController.h"
@@ -52,66 +51,7 @@
 - (void)addButtonClick {
     [self showActionSheet];
 }
-// 蜂窝设备
-- (void)jumpToAddFlow {
-    AddViewController *addVc = [[AddViewController alloc] init];
-    addVc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addVc animated:YES];
-    
-}
-// 蓝牙设备绑定
-- (void)jumpToAuthCodePSWDKPK{
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"蓝牙设备绑定" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *authCode = alertVc.textFields[0].text;
-        NSString *dk = alertVc.textFields[1].text;
-        NSString *pk = alertVc.textFields[2].text;
-        NSString *password = alertVc.textFields[3].text;
-        NSString *name = alertVc.textFields[4].text;
-        if (authCode.length == 0) {
-            [self.view makeToast:@"请输入authCode" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        if (dk.length == 0) {
-            [self.view makeToast:@"请输入dk" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        if (pk.length == 0) {
-            [self.view makeToast:@"请输入pk" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        if (password.length == 0) {
-            [self.view makeToast:@"请输入password" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        [self requestBindDeviceByAuthCode:authCode pk:pk dk:dk passwod:password name:name];
-    }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入authCode";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入dk";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入pk";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入password";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入设备名称, 可以不输入";
-    }];
-    [alertVc addAction:sureAction];
-    [alertVc addAction:cancleAction];
-    [self presentViewController:alertVc animated:true completion:nil];
-}
+
 // WIFI设备绑定
 - (void)jumpToAuthCodeDKPK{
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"WIFI设备绑定" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -224,11 +164,6 @@
 - (void)showActionSheet {
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请选择设备类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     QuecWeakSelf(self);
-    UIAlertAction *authCodePSWDKPKAction = [UIAlertAction actionWithTitle:@"蓝牙设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        QuecStrongSelf(self);
-        [self jumpToAuthCodePSWDKPK];
-    }];
-    [alertVc addAction:authCodePSWDKPKAction];
     
     UIAlertAction *authCodeDKPKAction = [UIAlertAction actionWithTitle:@"WIFI设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         QuecStrongSelf(self);
@@ -416,16 +351,16 @@
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk passwod:(NSString *)password name:(NSString *)name{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self)
-    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk password:password deviceName:name success:^{
-        QuecStrongSelf(self)
-        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self getData];
-    } failure:^(NSError *error) {
-        QuecStrongSelf(self)
-        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+//    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk password:password deviceName:name success:^{
+//        QuecStrongSelf(self)
+//        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [self getData];
+//    } failure:^(NSError *error) {
+//        QuecStrongSelf(self)
+//        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    }];
 }
 // 发起WIFI设备绑定
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk name:(NSString *)name{
