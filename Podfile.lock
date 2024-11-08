@@ -59,7 +59,7 @@ PODS:
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
-  - QuecCommonUtil (0.3.8):
+  - QuecCommonUtil (0.3.9):
     - QuecFoundationKit
   - QuecConnectivityKit (0.3.0)
   - QuecDeviceKit (1.8.2):
@@ -83,9 +83,9 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (1.12.0-beta.3):
+  - QuecIotSdk (1.12.0-beta.4):
     - QuecBleChannelKit (= 1.4.4)
-    - QuecCommonUtil (= 0.3.8)
+    - QuecCommonUtil (= 0.3.9)
     - QuecConnectivityKit (= 0.3.0)
     - QuecDeviceKit (= 1.8.2)
     - QuecFoundationKit (= 0.8.7)
@@ -160,7 +160,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD (~> 1.2.0)
   - MQTTClient (~> 0.15.4)
-  - QuecIotSdk (~> 1.12.0-beta.3)
+  - QuecIotSdk (~> 1.12.0-beta.4)
   - SDWebImage (~> 5.11.1)
   - Toast (~> 4.0.0)
 
@@ -204,12 +204,12 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MQTTClient: a1006050a14baf983a58e83f216beef24b263b90
   QuecBleChannelKit: 963d9586f7c2e702abd681811eb18756589e5fe2
-  QuecCommonUtil: 4662bb11060b0538297ad55a57e52b0d46083976
+  QuecCommonUtil: 79d01ddc5f37d835a8f2b6c560b891328367517c
   QuecConnectivityKit: 14179c782dab59716921179b44a48d7770fb493c
   QuecDeviceKit: b780bd10305438ce22021d347055e1f0420788b0
   QuecFoundationKit: 8b05637404a0012a66e3219206019f06d60a91ec
   QuecIotChannelKit: 452d3cf9be8e048f4b0117597fefbc6a9ea2f219
-  QuecIotSdk: 5724561bacd25e23aaccd47569d5b2e40f4cda14
+  QuecIotSdk: f748cd10f7e71f328c7bf6b52d8571c455c4cd1b
   QuecLogKit: 165abb8e6ece4381cddade539c9d45e923a22c53
   QuecMQTTChannelKit: 5e29253407c339e9b0ddf3da269695466098d47e
   QuecNetworkChannelKit: 3c714167b7f88606b7ad931deab670badf92c7c5
@@ -224,6 +224,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 8c34bcae15bbc781d4f3bafa5189b57f46a71414
+PODFILE CHECKSUM: 88a1df39a41bf42a1d21536c4eb742c792fa4520
 
 COCOAPODS: 1.12.0
