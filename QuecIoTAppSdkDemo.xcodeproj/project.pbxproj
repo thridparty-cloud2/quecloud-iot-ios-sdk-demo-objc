@@ -45,6 +45,8 @@
 		22B0F7EF27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */; };
 		22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */; };
 		302DA64B2A3B0BDA00D7EF8E /* ThirdLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */; };
+		640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481A72CE1B27700AD521D /* QuecOTAViewController.m */; };
+		640481AB2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +152,10 @@
 		302DA6492A3B0BDA00D7EF8E /* ThirdLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdLoginViewController.h; sourceTree = "<group>"; };
 		302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginViewController.m; sourceTree = "<group>"; };
 		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		640481A62CE1B27700AD521D /* QuecOTAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOTAViewController.h; sourceTree = "<group>"; };
+		640481A72CE1B27700AD521D /* QuecOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOTAViewController.m; sourceTree = "<group>"; };
+		640481A92CE1F0E600AD521D /* QuecOTAPlanInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOTAPlanInfoModel.h; sourceTree = "<group>"; };
+		640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOTAPlanInfoModel.m; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -293,6 +299,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				640481A52CE1B02B00AD521D /* OTA */,
 				2236137727D5949C00817F50 /* Group */,
 				2236137927D5949C00817F50 /* Home */,
 				2236137827D5949C00817F50 /* LoginAndRegister */,
@@ -340,6 +347,17 @@
 				FC2C2FAD27CF2CA736FE55AC /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		640481A52CE1B02B00AD521D /* OTA */ = {
+			isa = PBXGroup;
+			children = (
+				640481A62CE1B27700AD521D /* QuecOTAViewController.h */,
+				640481A72CE1B27700AD521D /* QuecOTAViewController.m */,
+				640481A92CE1F0E600AD521D /* QuecOTAPlanInfoModel.h */,
+				640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */,
+			);
+			path = OTA;
 			sourceTree = "<group>";
 		};
 		E063D625B3279EBDA36FDEBD /* Frameworks */ = {
@@ -636,9 +654,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				223613A427D5957600817F50 /* ShareInfoViewController.m in Sources */,
+				640481AB2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m in Sources */,
 				223613A827D5957600817F50 /* BleDeviceListViewController.m in Sources */,
 				223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */,
 				223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */,
+				640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */,
 				223613BD27D5958800817F50 /* EmailRegisterViewController.m in Sources */,
 				223613AB27D5957600817F50 /* TlsTextTableViewCell.m in Sources */,
 				22B0F7C827D2FE08001368DF /* AppDelegate.m in Sources */,

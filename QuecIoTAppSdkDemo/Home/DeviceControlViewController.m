@@ -17,6 +17,7 @@
 #import <YYModel/YYModel.h>
 #import <QuecIotChannelKit/QuecIotChannelKit.h>
 #import "BRPickerView.h"
+//#import "QuecOTAViewController.h"
 
 
 @interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate, QuecDeviceDelegate>
@@ -80,7 +81,7 @@
         [self sendDps:@[dataPoint]];
     };
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -229,6 +230,22 @@
 //}
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 40;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.frame = CGRectMake(20, 5, 60, 30);
+//    [btn setTitle:@"OTA升级" forState:UIControlStateNormal];
+//    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(pushOTA) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:btn];
+//    
+//    return view;;
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
@@ -457,5 +474,11 @@
     dataPoint.value = value;
     [self sendDps:@[dataPoint]];
 }
+
+//- (void)pushOTA {
+//    QuecOTAViewController *vc = [[QuecOTAViewController alloc]init];
+//    vc.dataModel = self.dataModel;
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 @end
