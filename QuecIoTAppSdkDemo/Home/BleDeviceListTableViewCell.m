@@ -36,7 +36,7 @@
 - (void)configureModel:(BleDeviceBindModel *)model indexPath:(NSIndexPath *)indexPath{
     self.bindModel = model;
     self.indexPath = indexPath;
-    self.nameLabel.text = model.peripheralModel.name;
+    self.nameLabel.text = model.peripheral.deviceName;
     self.bindButton.hidden = YES;
     self.subTitleLabel.hidden = YES;
     switch (_bindModel.bindState) {

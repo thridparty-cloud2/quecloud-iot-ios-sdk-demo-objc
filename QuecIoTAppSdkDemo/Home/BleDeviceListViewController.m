@@ -6,19 +6,19 @@
 //
 
 #import "BleDeviceListViewController.h"
-#import <QuecBleChannelKit/QuecBleChannelKit.h>
 #import "ConfigNetworkViewController.h"
 #import "BleDeviceListTableViewCell.h"
 #import <QuecSmartConfigKit/QuecSmartConfigKit.h>
 #import <Toast/Toast.h>
 #import <QuecDeviceKit/QuecDeviceKit.h>
 
-@interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate, QuecSmartConfigDelegate>
+@interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate, QuecPairingDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray<BleDeviceBindModel *> *dataArray;
 @property (nonatomic, copy) NSString *ssid;
 @property (nonatomic, copy) NSString *pwd;
+@property (nonatomic, copy) NSString *fid; // 当前家庭id
 
 @end
 
@@ -26,15 +26,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[QuecBleManager sharedInstance] addListener:self];
-    [[QuecSmartConfigService sharedInstance] addSmartConfigDelegate:self];
+    [[QuecDevicePairingService sharedInstance] addPairingListener:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[QuecBleManager sharedInstance] removeListener:self];
-    [[QuecSmartConfigService sharedInstance] cancelConfigDevices];
-    [[QuecSmartConfigService sharedInstance] removeSmartConfigDelegate:self];
+    [[QuecDevicePairingService sharedInstance] removePairingListener:self];
+    [[QuecDevicePairingService sharedInstance] cancelAllDevicePairing];
 }
 
 - (void)viewDidLoad {
@@ -48,7 +46,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.dataArray = @[].mutableCopy;
-    
+    self.fid = @"";
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"扫描" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
@@ -63,11 +61,14 @@
 - (void)startScan {
     [self.dataArray removeAllObjects];
     [self.tableView reloadData];
-    [[QuecBleManager sharedInstance] startScanWithFilier:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), ^{
-        [[QuecBleManager sharedInstance] stopScan];
-    });
+    /// 需要打开系统及App蓝牙权限
+    [[QuecDevicePairingService sharedInstance] scanWithFid:self.fid filier:nil];
 }
+
+- (void)stopScan {
+    [[QuecDevicePairingService sharedInstance] stopScan];
+}
+
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -84,7 +85,7 @@
     @quec_weakify(self);
     cell.bindAction = ^(NSIndexPath * _Nonnull indexPath) {
         @quec_strongify(self);
-        if (self.ssid.length == 0 || !self.ssid){
+        if (model.peripheral.peripheralModel.capabilitiesBitmask != 4 && ![self.ssid quec_isStringAndNotEmpty]){
             [self configWifiWithIndex:indexPath];
             return;
         }
@@ -95,24 +96,25 @@
 
 - (void)startBinding:(NSIndexPath *)indexPath{
     BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
-//    [[QuecDeviceService sharedInstance] unbindDeviceWithDeviceKey:model.peripheralModel.dk productKey:model.peripheralModel.pk success:^{
-//
-//    } failure:^(NSError *error) {
-//
-//    }];
-    [[QuecSmartConfigService sharedInstance] startConfigDevices:@[model.peripheralModel] ssid:self.ssid password:self.pwd ? : @""];
+    [self stopScan];
+    [[QuecDevicePairingService sharedInstance] startPairingByDevices:@[model.peripheral] fid:self.fid ssid:self.ssid pwd:self.pwd];
     model.bindState = QuecBinding;
     [self.tableView reloadData];
     
 }
 
-#pragma mark - QuecSmartConfigDelegate
-- (void)didUpdateConfigResult:(QuecPeripheralModel *)device result:(BOOL)result error:(NSError *)error{
-    NSLog(@"deviceName:%@--------result:%d-----error: %@", device.name, result, error);
+#pragma mark - QuecPairingDelegate
+
+- (void)didUpdatePairingStatus:(QuecPairingPeripheral *)pairingPeripheral progress:(CGFloat)progress{
+    NSLog(@"deviceName:%@--------progress:%.2f", pairingPeripheral.deviceName, progress);
+}
+
+- (void)didUpdatePairingResult:(QuecPairingPeripheral *)pairingPeripheral result:(BOOL)result error:(NSError *)error{
+    NSLog(@"deviceName:%@--------result:%d-----error: %@", pairingPeripheral.deviceName, result, error);
     NSInteger row = 99999;
     for (int i = 0; i < self.dataArray.count; i++) {
         BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:i];
-        if ([device.uuid isEqualToString:model.peripheralModel.uuid]){
+        if ([pairingPeripheral.peripheralModel.uuid isEqualToString:model.peripheral.peripheralModel.uuid]){
             row = i;
             break;
         }
@@ -129,28 +131,18 @@
     }
 }
 
-#pragma mark - QuecBleManagerDelegate
-- (void)centralDidUpdateState:(CBManagerState)state {
-    if (state == CBManagerStatePoweredOn) {
-        [self startScan];
-    }
-}
-
-- (void)centralDidDiscoverPeripheral:(QuecPeripheralModel *)peripheral {
+- (void)centralDidDiscoverPairingPeripheral:(QuecPairingPeripheral *)pairingPeripheral{
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (![peripheral.name hasPrefix:@"QUEC"]) {
-            return;
-        }
         BOOL isExist = NO;
         for (int i = 0; i < self.dataArray.count; i ++) {
             BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:i];
-            if ([model.peripheralModel.name isEqualToString:peripheral.name]) {
+            if ([model.peripheral.peripheralModel.uuid isEqualToString:pairingPeripheral.peripheralModel.uuid]) {
                 isExist = YES;
             }
         }
         if (!isExist) {
             BleDeviceBindModel *model = BleDeviceBindModel.new;
-            model.peripheralModel = peripheral;
+            model.peripheral = pairingPeripheral;
             model.bindState = QuecWaitingBind;
             [self.dataArray quec_safeAddObject:model];
             [self.tableView reloadData];

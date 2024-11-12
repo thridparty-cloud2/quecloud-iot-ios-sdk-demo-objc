@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuecBleChannelKit/QuecBleChannelKit.h>
+#import <QuecSmartConfigKit/QuecSmartConfigKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ typedef enum : NSInteger {
 } QuecBindState;
 
 @interface BleDeviceBindModel : NSObject
-@property (nonatomic, strong) QuecPeripheralModel *peripheralModel;
+@property (nonatomic, strong) QuecPairingPeripheral *peripheral;
 @property (nonatomic, assign) QuecBindState bindState;
 @property (nonatomic, copy) NSString *errorMsg;
 @end
