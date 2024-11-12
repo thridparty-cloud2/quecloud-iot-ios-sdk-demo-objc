@@ -13,10 +13,11 @@
 #import "ShareInfoViewController.h"
 #import "BleDeviceListViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSMutableDictionary *deviceDatas;
 
 @end
 
@@ -39,7 +40,7 @@
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
-    
+    _deviceDatas = @{}.mutableCopy;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -201,9 +202,36 @@
     [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
         self.dataArray = list.copy;
+        [self addDevicesToDeviceKit];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"getDeviceList error:%@", error.localizedDescription);
+    }];
+}
+
+- (void)addDevicesToDeviceKit{
+    if (self.dataArray.count <= 0) {
+        return;
+    }
+    [QuecIotCacheService.sharedInstance addDeviceModelList:self.dataArray];
+    for (QuecDeviceModel *deviceModel in self.dataArray) {
+        QuecDevice *device = [QuecDevice deviceWithId:deviceModel.deviceId];
+        device.delegate = self;
+        [device connect];
+        [_deviceDatas quec_safeSetObject:device forKey:deviceModel.deviceId];
+    }
+}
+
+#pragma mark - QuecDeviceDelegate
+- (void)device:(QuecDevice *)device onlineUpdate:(NSUInteger)onlineState {
+    [self.dataArray enumerateObjectsUsingBlock:^(QuecDeviceModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.deviceId isEqualToString:device.model.deviceId]) {
+            obj.onlineChannelState = onlineState;
+            quec_async_on_main(^{
+                [self.tableView reloadData];
+            });
+            *stop = true;
+        }
     }];
 }
 
@@ -225,7 +253,7 @@
     QuecDeviceModel *model = self.dataArray[indexPath.row];
     cell.textLabel.text = model.deviceName;
     cell.textLabel.textColor = [UIColor lightGrayColor];
-    cell.detailTextLabel.text = model.deviceStatus;
+    cell.detailTextLabel.text = model.onlineChannelState ?  @"在线" : @"离线";
     return cell;
 }
 
@@ -312,32 +340,18 @@
 
 - (void)unbindDeviceWithRow:(NSInteger)row {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    QuecDeviceModel *model = self.dataArray[row];
-    QuecWeakSelf(self)
-    if (model.deviceType == 1) {
-        [[QuecDeviceService sharedInstance] unbindDeviceWithDeviceKey:model.deviceKey productKey:model.productKey success:^{
-            QuecStrongSelf(self)
-            [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self getData];
-        } failure:^(NSError *error) {
-            QuecStrongSelf(self)
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
-    }
-    else {
-        [[QuecDeviceService sharedInstance] unShareDeviceByShareUserWithShareCode:model.shareCode success:^{
-            QuecStrongSelf(self)
-            [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self getData];
-        } failure:^(NSError *error) {
-            QuecStrongSelf(self)
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
-    }
+    QuecDeviceModel *model = [self.dataArray quec_safeObjectAtIndex:row];
+    @quec_weakify(self);
+    [QuecDevice batchRemoveWithFid:@"" isInit:NO deviceList:@[model] success:^{
+        @quec_strongify(self);
+        [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
+    } failure:^(NSError * _Nonnull error) {
+        @quec_strongify(self);
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 - (void)jumpTpDetainWithRow:(NSInteger)row {
@@ -349,8 +363,8 @@
 
 // 发起蓝牙设备绑定
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk passwod:(NSString *)password name:(NSString *)name{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    QuecWeakSelf(self)
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    QuecWeakSelf(self)
 //    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk password:password deviceName:name success:^{
 //        QuecStrongSelf(self)
 //        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];

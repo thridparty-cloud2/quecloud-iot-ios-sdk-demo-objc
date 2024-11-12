@@ -19,7 +19,7 @@
 #import "BRPickerView.h"
 
 
-@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate, QuecDeviceDelegate>
+@interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -85,9 +85,8 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
+    self.currentDevice = [QuecDevice deviceWithId:self.dataModel.deviceId];
     [self getTls];
-    [self device];
 }
 
 - (long)getTimeStrWithString:(NSString*)str {
@@ -95,15 +94,6 @@
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     NSDate *tempDate = [dateFormatter dateFromString:str];
     return (long)[tempDate timeIntervalSince1970]*1000;
-}
-
-/// device init
-- (void)device{
-    [QuecIotCacheService.sharedInstance addDeviceModelList:@[self.dataModel]];
-    self.currentDevice = [QuecDevice deviceWithId:self.dataModel.deviceId];
-    self.currentDevice.delegate = self;
-//    [self.currentDevice updateDeviceCloudOnlineStatus:self.dataModel.onlineStatus];
-    [self.currentDevice connect];
 }
 
 /// The DP updates.
@@ -114,9 +104,15 @@
 }
 
 - (void)getTls {
+    QuecWeakSelf(self);
     [[QuecDeviceService sharedInstance] getProductTSLWithProductKey:self.dataModel.productKey success:^(QuecProductTSLModel *tslModel) {
+        QuecStrongSelf(self);
         self.dataArray = tslModel.properties.copy;
-        [self getTslValue];
+        if (self.dataModel.capabilitiesBitmask != 4) {
+            [self getTslValue];
+        }else{
+            [self.tableView reloadData];
+        }
     } failure:^(NSError *error) {
         
     }];
