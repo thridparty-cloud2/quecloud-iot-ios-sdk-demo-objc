@@ -10,6 +10,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Toast/Toast.h>
 #import "QuecOTAPlanInfoModel.h"
+#import "QuecBleOTAViewController.h"
 
 @interface QuecOTAViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -124,7 +125,8 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         @quec_strongify(self);
         if (number > 0) {
-            
+            QuecBleOTAViewController *vc = [[QuecBleOTAViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else {
             [self.view makeToast:@"没有待升级的BLE-OTA设备" duration:3 position:CSToastPositionCenter];
         }
@@ -150,7 +152,7 @@
         NSString *pk = dict[@"pk"];
         NSString *dk = dict[@"dk"];
         if (!pk || !dk) {
-            // 处理未解包成功的情况，比如跳过当前循环
+            // 跳过当前循环
             continue;
         }
         
