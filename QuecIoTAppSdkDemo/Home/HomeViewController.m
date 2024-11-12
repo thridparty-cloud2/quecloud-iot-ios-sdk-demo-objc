@@ -12,6 +12,7 @@
 #import "DeviceControlViewController.h"
 #import "ShareInfoViewController.h"
 #import "BleDeviceListViewController.h"
+#import "QuecOTAViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
@@ -33,6 +34,14 @@
     self.title = @"设备列表";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    UIButton *otaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [otaButton setTitle:@"OTA" forState:UIControlStateNormal];
+    otaButton.frame = CGRectMake(0, 0, 50, 50);
+    [otaButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    otaButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [otaButton addTarget:self action:@selector(otaButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:otaButton];
+    
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"添加" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
@@ -47,6 +56,11 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
+}
+
+- (void)otaButtonClick {
+    QuecOTAViewController *vc = [[QuecOTAViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)addButtonClick {
