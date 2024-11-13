@@ -223,15 +223,14 @@
     }];
     
     // 添加状态监听器
-    [QuecBleOTAManager.sharedInstance addStateListener:self onSuccess:^(NSString * _Nonnull pk, NSString * _Nonnull dk, long waitTime) {
+    [QuecBleOTAManager.sharedInstance  addStateListener:self onSuccess:^(NSString * _Nonnull pk, NSString * _Nonnull dk, long waitTime) {
         // 处理成功状态更新
         NSLog(@"Success - PK: %@, DK: %@", pk, dk);
         @quec_strongify(self);
         [self.tableView reloadData];
-        
-    } onFail:^(NSString * _Nonnull pk, NSString * _Nonnull dk, int code) {
+    } onFail:^(NSString * _Nonnull pk, NSString * _Nonnull dk, QuecBleOTAErrorType errorType) {
         @quec_strongify(self);
-        NSLog(@"Fail - PK: %@, DK: %@", pk, dk);
+        NSLog(@"Fail - PK: %@, DK: %@, errorType: %ld", pk, dk, (long)errorType);
         [self.tableView reloadData];
     }];
     
