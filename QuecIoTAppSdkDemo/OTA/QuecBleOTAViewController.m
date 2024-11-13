@@ -128,7 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QuecOTAPlanInfoModel *model = self.dataArray[indexPath.row];
-    if (model.otaStatus == 2 || model.otaStatus == 4) {
+    if (model.otaStatus == 2 || model.otaStatus == 4 || model.otaStatus == 1) {
         return;
     }
     

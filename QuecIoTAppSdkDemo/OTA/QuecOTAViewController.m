@@ -161,8 +161,7 @@
         
         [QuecBleOTAManager.sharedInstance checkVersionWithProductKey:pk deviceKey:dk infoBlock:^(QuecBleOTAInfoModel * _Nullable infoModel) {
             if (infoModel != nil) {
-                QuecDeviceOTAPlanInfoModel *otaModel = [[QuecDeviceOTAPlanInfoModel alloc] init];
-                [dataArray addObject:otaModel];
+                [dataArray addObject:infoModel];
             } else {
                 NSLog(@"No info model received.");
             }
