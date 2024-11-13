@@ -13,6 +13,8 @@
 #import <QuecCommonUtil/QuecCommonUtil.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Toast/Toast.h>
+#import "QuecDeviceOTAStatusManager.h"
+#import <QuecOTAUpgradeKit/QuecOTAPlanParamModel.h>
 
 @interface QuecHttpOTAViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -36,6 +38,21 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    @quec_weakify(self);
+    [QuecDeviceOTAStatusManager.sharedInstance addHandlerOTAState:self listener:^{
+        @quec_strongify(self);
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [QuecDeviceOTAStatusManager.sharedInstance removeHandlerOTAState:self];
+    [QuecDeviceOTAStatusManager.sharedInstance cleanFailAndSuccessState];
 }
 
 - (void)loadData {
@@ -87,20 +104,20 @@
     cell.textLabel.text = model.deviceName;
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     
+    int otaState = [QuecDeviceOTAStatusManager.sharedInstance readDeviceStateWithProductKey:model.pk deviceKey:model.dk planId:model.planId];
+    model.otaStatus = otaState;
     
     if (model.otaStatus == 0) {
         cell.detailTextLabel.text = @"待更新";
     }else if (model.otaStatus == 1){
+        float upgradeProgress = [QuecDeviceOTAStatusManager.sharedInstance readDeviceUpdateProgressWithProductKey:model.pk deviceKey:model.dk];
         int progress = (int)(model.upgradeProgress * 100);
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%s",progress, "%"];
     }else if (model.otaStatus == 2){
-        int progress = (int)(model.upgradeProgress * 100);
         cell.detailTextLabel.text = @"更新成功";
     }else if (model.otaStatus == 3){
-        int progress = (int)(model.upgradeProgress * 100);
         cell.detailTextLabel.text = @"重试";
     }else if (model.otaStatus == 4){
-        int progress = (int)(model.upgradeProgress * 100);
         cell.detailTextLabel.text = @"更新失败";
     }
     
@@ -109,16 +126,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     QuecOTAPlanInfoModel *model = self.dataArray[indexPath.row];
-    if (model.otaStatus == 2 || model.otaStatus == 4) {
-        return;
+    int isUpgrade = [QuecDeviceOTAStatusManager.sharedInstance readDeviceStateWithProductKey:model.pk deviceKey:model.dk planId:model.planId];
+    if ((isUpgrade == 0 || isUpgrade == 3) && model.pk.length > 0 && model.dk.length > 0) {//可升级
+        QuecOTAPlanParamModel *paramModel = [[QuecOTAPlanParamModel alloc]init];
+        paramModel.pk = model.pk;
+        paramModel.dk = model.dk;
+        paramModel.planId = [model.planId longLongValue];
+        paramModel.operType = model.otaStatus == 3 ? 5 : 1;
+        @quec_weakify(self);
+        [QuecHttpOTAService.sharedInstance userBatchConfirmUpgradeWithList:@[paramModel] success:^(NSDictionary *data) {
+            @quec_strongify(self);
+            quec_async_on_main(^{
+                [self.tableView reloadData];
+            });
+            
+        } failure:^(NSError *error) {
+            
+        }];
+        
     }
-    
-    if (model == nil) {
-        return;
-    }
-    
-    
     
 }
 

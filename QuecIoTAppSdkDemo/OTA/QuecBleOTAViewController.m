@@ -168,7 +168,7 @@
         NSString *pk = dict[@"pk"];
         NSString *dk = dict[@"dk"];
         if (!pk || !dk) {
-            // 处理未解包成功的情况，比如跳过当前循环
+            // 跳过当前循环
             continue;
         }
         
