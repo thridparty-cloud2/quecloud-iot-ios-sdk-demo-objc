@@ -823,41 +823,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | codeList |    否|查询的属性标识符|
 | type |    否|1:查询设备基础属性，2:查询物模型属性，3:查询定位信息；查询类型可以单选和多选，如果需要查询多个类型的属性值，使用英文逗号分隔|
 | success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    | 
-
-#### 查询设备升级信息
-
-```
-- (void)getFetchPlanWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey extraInfo:(QuecDeviceOTAQueryModel *)extraInfo success:(void(^)(QuecDeviceOTAPlanModel *planModel))success failure:(QuecErrorBlock)failure;
-
-```
- 
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是|product key|
-| deviceKey |    是|device key|
-| extraInfo |    否| QuecDeviceOTAQueryModel类型，其他信息|
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    | 
-
-#### 上报设备升级信息
-
-```
-- (void)reportDeviceUpgradeStatusWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey componentNo:(NSString *)componentNo reportStatus:(NSInteger)reportStatus success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是|product key|
-| deviceKey |    是|device key|
-| componentNo |    是| 升级组件标识|
-| reportStatus |    是| 升级状态 0 - 12|
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    | 
-
+| failure |    否|接口请求失败回调    |
 
 #### 获取设备历史轨迹
 
@@ -2024,7 +1990,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
  
 #### 设备配网相关（QuecSmartConfigKit）
-#### 添加配网监听
+#### ~~添加配网监听~~(已过时, 使用下面新Api)
 
 ```
 - (void)addSmartConfigDelegate:(id<QuecSmartConfigDelegate>)delegate;
@@ -2036,7 +2002,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | delegate |	是| 遵循QuecSmartConfigDelegate协议对象	| 
 
 
-#### 移除配网监听
+#### ~~移除配网监听~~(已过时, 使用下面新Api)
 
 ```
 - (void)removeSmartConfigDelegate:(id<QuecSmartConfigDelegate>)delegate;
@@ -2048,7 +2014,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | delegate |	是| 遵循QuecSmartConfigDelegate协议对象	| 
 
 
-#### 开启配网(适用wifi+BLE类型设备配网)
+#### ~~开启配网(适用wifi+BLE类型设备配网)~~(已过时, 使用下面新Api)
 
 ```
 - (void)startConfigDevices:(NSArray<QuecPeripheralModel *> *)devices ssid:(NSString *)ssid password:(NSString *)password;
@@ -2062,9 +2028,276 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | password |	否| wifi密码	| 
 
 
-#### 取消进行域配网所有操作
+#### ~~取消进行域配网所有操作~~(已过时, 使用下面新Api)
 
 ```
 - (void)cancelConfigDevices;
+```
+
+### 设备配网绑定相关（#import <QuecSmartconfigKit/QuecDevicePairingService.h>）
+
+#### 扫描设备
+扫描结果参考QuecPairingDelegate
+```
+- (void)scanWithFid:(NSString * _Nullable)fid filier:(QuecBleFilterModel * _Nullable)filter;
+```
+|参数|	是否必传| 说明            |	
+| --- | --- |---------------| 
+| fid |	否| 家庭id，家居模式下传入	 | 
+| filter |	否| 过滤外设条件	       |
+
+#### 停止扫描
 
 ```
+- (void)stopScan;
+```
+
+#### 开始配对设备
+配网进度和结果参考QuecPairingDelegate
+```
+- (void)startPairingByDevices:(NSArray<QuecPairingPeripheral *> *)pairingDevices fid:(NSString *)fid ssid:(NSString *)ssid pwd:(NSString *)pwd;
+```
+|参数|	是否必传| 说明                        |	
+| --- | --- |---------------------------| 
+| devices |	是| 待绑定数据源	                   | 
+| fid |	否| 家庭id，传入值合法且不为空则默认家居模式下绑定设备	 |
+| ssid |	否| WiFi名称	                   |
+| pwd |	否| WiFi密码	                   |
+
+#### 取消所有设备配对
+
+```
+- (void)cancelAllDevicePairing;
+```
+
+#### 设置WiFi配网超时时间
+
+```
+- (BOOL)setWiFiPairingDuration:(int)duration;
+```
+|参数|	是否必传| 说明            |	
+| --- | --- |---------------|
+| duration |	否| 60~120,默认120秒，单位：秒	       |
+
+#### 设置Ble配对超时时间
+
+```
+- (BOOL)setBlePairingDuration:(int)duration;
+```
+
+|参数|	是否必传| 说明            |	
+| --- | --- |---------------|
+| duration |	否| 30~60,默认60秒，单位：秒	       |
+
+#### 添加配网绑定监听
+
+```
+- (void)addPairingListener:(id<QuecPairingDelegate>)listener;
+```
+
+|参数|	是否必传| 说明    |	
+| --- | --- |-------|
+| listener |	否| 代理对象	 |
+
+#### 移除配网绑定监听
+
+```
+- (void)removePairingListener:(id<QuecPairingDelegate>)listener;
+```
+
+|参数|	是否必传| 说明    |	
+| --- | --- |-------|
+| listener |	否| 代理对象	 |
+
+#### QuecPairingDelegate协议方法
+
+```
+/**
+    配网绑定进度
+    pairingPeripheral：当前配网绑定设备
+    progress: 配网绑定进度(0~1)
+*/
+- (void)didUpdatePairingStatus:(QuecPairingPeripheral *)pairingPeripheral progress:(CGFloat)progress;
+/**
+    配网绑定进结果
+    pairingPeripheral：当前配网绑定设备
+    result: 配网绑定结果
+    error: 配网绑定失败详细
+*/
+- (void)didUpdatePairingResult:(QuecPairingPeripheral *)pairingPeripheral result:(BOOL)result error:(NSError *)error;
+/**
+    外设扫描
+    pairingPeripheral：扫描到的外设对象
+*/
+- (void)centralDidDiscoverPairingPeripheral:(QuecPairingPeripheral *)pairingPeripheral;
+```
+
+#### QuecPairingPeripheral类
+|参数| 	类型 | 说明                    |	
+| --- |----|-----------------------|
+| productName | 	NSString  | 产品名称	                 |
+| deviceName | 	NSString | 设备名称	                 |
+| productLogo | 	NSString | 产品图片	                 |
+| bindingMode | 	int | 绑定模式: 多绑：1/唯一：2/轮流：3	 |
+| peripheralModel | 	QuecPeripheralModel | 扫描的BLE设备对象	           |
+
+#### QuecPeripheralModel类
+
+|参数| 	类型 | 说明                            |	
+| --- |----|-------------------------------|
+| uuid | 	NSString  | 设备唯一标志	                       |
+| pk | 	NSString | 设备pk	                         |
+| dk | 	NSString | 设备dk	                         |
+| mac | 	NSString | 蓝牙mac地址	                      |
+| isConfig | 	BOOL | wifi 设备是否已配网，1 表示已配网，0 表示未配网	 |
+| isBind | 	BOOL | 纯Ble设备是否已绑定	                  |
+| isEnableBind | 	BOOL | 纯Ble设备是否允许绑定	                 |
+| capabilitiesBitmask | 	int | 设备能力值 bit0=1 表示设备支持 WAN 远场通讯能力 bit1=1 表示设备支持 WiFi LAN 近场通讯能力 bit2=1 表示设备支持 BLE 近场通讯能力	                   |
+
+#### 配网绑定状态码QuecPairingState说明
+
+|参数| 	值   | 说明                            |	
+| --- |------|-------------------------------|
+| QuecPairingWaiting | 	301 | 设备待绑定	                       |
+| QuecPairingBleConnecting | 	302 | 蓝牙连接中                         |
+| QuecPairingBleConnectedFail | 	303 | 蓝牙连接失败                        |
+| QuecPairingWiFiGetBindingCodeFail | 	304 | WiFi配网设备，超时未获取到bindingcode	                      |
+| QuecPairingWiFiBindingSuccess | 	305 | WiFi配网成功	 |
+| QuecPairingWiFiBindingFail | 	306 | WiFi配网失败	                  |
+| QuecPairingBleGetRandomFail | 	307 | 向蓝牙设备询问random失败	                 |
+| QuecPairingBleGetEncryptionCodeFail | 	308 | 向云端请求加密bindingcode失败	                  |
+| QuecPairingBleCodeAuthFail | 	309 | 向蓝牙设备认证失败	                 |
+| QuecPairingBleCodeAuthSuccess | 	310 | 向蓝牙设备认证成功	                  |
+| QuecPairingBleBindingSuccess | 	311 | 蓝牙绑定成功	                 |
+| QuecPairingBleBindingFail | 	312 | 蓝牙绑定失败                  |
+| QuecPairingFail | 	313 | 通用异常场景：绑定失败, 如入参问题等	                 |
+
+### OTA SDK (QuecOTAUpgradeKit)
+
+#### 蓝牙OTA
+#### 查询单个设备升级计划
+
+```
+- (void)checkVersionWithProductKey:(NSString *)productKey
+                         deviceKey:(NSString *)deviceKey
+                         infoBlock:(void (^)(QuecBleOTAInfoModel * _Nullable infoModel))infoBlock;
+```
+
+|参数|	是否必传| 说明                     |	
+| --- | --- |------------------------|
+| productKey |	是| 设备pk	                  |
+| deviceKey |	是| 设备dk	                  |
+| infoBlock |	是| QuecBleOTAInfoModel回调	 |
+
+#### QuecBleOTAInfoModel类说明
+
+|参数| 	类型  | 说明                            |	
+| --- |------|-------------------------------|
+| pk | 	String | 设备pk	                       |
+| dk | 	String | 设备dk                        |
+| targetVersion | 	String | 新版本的版本号                      |
+| componentNo | 	String | 组件号                      |
+| desc | 	String | 升级说明	 |
+| fileName | 	String | 文件名	                  |
+| fileUrl | 	String | 文件下载地址	                 |
+| fileSize | 	NSInteger | 文件大小	                  |
+| fileSign | 	String | 文件Hash256值	                 |
+| planId | 	NSInteger | 升级计划ID	                  |
+
+#### 设置OTA成功或失败传输回调
+```
+- (void)addStateListener:(id)delegate
+               onSuccess:(OnSuccessBlock)onSuccess
+                  onFail:(OnFailBlock)onFail;
+```
+|参数|	是否必传| 说明    |	
+| --- | --- |-------|
+| delegate |	是| 代理对象	 |
+| onSuccess |	是| 成功回调	 |
+| OnFailBlock |	是| 失败回调	 |
+
+#### 移除设置OTA成功或失败传输回调
+```
+- (void)removeStateListener:(id)delegate;
+```
+|参数|	是否必传| 说明    |	
+| --- | --- |-------|
+| delegate |	是| 代理对象	 |
+
+#### 设置OTA进度回调接口监听
+```
+- (void)addProgressListener:(id)delegate
+           progressListener:(ProgressListenerBlock)progressListener;
+```
+|参数|	是否必传| 说明                             |	
+| --- | --- |--------------------------------|
+| delegate |	是| 代理对象	                          |
+| progressListener |	是| progress:当前单个文件传输的进度,范围为0 - 1	 |
+
+#### 移除OTA进度回调接口监听
+```
+- (void)removeProgressListener:(id)delegate;
+```
+|参数|	是否必传| 说明    |	
+| --- | --- |-------|
+| delegate |	是| 代理对象	 |
+
+#### 开始指定设备的ota流程
+```
+- (void)startOTAWithInfoList:(NSArray<QuecBleOTAInfoModel *> *)infoList;
+```
+|参数|	是否必传| 说明                             |	
+| --- | --- |--------------------------------|
+| infoList |	是| 可传多个设备，方法内部处理依次升级                          |
+
+
+####  终止指定设备的ota流程
+```
+- (void)stopOTAWithInfoList:(NSArray<QuecBleOTAInfoModel *> *)infoList;
+```
+|参数|	是否必传| 说明                             |	
+| --- | --- |--------------------------------|
+| infoList |	是| 可传多个设备，方法内部处理依次升级                          |
+
+#### QuecBleOTAErrorType错误码说明
+
+|参数|	说明|
+| --- | --- |
+| QuecBleOTAErrorTypeCommon |	通用错误|
+| QuecBleOTAErrorTypeNotConnect |	蓝牙未连接|
+| QuecBleOTAErrorTypeNoFilePath |	升级文件路径不存在|
+| QuecBleOTAErrorTypeFileCheckFail |	升级文件校验失败|
+| QuecBleOTAErrorTypeDeviceRefuse |	设备拒绝升级|
+| QuecBleOTAErrorTypeDeviceCancel |	设备取消升级|
+| QuecBleOTAErrorTypeDeviceFail |	设备升级失败|
+| QuecBleOTAErrorTypeDeviceTimeout |	升级超时|
+
+#### Http OTA
+#### 查询设备升级信息
+
+```
+- (void)getFetchPlanWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey extraInfo:(QuecDeviceOTAQueryModel *)extraInfo success:(void(^)(QuecDeviceOTAPlanModel *planModel))success failure:(QuecErrorBlock)failure;
+```
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| productKey |    是|product key|
+| deviceKey |    是|device key|
+| extraInfo |    否| QuecDeviceOTAQueryModel类型，其他信息|
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    | 
+
+#### 上报设备升级信息
+
+```
+- (void)reportDeviceUpgradeStatusWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey componentNo:(NSString *)componentNo reportStatus:(NSInteger)reportStatus success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+```
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| productKey |    是|product key|
+| deviceKey |    是|device key|
+| componentNo |    是| 升级组件标识|
+| reportStatus |    是| 升级状态 0 - 12|
+| success |    否|接口请求成功回调    | 
+| failure |    否|接口请求失败回调    | 
