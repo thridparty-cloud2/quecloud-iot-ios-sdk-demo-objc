@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cleanFailAndSuccessState;
 
+- (void)writeDeviceStateWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey planId:(NSString *)planId state:(int)state userConfirmStatus:(int)userConfirmStatus;
+
 @end
 
 @interface QuecDeviceOTAStateModel : NSObject

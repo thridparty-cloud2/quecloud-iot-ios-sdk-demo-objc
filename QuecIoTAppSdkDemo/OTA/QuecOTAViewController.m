@@ -11,6 +11,7 @@
 #import <Toast/Toast.h>
 #import "QuecOTAPlanInfoModel.h"
 #import "QuecBleOTAViewController.h"
+#import "QuecHttpOTAViewController.h"
 
 @interface QuecOTAViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -107,7 +108,8 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         @quec_strongify(self);
         if (number > 0) {
-            
+            QuecHttpOTAViewController *vc = [[QuecHttpOTAViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else {
             [self.view makeToast:@"没有待升级的HTTP-OTA设备" duration:3 position:CSToastPositionCenter];
         }
