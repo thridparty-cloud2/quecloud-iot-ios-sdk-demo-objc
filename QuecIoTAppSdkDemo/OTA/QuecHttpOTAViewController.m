@@ -59,7 +59,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
     // 接口支持分页，业务层自行处理刷新和加载
-    [QuecHttpOTAService.sharedInstance otaDeviceListWithFId:@"" page:1 pageSize:10 success:^(QuecOTADeviceListModel *listModel) {
+    [QuecHttpOTAService.sharedInstance getUpgradePlanDeviceList:@"" page:1 pageSize:10 success:^(QuecOTADeviceListModel *listModel) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         @quec_strongify(self);
         if (listModel && listModel.list.count) {

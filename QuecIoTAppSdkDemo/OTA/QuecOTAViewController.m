@@ -25,7 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-//    [self loadData];
     
     self.dataArray = @[@"查询HTTP-OTA是否有待升级设备", @"查询BLE-OTA是否有待升级设备"];
     
@@ -37,41 +36,6 @@
     
 }
 
-//- (void)loadData {
-//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    @quec_weakify(self);
-//    [QuecHttpOTAService.sharedInstance checkDeviceOTAPlan:self.dataModel.productKey deviceKey:self.dataModel.deviceKey success:^(QuecOTAPlanModel *planModel) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        @quec_strongify(self);
-//        if (planModel) {//当前设备有升级计划
-//            
-//            QuecOTAPlanInfoModel *otaModel = [[QuecOTAPlanInfoModel alloc]init];
-//            otaModel.dk = self.dataModel.deviceKey;
-//            otaModel.pk = self.dataModel.productKey;
-//            otaModel.versionInfo = planModel.versionInfo;
-//            otaModel.planName = planModel.planName;
-//            int otaStatus = 0;
-//            if (planModel.deviceStatus) {
-//                int deviceStatus = [planModel.deviceStatus intValue];
-//                if (deviceStatus == 0 && planModel.userConfirmStatus == 1) {
-//                    otaStatus = 1;
-//                } else {
-//                    otaStatus = deviceStatus;
-//                }
-//            }
-//            otaModel.otaStatus = otaStatus;
-//            otaModel.planId = [NSString stringWithFormat:@"%lld", planModel.planId];
-//            
-//        }else {//没有升级计划
-//            [self.view makeToast:@"当前设备没有升级计划" duration:3 position:CSToastPositionCenter];
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-//        NSLog(@"QuecOTAViewController--loadData--error: %@",error);
-//    }];
-//}
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -104,7 +68,7 @@
 - (void)loadHttpOTAData {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
-    [QuecHttpOTAService.sharedInstance userOTADevicesWithFId:@"" success:^(NSInteger number) {
+    [QuecHttpOTAService.sharedInstance getUserlsHaveDeviceUpgrade:@"" success:^(NSInteger number) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         @quec_strongify(self);
         if (number > 0) {
