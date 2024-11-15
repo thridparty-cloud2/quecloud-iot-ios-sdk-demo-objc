@@ -262,7 +262,7 @@ static id _instance = nil;
         return;
     }
     
-    [QuecHttpOTAService.sharedInstance checkDeviceOTAPlan:pk deviceKey:dk success:^(QuecOTAPlanModel *model) {
+    [QuecHttpOTAService.sharedInstance getDeviceUpgradePlan:pk deviceKey:dk success:^(QuecOTAPlanModel *model) {
         if (!model) {
             if (completion) {
                 completion(nil, nil);
