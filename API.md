@@ -1415,248 +1415,10 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    |
 
-
-#### QuecDeviceService (OTA) 方法
-
-#### 设备升级 - 检查升级计划
-```
-- (void)checkDeviceOTAPlan:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(QuecOTAPlanModel *))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是| product key    | 
-| deviceKey |    是| device key    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-#### 设备升级 - 用户确认升级计划
-```
-- (void)updateDeviceOTAWith:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是| product key    | 
-| deviceKey |    是| device key    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 - getAutoUpgradeSwitch
-```
-- (void)autoUpgradeSwitch:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(BOOL))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是| product key    | 
-| deviceKey |    是| device key    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 - 设置自动升级开关
-```
-- (void)setAutoUpgradeSwitch:(BOOL)isAuto productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| isAuto |     是 | 是否设置为自动升级：NO-否 YES-是    | 
-| productKey |    是| product key    | 
-| deviceKey |    是| device key    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-#### 设备升级 -  用户有可升级的设备
-```
-- (void)userOTADevicesWithFId:(NSString *)fId success:(void (^)(NSInteger))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| fId |     否 | 家庭ID    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-#### 设备升级 -  获取更新设备列表
-```
-- (void)otaDeviceListWithFId:(NSString *)fId page:(NSInteger)page pageSize:(NSInteger)pageSize success:(void (^)(QuecOTADeviceListModel *))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| fId |     否 | 家庭ID    | 
-| page |     否 | 当前页，默认1    | 
-| pageSize |     否 | 每页数量，默认10    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  获取自动更新设备列表
-```
-- (void)autoOtaDeviceListWithFId:(NSString *)fId page:(NSInteger)page pageSize:(NSInteger)pageSize success:(void (^)(QuecOTADeviceListModel *))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| fId |     否 | 家庭ID    | 
-| page |     否 | 当前页，默认1    | 
-| pageSize |     否 | 每页数量，默认10    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-
-#### 设备升级 -  获取用户自动更新开关值
-```
-- (void)userOTAAutoSwitchWithSuccess:(void (^)(BOOL))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  设置用户自动更新开关值
-```
-- (void)setUserOTAAutoSwitch:(BOOL)isAuto success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
-```
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| isAuto |    是|YES-启用 NO-停用    | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-#### 设备升级 -  批量添加设备进入自动更新
-```
-- (void)addOTADeviceList:(NSArray *)deviceList fid:(NSString *)fid success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| deviceList |    是|设备列表,deviceList":[{"pk": "string","dk": "string"}]| 
-| fid |    否| 家庭id | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  批量删除设备的自动更新
-```
-- (void)deleteOTADeviceList:(NSArray *)deviceList fid:(NSString *)fid success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| deviceList |    是|设备列表,deviceList":[{"pk": "string","dk": "string"}]| 
-| fid |    否| 家庭id | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  查询设备最近一次升级状态
-```
-- (void)getLatestUpgradeDetailsWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是|   product key | 
-| deviceKey |    是 | device key | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-#### 设备升级 -  按照planid查询设备升级状态
-```
-- (void)getUpgradeDetailsByPlanId:(NSString *)planId productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| planId |    是|  计划id | 
-| productKey |    是|   product key | 
-| deviceKey |    是 | device key | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  用户批量确认升级计划
-```
-- (void)userBatchConfirmUpgradeWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSDictionary *data))success failure:(QuecErrorBlock)failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| list |    是|  计划列表 | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-#### 设备升级 -  批量查询升级状态
-```
-- (void)getBatchUpgradeDetailsWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSArray<QuecOTAPlanModel *> *data))success failure:(QuecErrorBlock)failure;
-
-```
-
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| list |    是|  计划列表 | 
-| productKey |    是|   product key | 
-| deviceKey |    是 | device key | 
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    |
-
-
-
-
 #### 设备关联管理 - 绑定设备
 ```
 - (void)deviceAssociationWithList:(NSArray<QuecDeviceModel *> *)list master:(QuecDeviceModel *)masterDevice fid:(NSString *)fid success:(void (^)(void))success failure:(void (^)(NSError *))failure;
-
 ```
-
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
@@ -2272,32 +2034,124 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | QuecBleOTAErrorTypeDeviceFail |	设备升级失败|
 | QuecBleOTAErrorTypeDeviceTimeout |	升级超时|
 
-#### Http OTA
-#### 查询设备升级信息
+#### Http OTA (QuecHttpOTAService)
+####  查询设备升级计划
 
 ```
-- (void)getFetchPlanWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey extraInfo:(QuecDeviceOTAQueryModel *)extraInfo success:(void(^)(QuecDeviceOTAPlanModel *planModel))success failure:(QuecErrorBlock)failure;
-```
-
-|参数|    是否必传|说明|    
-| --- | --- | --- | 
-| productKey |    是|product key|
-| deviceKey |    是|device key|
-| extraInfo |    否| QuecDeviceOTAQueryModel类型，其他信息|
-| success |    否|接口请求成功回调    | 
-| failure |    否|接口请求失败回调    | 
-
-#### 上报设备升级信息
-
-```
-- (void)reportDeviceUpgradeStatusWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey componentNo:(NSString *)componentNo reportStatus:(NSInteger)reportStatus success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+- (void)checkDeviceOTAPlan:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(QuecOTAPlanModel *))success failure:(void (^)(NSError *))failure;
 ```
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
 | productKey |    是|product key|
 | deviceKey |    是|device key|
-| componentNo |    是| 升级组件标识|
-| reportStatus |    是| 升级状态 0 - 12|
 | success |    否|接口请求成功回调    | 
 | failure |    否|接口请求失败回调    | 
+
+#### QuecOTAPlanModel
+
+|参数| 类型 | 说明                                                                    |    
+| --- |----|-----------------------------------------------------------------------| 
+| planId | 是  | 升级计划id                                                                |
+| planName | 是  | 升级计划name                                                              |
+| versionInfo | 是  | 版本信息                                                                  |
+| dataType | 是  | 包类型                                                                   |
+| planStartTime | 否  | 计划开始时间，单位ms                                                           | 
+| planEndTime | 否  | 计划结束时间，单位ms                                                           | 
+| appointStartTime | 是  | 预约开始时间，单位ms                                                           |
+| appointEndTime | 是  | 预约结束时间，单位ms                                                           |
+| deviceStatus | 是  | 0-未升级, 1-升级中, 2-升级成功, 3-升级失败                                          |
+| userConfirmStatusDesc | 是  | 用户确认状态，0未确认(默认)，1马上升级(确认随时升级)，2预约升级(预约指定时间窗口升级)，3(取消预约和取消升级)，4升级结果已确认 |
+| comVerList | 否  | 组件升级信息QuecOTAComponetModel 数据源                                        | 
+| autoUpgrade | 否  | 暂时无用参数                                                                | 
+| deviceStatusDesc | 否  | 设备升级状态描述                                                              | 
+| userConfirmStatus | 是  | 用户确认状态：0-未确认，1-马上升级                                                   |
+| upgradeProgress | 是  | 升级进度                                                                  |
+| productKey | 是  | 设备pk                                                                  |
+| deviceKey | 是  | 设备dk                                                                  |
+
+####  查询可升级设备数
+
+```
+- (void)userOTADevicesWithFId:(NSString *)fId success:(void (^)(NSInteger))success failure:(void (^)(NSError *))failure;
+```
+
+|参数|    是否必传| 说明              |    
+| --- | --- |-----------------| 
+| fId |    是| 家庭id，家居模式下传入    |
+| success |    否| 接口请求成功回调  | 
+| failure |    否| 接口请求失败回调        | 
+
+####  有升级计划的设备列表
+
+```
+- (void)otaDeviceListWithFId:(NSString *)fId page:(NSInteger)page pageSize:(NSInteger)pageSize success:(void (^)(QuecOTADeviceListModel *))success failure:(void (^)(NSError *))failure;
+```
+
+|参数|    是否必传|说明|    
+| --- | --- | --- | 
+| fId |    是|家庭id，家居模式下传入|
+| page |     否 | 当前页 | 
+| pageSize |     否 | 每页数量    | 
+| success |    否|接口请求成功回调 | 
+| failure |    否|接口请求失败回调 | 
+
+#### QuecOTADeviceListModel类
+
+|参数| 类型         | 说明                    |    
+| --- |------------|-----------------------| 
+| page | NSInteger  | 当前页                   |
+| totalCount | NSInteger  | 总数量                   |
+| list | NSArray    | QuecOTADeviceModel数据源 |
+| pageSize | NSInteger  | 每页数量                  |
+
+#### QuecOTADeviceModel类
+
+|参数| 类型         | 说明                             |    
+| --- |------------|--------------------------------| 
+| productKey | NSString  | 产品pk                           |
+| deviceKey | NSString  | 设备dk                           |
+| deviceName | NSString    | 设备名称                           |
+| version | NSString  | 版本编号/升级计划名称                    |
+| desc | NSString  | 版本介绍/升级计划文案/版本包备注              |
+| deviceStatus | NSInteger  | 设备状态：0-未升级，1-升级中，2-升级成功，3-升级失败 |
+| productIcon | NSString  | 产品Icon                         |
+| enabledTime | NSString    | 暂未用到                           |
+| enabledTimeTs | NSTimeInterval  | 暂未用到                           |
+| planId | long long  | 升级计划id                            |
+| userConfirmStatus | NSInteger  | 用户确认状态：0-未确认，1-马上升级                           |
+
+####  用户批量确认升级计划
+
+```
+- (void)userBatchConfirmUpgradeWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSDictionary *data))success failure:(void (^)(NSError *error))failure;
+```
+
+|参数|    是否必传| 说明       |    
+| --- | --- |----------| 
+| list |    是| 数据源      |
+| success |    否| 接口请求成功回调 | 
+| failure |    否| 接口请求失败回调 | 
+
+####   批量查询设备升级详情
+
+```
+- (void)getBatchUpgradeDetailsWithList:(NSArray<QuecOTAPlanParamModel *> *)list success:(void(^)(NSArray<QuecOTAPlanModel *> *data))success failure:(void (^)(NSError *error))failure;
+```
+
+|参数|    是否必传| 说明       |    
+| --- | --- |----------| 
+| list |    是| 数据源      |
+| success |    否| 接口请求成功回调 | 
+| failure |    否| 接口请求失败回调 | 
+
+#### QuecOTAPlanParamModel类
+
+|参数| 类型         | 说明                             |    
+| --- |------------|--------------------------------| 
+| pk | NSString  | 产品pk                           |
+| dk | NSString  | 设备dk                           |
+| appointStartTime | NSTimeInterval    | 预约开始时间，单位ms，仅用于确认计划                           |
+| appointEndTime | NSTimeInterval  | 预约结束时间，单位ms，仅用于确认计划                   |
+| operType | NSInteger  | 操作类型:1-马上升级(确认随时升级)2-预约升级(预约指定时间窗口升级) 3-(取消预约和取消升级)5-重试              |
+| planId | long long  | 升级计划id |
