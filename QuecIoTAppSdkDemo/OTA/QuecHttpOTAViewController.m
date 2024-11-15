@@ -111,7 +111,7 @@
         cell.detailTextLabel.text = @"待更新";
     }else if (model.otaStatus == 1){
         float upgradeProgress = [QuecDeviceOTAStatusManager.sharedInstance readDeviceUpdateProgressWithProductKey:model.pk deviceKey:model.dk];
-        int progress = (int)(model.upgradeProgress * 100);
+        int progress = (int)(upgradeProgress * 100);
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%s",progress, "%"];
     }else if (model.otaStatus == 2){
         cell.detailTextLabel.text = @"更新成功";
@@ -139,6 +139,7 @@
         [QuecHttpOTAService.sharedInstance userBatchConfirmUpgradeWithList:@[paramModel] success:^(NSDictionary *data) {
             @quec_strongify(self);
             quec_async_on_main(^{
+                [QuecDeviceOTAStatusManager.sharedInstance writeDeviceStateWithProductKey:model.pk deviceKey:model.dk planId:model.planId state:1 userConfirmStatus:0];
                 [self.tableView reloadData];
             });
             

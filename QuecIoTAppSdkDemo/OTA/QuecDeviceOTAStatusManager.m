@@ -142,8 +142,10 @@ static id _instance = nil;
             QuecOTAPlanParamModel *param = [[QuecOTAPlanParamModel alloc] init];
             param.pk = [value pk];
             param.dk = [value dk];
-            param.planId = (int64_t)[value planId];
+            param.planId = [value.planId longLongValue];
             [paramsArray addObject:param];
+            NSLog(@"value.planId = %@",value.planId);
+            NSLog(@"param.planId = %lld",param.planId);
         }
     }
     
@@ -175,6 +177,7 @@ static id _instance = nil;
 }
 
 - (void)writeDeviceStateWithProductKey:(NSString *)productKey deviceKey:(NSString *)deviceKey planId:(NSString *)planId state:(int)state userConfirmStatus:(int)userConfirmStatus {
+    NSLog(@"writeDeviceStateWithProductKey--planId:%@",planId);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self writeStateWithProductKey:productKey deviceKey:deviceKey planId:planId state:state userConfirmStatus:userConfirmStatus upgradeProgress:0];
         

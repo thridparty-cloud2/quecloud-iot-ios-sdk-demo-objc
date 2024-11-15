@@ -13,6 +13,7 @@
 #import "ShareInfoViewController.h"
 #import "BleDeviceListViewController.h"
 #import "QuecOTAViewController.h"
+#import "QuecDeviceOTAStatusManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
@@ -234,6 +235,10 @@
         device.delegate = self;
         [device connect];
         [_deviceDatas quec_safeSetObject:device forKey:deviceModel.deviceId];
+        NSLog(@"getDeviceList-deviceModel:%@", deviceModel);
+        if (deviceModel.upgradeStatus == 1 || (deviceModel.upgradeStatus == 0 && deviceModel.userConfirmStatus == 1)) {
+            [QuecDeviceOTAStatusManager.sharedInstance writeDeviceStateWithProductKey:deviceModel.productKey deviceKey:deviceModel.deviceKey planId:[NSString stringWithFormat:@"%ld",deviceModel.planId] state:1 userConfirmStatus:0];
+        }
     }
 }
 
