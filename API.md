@@ -2038,7 +2038,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ####  查询设备升级计划
 
 ```
-- (void)checkDeviceOTAPlan:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(QuecOTAPlanModel *))success failure:(void (^)(NSError *))failure;
+- (void)getDeviceUpgradePlan:(NSString *)productKey deviceKey:(NSString *)deviceKey success:(void (^)(QuecOTAPlanModel *))success failure:(void (^)(NSError *))failure;
 ```
 
 |参数|    是否必传|说明|    
@@ -2073,7 +2073,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ####  查询可升级设备数
 
 ```
-- (void)userOTADevicesWithFId:(NSString *)fId success:(void (^)(NSInteger))success failure:(void (^)(NSError *))failure;
+- (void)getUserlsHaveDeviceUpgrade:(NSString *)fId success:(void (^)(NSInteger))success failure:(void (^)(NSError *))failure;
 ```
 
 |参数|    是否必传| 说明              |    
@@ -2085,7 +2085,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ####  有升级计划的设备列表
 
 ```
-- (void)otaDeviceListWithFId:(NSString *)fId page:(NSInteger)page pageSize:(NSInteger)pageSize success:(void (^)(QuecOTADeviceListModel *))success failure:(void (^)(NSError *))failure;
+- (void)getUpgradePlanDeviceList:(NSString *)fId page:(NSInteger)page pageSize:(NSInteger)pageSize success:(void (^)(QuecOTADeviceListModel *))success failure:(void (^)(NSError *))failure;
 ```
 
 |参数|    是否必传|说明|    
