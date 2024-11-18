@@ -207,7 +207,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)loginWithMobile:(NSString *)mobile code:(NSString *) code internationalCode:(NSString *)internationalCode  success:(void(^)())success failure:(void(^)(NSError *error))failure;
 
 ```
- 
+
 
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
@@ -280,7 +280,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
 - (void)validateSmsCode:(NSString *)phone smsCode:(NSString *)smsCode internationalCode:(NSString *)internationalCode type:(NSInteger)type success:(void(^)())success failure:(void(^)(NSError *error))failure;
 
-``` 
+```
 
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
@@ -491,7 +491,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)resetPasswordByEmail:(NSString *)email code:(NSString *)code internationalCode:(NSString *)internationalCode password:(NSString *)password success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
 
 ```
- 
+
 
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
@@ -683,7 +683,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
 - (void)getDeviceListByDeviceName:(NSString *)deviceName pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecDeviceModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
 ```
- 
+
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
@@ -798,7 +798,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)getProductTSLWithProductKey:(NSString *)productKey success:(void(^)(QuecProductTSLModel *tslModel))success failure:(void(^)(NSError *error))failure;
 
 ```
- 
+
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
@@ -945,7 +945,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)getCronJobListWithDeviceKey:(NSString *)deviceKey productKey:(NSString *)productKey type:(NSString *)type pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecCornJobModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
 
 ```
- 
+
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
@@ -1040,7 +1040,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
 - (void)getDeviceDkForSn:(NSString *)sn productKey:(NSString *)productKey success:(void(^)(NSDictionary *dictionary))success failure:(QuecErrorBlock)failure;
 ```
- 
+
 
 |参数|    是否必传|说明|    
 | --- | --- | --- | 
@@ -1352,7 +1352,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | failure |    否|接口请求失败回调    |
 
  
- 
+
 #### 删除分组中的设备
 ```
 - (void)deleteDeviceFromGroupWithDeviceGroupId:(NSString *)deviceGroupId deviceList:(NSArray *)deviceList success:(void(^)(NSDictionary *data))success failure:(void(^)(NSError *error))failure;
@@ -1690,7 +1690,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)disconnectPeripheral:(QuecPeripheralModel *)peripheral;
 
 ```
- 
+
 
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
@@ -1703,8 +1703,8 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)sendCommandToPeripheral:(QuecPeripheralModel *)peripheral command:(QuecTtlvCommandModel *)command completion:(void(^)(BOOL timeout, QuecTtlvCommandModel *response))completion;
 
 ```
- 
- 
+
+
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
 | peripheral |	是| QuecPeripheralModel	| 
@@ -1720,7 +1720,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 ```
 
  
- 
+
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
 | peripheral |	是| QuecPeripheralModel	| 
@@ -1736,8 +1736,8 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (void)stopAES128EncryptAndDecryptWithPeripheral:(QuecPeripheralModel *)peripheral serviceUuid:(NSString *)serviceUuid;
 
 ```
- 
- 
+
+
 |参数|	是否必传|说明|	
 | --- | --- | --- | 
 | peripheral |	是| QuecPeripheralModel	| 
@@ -1750,7 +1750,7 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 - (BOOL)getPeripheralConnectState:(QuecPeripheralModel *)peripheral;
 
 ```
- 
+
 #### 设备配网相关（QuecSmartConfigKit）
 #### ~~添加配网监听~~(已过时, 使用下面新Api)
 
@@ -2155,3 +2155,778 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | appointEndTime | NSTimeInterval  | 预约结束时间，单位ms，仅用于确认计划                   |
 | operType | NSInteger  | 操作类型:1-马上升级(确认随时升级)2-预约升级(预约指定时间窗口升级) 3-(取消预约和取消升级)5-重试              |
 | planId | long long  | 升级计划id |
+
+
+
+## 家居SDK QuecSmartHomeKit
+
+### QuecSmartHomeService类  
+
+#### 获取单例对象
+```
++ (instancetype)sharedInstance;
+
+```
+
+#### 启用停用家居模式
+```
+- (void)enabledFamilyMode:(BOOL)familyMode success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| familyMode |	是|启用停用家居模式	| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+#### 启用停用自动切换
+```
+- (void)enabledAutoSwitch:(BOOL)autoSwitch success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| autoSwitch |	是|启用停用自动切换| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+#### 查询用户的家居模式配置
+```
+- (void)getFamilyModeConfigWithSuccess:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+#### 创建家庭
+```
+- (void)addFamilyWithFamilyParamModel:(QuecFamilyParamModel *)familyParamModel success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| familyParamModel |	是|QuecFamilyParamModel| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 修改家庭信息
+```
+- (void)setFamilyWithFamilyParamModel:(QuecFamilyParamModel *)familyParamModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| familyParamModel |	是|QuecFamilyParamModel| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 删除家庭
+```
+- (void)deleteFamilyWithFid:(NSString *)fid success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 查询当前家庭
+```
+- (void)getCurrentFamilyWithFid:(NSString *)fid currentCoordinates:(NSString *)currentCoordinates success:(void(^)(QuecFamilyItemModel *))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	否|家庭id| 
+| currentCoordinates |	否|当前GPS定位坐标，WGS84坐标系，格式：40.759186,-73.928204| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 查询家庭列表
+```
+- (void)getFamilyListWithRole:(NSString *)role pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| role |	否|角色，成员角色：1-创建者  2-管理员 | 
+| pageNumber |	否|页码，默认1| 
+| pageSize |	否|页大小，默认10| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+#### 查询家庭中设备列表
+```
+- (void)getFamilyDeviceListWithFid:(NSString *)fid isAddOwnerDevice:(BOOL)isAddOwnerDevice deviceName:(NSString *)deviceName pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyDeviceItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| isAddOwnerDevice |	否|是否加上自己的所有设备 | 
+| deviceName |	否|设备名称| 
+| pageNumber |	否|页码，默认1| 
+| pageSize |	否|页大小，默认10| 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 添加常用设备
+```
+- (void)addCommonUsedDeviceWithFid:(NSString *)fid deviceList:(NSArray *)deviceList success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| deviceList |	是|设备列表：{@"dk":@"",@"pk":@""} | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+
+#### 移除常用设备
+```
+- (void)deleteCommonUsedDeviceWithFid:(NSString *)fid deviceList:(NSArray *)deviceList success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| deviceList |	是|设备列表：{@"dk":@"",@"pk":@""} | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+
+
+#### 查询常用设备列表
+```
+- (void)getCommonUsedDeviceListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyDeviceItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| pageNumber |	否|页码，默认1 | 
+| pageSize |	否|页大小，默认10 | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+
+#### 创建房间
+```
+- (void)addFamilyRoomWithFid:(NSString *)fid roomName:(NSString *)roomName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| roomName |	是|房间名称 | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+
+
+#### 设置房间
+```
+- (void)setFamilyRoomWithFrid:(NSString *)frid roomName:(NSString *)roomName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是|家庭id |
+| roomName |	是|房间名称 | 
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	| 
+
+
+
+#### 删除房间
+```
+- (void)deleteFamilyRoomsWithIds:(NSArray<NSString *> *)fridList success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fridList |	是| 房间id列表|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####  移入设备到房间
+```
+- (void)addDeviceInFamilyRoomWithDeviceList:(NSArray *)deviceList success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| deviceList |	是| 设备列表：{@"dk":@"",@"pk":@"", @"oldFrid":@"",@"newFrid":@""}|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####  设置房间排序
+```
+- (void)setFamilyRoomSortWithRoomRortList:(NSArray *)roomSortList success:(QuecDictionaryBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| roomSortList |	是| 房间排序列表:@{@"frid":@"", @"roomSort":@""}|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####  查询房间中设备列表
+```
+- (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyDeviceItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| frid |	是| 家庭房间id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####  查询家庭中的房间列表
+```
+- (void)getFamilyRoomListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyRoomItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####  邀请家庭成员
+```
+- (void)inviteFamilyMemberWithModel:(QuecInviteFamilyMemberParamModel *)inviteModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| inviteModel |	是| QuecInviteFamilyMemberParamModel，邀请信息|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   家庭成员邀请的处理
+```
+- (void)familyMemberInviteHandleWithFid:(NSString *)fid decide:(NSInteger)decide success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| decide |	是|0：拒绝邀请，1：同意邀请|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+####   修改家庭成员名称
+```
+- (void)setFamilyMemberNameWithFid:(NSString *)fid memberUid:(NSString *)memberUid memberName:(NSString *)memberName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| memberUid |	是|家庭成员用户Id|
+| memberName |	是|成员名称|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   修改家庭成员角色
+```
+- (void)setFamilyMemberRoleWithFid:(NSString *)fid memberUid:(NSString *)memberUid memberRole:(NSString *)memberRole success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| memberUid |	是|家庭成员用户Id|
+| memberRole |	是|2：管理员，3：普通成员|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   移除家庭成员
+```
+- (void)deleteFamilyMemberWithFid:(NSString *)fid memberUid:(NSString *)memberUid success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| memberUid |	是|家庭成员用户Id|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+####   离开家庭
+```
+- (void)leaveFamilyWithFid:(NSString *)fid success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####  查询家庭中的家庭成员列表
+```
+- (void)getFamilyMemberListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecFamilyMemberItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####   查询被邀请列表
+```
+- (void)getFamilyInviteListWithPageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecInviteItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####   查询家庭设备组列表
+```
+- (void)getFamilyGroupListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray <QuecFamilyDeviceGroupInfoModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####  通过SN绑定设备
+```
+- (void)bindDeviceByFid:(NSString *)fid SerialNumber:(NSString *)serialNumber productKey:(NSString *)productKey deviceName:(NSString *)deviceName success:(void(^)(NSDictionary *dataDict))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| serialNumber |	是| 设备SN码|
+| productKey |	是| product key|
+| deviceName |	否| 设备名称|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####  添加家庭设备分组
+```
+- (void)addFamilyDeviceGroupWithInfo:(QuecFamilyDeviceGroupModel *)groupInfoModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| groupInfoModel |	是| QuecFamilyDeviceGroupModel ，分组信息|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+
+####    获取分组列表
+```
+- (void)getDeviceGroupListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecFamilyDeviceItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+
+####    通过authCode绑定设备
+可用于wifi/wifi+蓝牙设备绑定
+
+```
+- (void)bindDeviceByFid:(NSString *)fid authCode:(NSString *)authCode productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey deviceName:(NSString *)deviceName success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| authCode |	是| 设备authCode|
+| productKey |	是| product key|
+| deviceKey |	是| device key|
+| deviceName |	否| deviceName|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+
+####    查询不在家庭设备组内的设备列表
+```
+- (void)getDeviceListByNotInDeviceGroupWithFid:(NSString *)fid PageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize groupId:(NSString *)groupId success:(void(^)(NSArray <QuecFamilyDeviceItemModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####    通过authCode绑定设备
+可用于wifi/wifi+蓝牙设备绑定，兼容旧方法新增返回参数
+
+```
+- (void)bindDeviceAndGetDeviceInfoByFid:(NSString *)fid authCode:(NSString *)authCode productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey deviceName:(NSString *)deviceName success:(void (^)(NSDictionary *dictionary))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| authCode |	是| 设备authCode|
+| productKey |	是| product key|
+| deviceKey |	是| device key|
+| deviceName |	否| deviceName|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####    编辑设备信息
+
+```
+- (void)setDeviceInfoWithModelArray:(NSArray<QuecSetDeviceInfoModel *> *)modelArray success:(void(^)(NSDictionary *dataDict))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| modelArray |	是| 设备信息|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+
+####    通过authCode绑定设备
+可用于wifi/wifi+蓝牙设备绑定，兼容旧方法新增设备连网能力入参
+
+```
+- (void)bindWifiDeviceByFid:(NSString *)fid authCode:(NSString *)authCode productKey:(NSString *)productKey deviceKey:(NSString *)deviceKey deviceName:(NSString *)deviceName capabilitiesBitmask:(NSInteger)capabilitiesBitmask success:(void (^)(NSDictionary *dictionary))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭Id|
+| authCode |	是| 设备authCode|
+| productKey |	是| product key|
+| deviceKey |	是| device key|
+| deviceName |	否| deviceName|
+| capabilitiesBitmask |	否| 设备连网能力|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+#### QuecFamilyDeviceGroupInfoModel
+
+|参数| 类型 | 说明                                                                    |    
+| --- |----|-----------------------------------------------------------------------| 
+| name | NSString  | 名称                                                                |
+| fid | NSString  | 家庭ID                                                              |
+| address | NSString  | 地址                                                                  |
+| contactPhoneList | NSString  | 联系人                                                                   |
+| coordinate | NSString  | 经纬度                                                           | 
+| coordinateSystem | NSString  | 坐标系                                                           | 
+| descrip | NSString  | 说明                                                           |
+| manager | NSString  | 管理员                                                           |
+| managerType | NSString  | 管理员类型                                          |
+| parentId | NSString  | 父设备组ID |
+| extend | NSString  | 拓展字段                                        | 
+| dgid | NSString  | 分组ID                                                                | 
+| owner | NSString  | 拥有者                                                              | 
+| addTime | NSString  | 添加时间                                                   |
+| addTimeTs | NSInteger  | 添加时间戳                                                                  |
+
+
+
+#### QuecFamilyDeviceGroupModel
+
+|参数| 类型 | 说明                                                                    |    
+| --- |----|-----------------------------------------------------------------------| 
+| name | NSString  | 名称                                                                |
+| fid | NSString  | 家庭ID                                                              |
+| address | NSString  | 地址                                                                  |
+| contactPhoneList | NSString  | 联系人                                                                   |
+| coordinate | NSString  | 经纬度                                                           | 
+| coordinateSystem | NSString  | 坐标系                                                           | 
+| descrip | NSString  | 说明                                                           |
+| manager | NSString  | 管理员                                                           |
+| managerType | NSString  | 管理员类型                                          |
+| parentId | NSString  | 父设备组ID |
+| extend | NSString  | 拓展字段                                        |
+
+
+
+#### QuecFamilyDeviceListParamsModel
+
+|参数| 类型 | 说明                                                                    |    
+| --- |----|-----------------------------------------------------------------------| 
+| fid | NSString  | 家庭ID                                                                |
+| isAddOwnerDevice | BOOL  | 是否加上自己的所有设备，非必须                                                               |
+| deviceName | NSString  | 设备名称搜索, 非必须                                                                |
+| pageNumber | NSInteger  | 页码，非必填，默认1                                                                   |
+| pageSize | NSInteger  | 页大小，非必填，默认10                                                           | 
+| isGroupDeviceShow | BOOL  | 是否显示群组设备，默认缺省                                                           | 
+| isAssociation | BOOL  | 查询未被关联的设备, 默认 false                                                           |
+| secondItemCode | NSString  | 二级品类过滤, 默认为空                                                           |
+| pkList | NSString  | 增加pklist, 多pk用逗号隔开                                         |
+
+
+
+#### QuecFamilyItemModel
+
+|参数| 类型 | 说明                      |    
+| --- |----|-------------------------| 
+| fid | NSString  | 家庭ID                    |
+| familyName | NSString  | 名称                      |
+| familyLocation | NSString  | 家庭位置                    |
+| familyCoordinates | NSString  | 家庭经纬度                   |
+| addTime | NSString  | 添加时间                    | 
+| addTimeTs | NSInteger  | 添加时间戳                   | 
+| memberRole | NSInteger  | 角色,1-创建者  2-管理员  3-普通成员 |
+| currentRoom | QuecFamilyRoomItemModel  | 二级模型                    |
+| rooms | NSArray<QuecFamilyRoomItemModel *>  | 二级模型      |
+
+
+####  更新家庭列表
+```
+- (void)updateRooms:(NSArray<QuecFamilyRoomItemModel *> *)rooms;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| rooms |	是| NSArray<QuecFamilyRoomItemModel *>|
+
+
+####  设置当前房间
+```
+- (void)setSelectRoom:(QuecFamilyRoomItemModel *)room;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| room |	是| QuecFamilyRoomItemModel|
+
+
+
+#### QuecFamilyMemberItemModel
+
+|参数| 类型 | 说明                  |    
+| --- |----|---------------------| 
+| uid | NSString  | 用户Id                |
+| phone | NSString  | 手机号                  |
+| nikeName | NSString  | 昵称                |
+| sex | NSInteger  | 性别               |
+| address | NSString  | 地址                | 
+| email | NSString  | 邮箱               | 
+| headimg | NSString  | 头像 |
+| wechatMiniprogramUserId | NSString  | 小程序Id                |
+| wechatUnionId | NSString  | 微信Id      |
+| appleUserId | NSString  | apple Id      |
+| twitterUserId | NSInteger  | twitter Id      |
+| facebookUserId | NSString  | facebook Id      |
+| alipayUserId | NSString  | alipay Id      |
+| qqUserId | NSString  | qq Id      |
+| wechatOffiaccountUserId | NSString  | wechatOffiaccount Id      |
+| registerTime | NSString  | 注册时间      |
+| registerTimeTs | NSInteger  | 注册时间戳      |
+| lastLoginTime | NSString  | 上次登录时间 |
+| lastLoginTimeTs | NSInteger  | 上次登录时间戳 |
+| timezone | NSString  | 时区  |
+| nationality | NSString  | 国家  |
+| province | NSString  | 省   |
+| city | NSString  | 市   |
+| lang | NSString  | 语言   |
+| status | NSInteger  | 状态   |
+| signature | NSString  | 签名   |
+| remark | NSString  | 备注   |
+| memberRole | NSInteger  | 角色类型   |
+| memberName | NSString  | 名称   |
+
+
+
+#### QuecFamilyParamModel
+
+|参数| 类型 | 说明                      |    
+| --- |----|-------------------------| 
+| fid | NSString  | 家庭Id,更改家庭信息和删除家庭时必传，创建家庭不用传                    |
+| familyName | NSString  | 名称，创建家庭时该参数必传，更改家庭非必传                      |
+| familyLocation | NSString  | 家庭位置，非必传                    |
+| familyCoordinates | NSString  | 家庭经纬度，WGS84坐标系，格式：40.759186,-73.928204, 非必传                   |
+| familyRoomList | NSArray<NSString *>  | 房间列表,非必传                    |
+
+
+
+#### QuecFamilyRoomItemModel
+
+|参数| 类型 | 说明                      |    
+| --- |----|-------------------------| 
+| fid | NSString  | 家庭Id                    |
+| roomName | NSString  | 房间名称                      |
+| roomSort | NSInteger  | 房间排序                    |
+
+
+
+#### QuecInviteFamilyMemberParamModel
+
+|参数| 类型 | 说明                      |    
+| --- |----|-------------------------| 
+| fid | NSString  | 家庭Id，邀请成员时必填                    |
+| memberRole | NSString  | 成员角色：2-管理员  3-普通成员，邀请成员时必填                      |
+| memberName | NSString  | 成员名称，邀请成员时非必填                    |
+| invalidTime | NSInteger  | 邀请失效时间，毫秒时间戳，邀请成员时必填                   |
+| phone | NSString  | 手机号，邀请成员时非必填                    |
+| email | NSString  | 邮箱，邀请成员时非必填                    |
+| uid | NSString  | 用户Id，邀请成员时非必填                    |
+
+
+
+#### QuecInviteFamilyMemberParamModel
+
+|参数| 类型 | 说明                      |    
+| --- |----|-------------------------| 
+| fid | NSString  | 家庭ID                    |
+| familyName | NSString  | 名称                      |
+| familyLocation | NSString  | 家庭位置                    |
+| familyCoordinates | NSString  | 家庭经纬度                   |
+| addTime | NSString  | 添加时间                    | 
+| addTimeTs | NSInteger  | 添加时间戳                   |
+| invalidTime | NSString  | 邀请时间                    |
+
+
+
+#### QuecSetDeviceInfoModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| fid | NSString | 家庭ID  |
+| dk | NSString | 设备dk  |
+| pk | NSString | 设备pk  |
+| deviceName | NSString | 设备名称 |
+| isCommonUsed | BOOL     | 是否常用：true-常用，false-不是常用  | 
+| type | int       | 设备类型：1-家庭中的设备，2-用户接收分享的设备，3-用户多绑模式的设备 |
+| oldFrid | NSString | 移出房间ID  |
+| selectFrid | NSString | 移入房间ID  |
+| shareCode | NSString | 分享码  |
