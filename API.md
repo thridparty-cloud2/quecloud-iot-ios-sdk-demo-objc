@@ -2930,3 +2930,1105 @@ typedef NS_ENUM(NSUInteger, QuecCloudServiceType) { //云服务类型
 | oldFrid | NSString | 移出房间ID  |
 | selectFrid | NSString | 移入房间ID  |
 | shareCode | NSString | 分享码  |
+
+
+
+## 场景SDK QuecSceneKit
+
+### QuecSceneService类
+
+#### 获取单例对象
+```
++ (instancetype)sharedInstance;
+
+```
+
+
+####   新增场景
+```
+- (void)addSceneWithSceneModel:(QuecSceneModel *)sceneModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| sceneModel |	是| QuecSceneModel|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   编辑场景
+```
+- (void)editSceneWithSceneModel:(QuecSceneModel *)sceneModel success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| sceneModel |	是| QuecSceneModel|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   删除场景
+```
+- (void)deleteSceneWithFid:(NSString *)fid sceneId:(NSString *)sceneId success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | --- | --- | 
+| fid |	是| 家庭id|
+| sceneId |	是| 场景Id|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取场景列表
+```
+- (void)getSceneListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecSceneModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|	
+| --- | -- | --- | 
+| fid |	是| 家庭id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	| 
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取常用场景列表
+```
+- (void)getCommonSceneListWithFid:(NSString *)fid pageNumber:(NSInteger)pageNumber pageSize:(NSInteger)pageSize success:(void(^)(NSArray<QuecSceneModel *> *list, NSInteger total))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	是| 家庭id|
+| pageNumber |	否| 页码，默认1|
+| pageSize |	否| 页大小，默认10|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   执行场景
+```
+- (void)executeSceneWithFid:(NSString *)fid sceneId:(NSString *)sceneId success:(void(^)(QuecActionExecuteResultModel *executeResultModel))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	是| 家庭id|
+| sceneId |	是| 场景id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   测试场景
+```
+- (void)executeTestSceneWithSceneModel:(QuecSceneModel *)sceneModel success:(void(^)(QuecActionExecuteResultModel *executeResultModel))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| sceneModel |	是| QuecSceneModel|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询场景详情
+```
+- (void)getSceneInfoWithFid:(NSString *)fid sceneId:(NSString *)sceneId success:(void(^)(QuecSceneModel * scene))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	否| 家庭id|
+| sceneId |	是| 场景id，必传|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取场景日志列表
+```
+- (void)getSceneLogListWithFid:(NSString *)fid lastExecutionId:(long)lastExecutionId limit:(NSInteger)limit success:(void(^)(NSArray<QuecSceneLogItemModel *> *list))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	否| 家庭id|
+| lastExecutionId |	否| 最后一条执行日志的id|
+| limit |	否| 数量|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取场景日志列表
+```
+- (void)clearSceneLogWithFid:(NSString *)fid success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	否| 家庭id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取场景日志详情
+```
+- (void)getSceneLogDetailInfoWithExecutionId:(long)executionId success:(void(^)(QuecSceneLogItemModel *detailInfo))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| executionId |	是| 场景日志执行Id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   批量增加常用场景
+```
+- (void)batchAddCommonSceneWithFid:(NSString *)fid sceneList:(NSArray *)sceneList success:(void(^)(NSDictionary *data))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	否| 家庭id|
+| sceneList |	是| 场景Id数组|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   批量删除常用场景
+```
+- (void)batchDeleteCommonSceneWithFid:(NSString *)fid sceneList:(NSArray *)sceneList success:(void(^)(NSDictionary *data))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |	否| 家庭id|
+| sceneList |	是| 场景Id数组|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+#### QuecActionExecuteResultModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| executeResult | BOOL | 执行结果  |
+| failCount | NSInteger | 失败结果  |
+| successCount | NSInteger | 成功结果  |
+| failActionList | NSArray<QuecFailActionModel *> | 成功结果 |
+| isCommonUsed | BOOL     | 是否常用：true-常用，false-不是常用  | 
+
+
+
+#### QuecFailActionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| productKey | NSString | 产品pk  |
+| deviceName | NSString | 设备名称  |
+| imageLogo | NSString | 设备图片  |
+| deviceKey | NSString | 设备dk |
+
+
+
+#### QuecSceneActionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| code | NSString | 物模型code  |
+| itemId | NSInteger | 物模型id  |
+| dataType | NSString | 物模型数据类型  |
+| name | NSString | 物模型name |
+| subName | NSString | 物模型值 name  |
+| subType | NSString | 物模型subType  |
+| unit | NSString | 物模型单位  |
+| value | id | 物模型值 可能是基本数据类型，可能是NSArray<QuecSceneActionModel *>类型 |
+| type | NSString | 物模型 type |
+
+
+
+#### QuecSceneLogItemModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| sceneId | NSString | 场景Id  |
+| sceneName | NSString | 场景名称  |
+| sceneIcon | NSString | 场景icon  |
+| executionId | long | 执行id |
+| executionTime | long | 执行时间  |
+| executionResult | int | 执行结果  |
+| executionList | NSArray<QuecSceneLogExecutionModel *> | 执行结果  |
+
+
+
+#### QuecSceneLogExecutionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| productKey | NSString | 产品pk  |
+| deviceKey | NSString | 设备dk  |
+| deviceName | NSString | 设备名称  |
+| logoImage | NSString | 设备图片 |
+| executionResult | int | 执行结果  |
+| actionResultList | NSArray<QuecSceneLogActionModel *> | 执行结果  |
+
+
+
+#### QuecSceneLogActionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| result | BOOL | result  |
+| reason | NSString | 原因  |
+| createTime | long | 时间戳  |
+| action | QuecSceneActionModel | 物模型 |
+
+
+
+#### QuecSceneModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| fid | NSString | 家庭Id  |
+| isCommon | BOOL | 是否常用  |
+| sceneInfo | long | 时间戳  |
+| action | QuecSceneInfoModel | 场景详情 |
+
+
+
+#### QuecSceneInfoModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| sceneId | NSString | 场景Id  |
+| name | NSString | 场景名称  |
+| icon | NSString | 场景Icon  |
+| metaDataList | NSArray<QuecSceneMetaDataModel *> | 场景设备动作列表 |
+
+
+
+#### QuecSceneMetaDataModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| actionList | NSArray<QuecSceneActionModel *> | 设备动作列表  |
+| deviceKey | NSString | 设备dk  |
+| productKey | NSString | 产品pk  |
+| deviceName | NSString | 设备名称 |
+| imageLogo | NSString | 设备icon |
+| deviceType | NSInteger | 设备类型 1 默认普通设备 2 群组 |
+
+
+
+## 自动化SDK QuecAutomateKit
+
+### QuecAutomateService类
+####   创建自动化
+```
++ (void)addAutomationWithModel:(QuecAutomateModel *)model
+                       success:(QuecVoidBlock)success
+                       failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| model |是| QuecAutomateModel|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   编辑自动化
+```
++ (void)editAutomationWithModel:(QuecAutomateModel *)model
+                        success:(QuecVoidBlock)success
+                        failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| model |是| QuecAutomateModel|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询自动化列表
+```
++ (void)getAutomationListWithFid:(nullable NSString *)fid
+                      pageNumber:(NSInteger)pageNumber
+                        pageSize:(NSInteger)pageSize
+                         success:(QuecAutomationModelsSuccessBlock)success
+                         failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭ID，开启家居模式必填，否则不填|
+| pageNumber |否| 分页当前页码,默认 1|
+| pageSize |否| 分页每页条数,默认 10|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   启停自动化
+```
++ (void)updateAutomationSwitchStatusWithFid:(nullable NSString *)fid
+                               automationId:(long long)automationId
+                                     status:(BOOL)status
+                                    success:(QuecVoidBlock)success
+                                    failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭ID，开启家居模式必填，否则不填|
+| automationId |是| 自动化ID|
+| status |是| 启停状态，启用：true，停用：false|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+####   删除自动化
+```
++ (void)deleteAutomationWithFid:(nullable NSString *)fid
+                   automationId:(long long)automationId
+                        success:(QuecVoidBlock)success
+                        failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭ID，开启家居模式必填，否则不填|
+| automationId |是| 自动化ID|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询自动化详情
+```
++ (void)getAutomationInfoWithFid:(nullable NSString *)fid
+                    automationId:(long long)automationId
+                         success:(void(^)(QuecAutomateModel *model))success
+                         failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭ID，开启家居模式必填，否则不填|
+| automationId |是| 自动化ID|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   测试自动化
+```
++ (void)testAutomationInfoWithModel:(QuecAutomateModel *)automateModel
+                            success:(void(^)(long long testResultId))success
+                            failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| automateModel |是| QuecAutomateModel|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询自动化测试结果
+```
++ (void)getTestAutomationResultWithId:(long long)testResultId
+                              success:(QuecAutomationResultSuccessBlock)success
+                              failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| testResultId |是| 测试结果ID|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询联动配置
+```
++ (void)getAutomationTSLWithProductKey:(NSString *)productKey
+                                  type:(NSInteger)type
+                               success:(QuecAutomationPropertySuccessBlock)success
+                               failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| productKey |是| 产品KEY|
+| type |是| 查询类型：0：全部，1：条件，2：动作|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取自动化日志列表
+```
++ (void)getAutomationLogListWithFid:(NSString *)fid lastLogId:(long long)lastLogId limit:(NSInteger)limit success:(void(^)(NSArray<QuecAutomationLogItemModel *> *list))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭id|
+| lastLogId |是| 最后一个日志id，分页使用|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+####   获取自动化日志详情
+```
++ (void)getAutomationLogDetailWithFid:(NSString *)fid logId:(long long)logId success:(void(^)(QuecAutomationLogItemModel *detailInfo))success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| logId |是| 日志id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+####   删除自动化执行日志
+```
++ (void)clearAutomationLogsWithFid:(NSString *)fid success:(QuecVoidBlock)success failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| fid |否| 家庭id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+#### QuecAutomateModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| automationId | long long | 自动化ID  |
+| fid | NSString | 家庭ID，开启家居模式必填，否则不填  |
+| conditionType | QuecAutomateConditionRuleType | 触发类型 1: 满足任意，2: 满足所有  |
+| name | NSString | 自动化名称  |
+| nameType | NSInteger | 自动化名称生成方式，1：系统生成，2：用户填写  |
+| status | BOOL | 自动化执行状态true：启用，false：停用  |
+| precondition | QuecAutomationPreconditionModel | 自动化生效时间  |
+| conditions | NSArray<QuecAutomationConditionModel *> | 自动化触发条件  |
+| actions | NSArray<QuecAutomationActionModel *> | 自动化执行动作  |
+
+
+
+#### QuecAutomateConditionRuleType
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| QuecAutomateConditionRuleAny | NSInteger | 1: 满足任意  |
+| QuecAutomateConditionRuleAny | NSInteger | 2: 满足所有  |
+
+
+
+#### QuecAutomationPreconditionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| effectDateType | QuecAutomateEffectDateType | 生效日期类型。0：每天，1：每周，2：每月，3：指定日期  |
+| effectTimeType | QuecAutomateEffectTimeType | 生效时间类型。0：白天，1：夜晚，2：全天，3：指定时间段  |
+| startTime | NSString | 开始时间。生效时间类型为全天和指定时间段时必填，符合HH:mm格式  |
+| endTime | NSString | 结束时间。生效时间类型为全天和指定时间段时必填，符合HH:mm格式  |
+| effectDate | NSString | 生效日期。生效日期类型为每天时不填。每周：1,2,3,...7表示周一到周日，周月：1-31号，指定日期：符合MM-dd/MM-dd格式，例：12-19/12-2  |
+| regionName | NSString | 地区名称  |
+| location | NSString | 经纬度  |
+| timeZone | NSString | 时区  |
+
+
+
+#### QuecAutomationConditionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| type | NSInteger | 0设备触发 1时间触发  |
+| icon | NSString | 设备/群组/场景图标  |
+| name | NSString | 设备/群组/场景名称  |
+| timer | QuecAutomationTimeModel | 自动化触发条件时间  |
+| productKey | NSString | 产品PK  |
+| deviceKey | NSString | 设备DK  |
+| property | QuecAutomationPropertyModel | 物模型属性  |
+| sort | NSInteger | 条件顺序，从1开始递增  |
+
+
+
+#### QuecAutomationActionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| type | NSInteger | 执行动作类型。1：延时，2：设备，3：群组，4：场景  |
+| icon | NSString | 设备/群组/场景图标  |
+| name | NSString | 设备/群组/场景名称  |
+| productKey | NSString | 产品PK  |
+| deviceKey | NSString | 设备DK  |
+| sceneId | NSString | 场景ID  |
+| delayTime | NSNumber | 延迟时间，单位秒  |
+| property | QuecAutomationPropertyModel | 物模型属性  |
+| sort | NSInteger | 条件顺序，从1开始递增  |
+
+
+
+#### QuecAutomateEffectDateType
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| QuecAutomateEffectDateTypeEveryday | NSInteger | 0 每天  |
+| QuecAutomateEffectDateTypeWeekly | NSInteger | 1 每周的 |
+| QuecAutomateEffectDateTypeMonthly | NSInteger | 2 每月  |
+| QuecAutomateEffectDateTypeNamedDate | NSInteger | 3 指定日期    |
+
+
+
+#### QuecAutomateEffectTimeType
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| QuecAutomateEffectTimeTypeDaytime | NSInteger | 0 白天  |
+| QuecAutomateEffectTimeTypeNight | NSInteger | 1 夜晚 |
+| QuecAutomateEffectTimeTypeWholeDay | NSInteger | 2 全天  |
+| QuecAutomateEffectTimeTypeSpecificTimePeriod | NSInteger | 3 特定时间段    |
+
+
+
+#### QuecAutomationTimeModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| type | NSInteger | 定时时间类型 定时时间  0仅一次 1每天 2 自定义  |
+| time | NSString | 定时时间 |
+| dayOfWeek | NSString | 定时自定义时间段的周天组合  |
+| timeZone | NSString | 时区    |
+
+
+
+#### QuecAutomationPropertyModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| identifier | NSInteger | 物模型id，由于 id 是 Objective-C 的关键字，所以使用 identifier  |
+| code | NSString | 物模型code |
+| dataType | NSString | 数据类型  |
+| value | NSString | 值    |
+| name | NSString | 物模型name    |
+| compare | NSString | 属性值比较运算符    |
+| unit | NSString | 单位    |
+| subName | NSString | 描述    |
+
+
+
+#### QuecAutomationLogItemModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| logId | long long | 执行日志ID  |
+| automationId | long long | 自动化ID |
+| name | NSString | 自动化名称  |
+| icon | NSString | 自动化图标    |
+| time | long long | 执行时间    |
+| result | NSInteger | 执行结果:0.成功 1.失败 2.部分成功    |
+| logDetails | NSArray<QuecAutomationLogItemActionModel *> | 执行日志详情    |
+
+
+
+#### QuecAutomationLogItemActionModel
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| actionName | NSString | 执行动作名称，设备名称/场景名称/群组ID  |
+| actionIcon | NSString | 执行动作图标，设备/群组/群组 |
+| type | NSInteger | 执行动作类型。2：设备，3：群组，4：场景  |
+| result | BOOL | 执行结果，1：成功，0：失败    |
+| action | QuecAutomationPropertyModel | 物模型属性    |
+| executeTime | long long | 执行时间    |
+
+
+
+## 群组SDK QuecGroupKit
+
+### QuecGroupService类
+
+
+
+####   创建群组
+```
++ (void)createGroupWithBean:(QuecGroupCreateBean *)bean
+                    success:(QuecCreateGroupSuccess)success
+                    failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| bean |是| QuecGroupCreateBean|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询群组详情
+```
++ (void)getGroupInfoWithId:(NSString *)groupId
+                   success:(QuecGroupBeanSuccess)success
+                   failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询群组基础信息
+```
++ (void)getGroupDeviceInfoWithId:(NSString *)groupId
+                         success:(QuecGroupDeviceSuccess)success
+                         failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   批量设备判断是否可加入群组
+```
++ (void)checkDeviceAddGroupWithList:(NSArray<QuecGroupCreateDeviceBean *> *)deviceList
+                                fid:(NSString *)fid
+                            success:(QuecGroupCheckDeviceSuccess)success
+                            failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| deviceList |否| NSArray<QuecGroupCreateDeviceBean *>|
+| fid |否| 家庭id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   可添加设备列表
+```
++ (void)getAddableListWithList:(NSArray<QuecGroupCreateDeviceBean *> *)addedList
+                           fid:(NSString *)fid
+                          gdid:(nullable NSString *)gdid
+                      pageSize:(NSInteger)pageSize
+                          page:(NSInteger)page
+                       success:(QuecGroupAddableListSuccess)success
+                       failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| addedList |是| NSArray<QuecGroupCreateDeviceBean *>|
+| fid |否| 家庭id|
+| gdid |否| 群组id|
+| pageSize |否|查询的页大小，默认 10	|
+| page |否|查询的列表页，默认为 1	|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+### QuecGroupService+control类
+####   控制群组
+```
++ (void)controlGroupByHttp:(NSArray<QuecIotDataPoint*> *)dps
+                   groupId:(NSString *)groupId
+                 extraData:(NSDictionary *)extraData
+                   success:(QuecDictionaryBlock)success
+                   failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| dps |是| dps数组|
+| groupId |是| 群组id|
+| extraData |否| { type 类型 1：透传 2：属性 3：服务 dataFormat 数据类型 1：Hex 2：Text（当type为透传时，需要指定 dataFormat） cacheTime 缓存时间，单位为秒，缓存时间范围 1-7776000 秒，启用缓存时必须设置缓存时间 isCache  是否启用缓存 1：启用 2：不启用，默认不启用 isCover 是否覆盖之前发送的相同的命令 1：覆盖 2：不覆盖，默认不覆盖，启用缓存时此参数有效 }|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询群组物模型属性值
+```
++ (void)groupAttributesById:(NSString *)groupId
+                   codeList:(NSString *)codeList
+                    success:(void (^)(QuecProductTSLInfoModel *tslInfoModel))success
+                    failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| codeList |否| 需要查询的属性值，用英文逗号拼接|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询群组物模型属性,包含属性值
+```
++ (void)groupAttributesById:(NSString *)groupId
+                   codeList:(NSString *)codeList
+                    success:(void (^)(QuecProductTSLInfoModel *tslInfoModel))success
+                    failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| productKey |是| 设备pk|
+| codeList |否| 需要查询的属性值，用英文逗号拼接|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+### QuecGroupService+edit类
+####   编辑群组基础信息
+```
++ (void)editGroupBasicInfoWithId:(NSString *)groupId
+                 groupDeviceName:(NSString *)groupDeviceName
+                             fid:(nullable NSString *)fid
+                            frid:(nullable NSString *)frid
+                    isCommonUsed:(BOOL)isCommonUsed
+                         success:(QuecVoidBlock)success
+                         failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| groupDeviceName |是| 群组名|
+| fid |否| 家庭id|
+| frid |否| 房间id|
+| isCommonUsed |是| 否是常用设备：0-不常用 1-常用|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   编辑群组信息
+```
++ (void)editGroupInfoWithId:(NSString *)groupId
+                       name:(NSString *)name
+                        fid:(NSString *)fid
+                       frid:(NSString *)frid
+               isCommonUsed:(BOOL)isCommonUsed
+                 deviceList:(NSArray<NSDictionary *> *)deviceList
+                    success:(QuecDictionaryBlock)success
+                    failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| name |是| 群组名|
+| fid |否| 家庭id|
+| frid |否| 房间id|
+| isCommonUsed |是| 否是常用设备：0-不常用 1-常用|
+| deviceList |否| 设备列表|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   批量移除/添加群组到常用
+```
++ (void)batchAddCommonWithIds:(NSArray<NSString *> *)groupIds
+                          fid:(NSString *)fid
+                 isCommonUsed:(BOOL)isCommonUsed
+                      success:(QuecGroupBatchResultBlock)success
+                      failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupIds |是| 群组id列表|
+| fid |否| 家庭id|
+| isCommonUsed |是| 否是常用设备：0-不常用 1-常用|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+####   批量移动群组到新房间
+```
++ (void)batchMovingWithIds:(NSArray<NSString *> *)groupIds
+                   newFrid:(NSString *)newFrid
+                   success:(QuecGroupBatchResultBlock)success
+                   failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupIds |是| 群组id列表|
+| newFrid |是| 新房间id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   批量删除群组
+```
++ (void)deleteGroupWithIds:(NSArray<NSString *> *)groupIds
+                   success:(QuecGroupBatchResultBlock)success
+                   failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupIds |是| 群组id列表|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+### QuecGroupService+share类
+####   分享人设置群组分享信息
+```
++ (void)getShareCodeWithGroupId:(NSString *)groupId
+              acceptingExpireAt:(long)acceptingExpireAt
+           isSharingAlwaysValid:(BOOL)isSharingAlwaysValid
+                sharingExpireAt:(long)sharingExpireAt
+                      coverMark:(NSInteger)coverMark
+                        success:(void(^)(NSString *shareCode))success
+                        failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| acceptingExpireAt |是| 分享二维码种子失效时间 时间戳（毫秒），表示该分享在此时间戳时间内没有使用，会失效|
+| isSharingAlwaysValid |是| 设备是否永久有效|
+| sharingExpireAt |否| 设备使用到期时间 时间戳（毫秒），表示该分享的群组，被分享人可以使用的时间<br/>如果不填，则为终生有效|
+| coverMark |是| 覆盖标志<br/>1 直接覆盖上条有效分享（默认）（覆盖原有的分享码）<br/>2 直接添加，允许多条并存<br/>3 只有分享时间延长了，才允许覆盖上条分享|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   获取群组分享人列表
+```
++ (void)getSharedListsWithGroupId:(NSString *)groupId
+                          success:(void(^)(NSArray<QuecShareUserModel *> *list))success
+                          failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| groupId |是| 群组id|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   分享人取消分享
+```
++ (void)ownerUnShareWithShareCode:(NSString *)shareCode
+                          success:(QuecVoidBlock)success
+                          failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| shareCode |是| 分享码|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   被分享人取消分享
+```
++ (void)unShareWithShareCode:(NSString *)shareCode
+                     success:(QuecVoidBlock)success
+                     failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| shareCode |是| 分享码|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   被分享人接受分享
+```
++ (void)acceptShareWithShareCode:(NSString *)shareCode
+                         success:(QuecVoidBlock)success
+                         failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| shareCode |是| 分享码|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+####   查询分享群组的信息
+```
++ (void)shareGroupInfoWithShareCode:(NSString *)shareCode
+                            success:(QuecDictionaryBlock)success
+                            failure:(QuecErrorBlock)failure;
+
+```
+
+|参数|	是否必传|说明|
+| --- | -- | --- |
+| shareCode |是| 分享码|
+| success |	否|接口请求成功回调	|
+| failure |	否|接口请求失败回调	|
+
+
+
+#### QuecGroupBatchResultBean
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| code | NSString | 请求结果code码  |
+| msg | NSString | 请求结果提示  |
+| gdid | NSString | 群组id  |
+
+
+
+#### QuecGroupBean
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| name | NSString | 群组名  |
+| fid | NSString | 家庭id  |
+| frid | NSString | 房间id  |
+| gdid | NSString | 群组id  |
+| roomName | NSString | 房间名  |
+| onlineStatus | NSUInteger | 设备云端在离线状态：0-离线 1-在线  |
+| productKey | NSString | 设备pk  |
+| deviceKey | NSString | 设备dk  |
+| isCommonUsed | BOOL | 否是常用设备：0-不常用 1-常用  |
+| groupDeviceDeviceNum | NSUInteger | 群组包含设备数量  |
+| deviceList | NSArray<QuecGroupDeviceBean *> | 群组设备列表  |
+
+
+
+#### QuecGroupDeviceBean
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| productKey | NSString | 设备pk  |
+| deviceKey | NSString | 设备dk  |
+| deviceName | NSString | 设备名  |
+| logoImage | NSString | 设备logo图片  |
+| frid | NSString | 房间id  |
+| roomName | NSString | 房间名  |
+| onlineStatus | NSUInteger | 设备云端在离线状态：0-离线 1-在线  |
+| msg | NSString | 接口响应消息提示  |
+| code | NSUInteger | 接口响应code  |
+
+
+
+#### QuecGroupCreateBean
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| groupDeviceName | NSString | 群组名称  |
+| fid | NSString | 家庭id  |
+| frid | NSString | 房间id  |
+| isCommonUsed | BOOL | 是否是常用设备：0-不常用 1-常用  |
+| onlineStatus | NSUInteger | 设备云端在离线状态：0-离线 1-在线  |
+| deviceList | NSArray<QuecGroupCreateDeviceBean *> | 设备列表  |
+
+
+
+#### QuecGroupCreateDeviceBean
+
+|参数| 类型       | 说明    |    
+| --- |----------|-------| 
+| productKey | NSString | 设备pk  |
+| deviceKey | NSString | 设备dk  |
+
+
+
+#### QuecGroupCreateResultBean
+
+|参数| 类型       | 说明   |    
+| --- |----------|------| 
+| groupDeviceInfo | QuecDeviceModel | 设备数据 |
+| successList | NSArray<QuecGroupDeviceBean *> | 成功的设备列表 |
+| failList | NSArray<QuecGroupDeviceBean *> | 失败的设备列表 |
