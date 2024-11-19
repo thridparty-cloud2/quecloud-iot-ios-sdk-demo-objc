@@ -21,6 +21,10 @@ target 'QuecIoTAppSdkDemo' do
   # Pods for QuecIoTAppSdkDemo
   pod 'QuecIotSdk' , '~> 1.12.0-beta.6'
   pod 'MQTTClient' , '~> 0.15.4'
+  pod 'QuecSmartHomeKit' , '~> 2.0.8'
+  pod 'QuecAutomateKit' , '~> 0.2.0'
+  pod 'QuecSceneKit' , '~> 0.3.2'
+  pod 'QuecGroupKit' , '~> 0.3.1'
   post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
