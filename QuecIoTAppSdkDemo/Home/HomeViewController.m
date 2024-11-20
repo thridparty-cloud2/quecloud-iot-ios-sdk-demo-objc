@@ -14,24 +14,28 @@
 #import "BleDeviceListViewController.h"
 #import "QuecOTAViewController.h"
 #import "QuecDeviceOTAStatusManager.h"
+#import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
+@property (nonatomic, assign) BOOL isFamilyMode;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSMutableDictionary *deviceDatas;
+@property (nonatomic, strong) QuecFamilyItemModel *currentFamilyModel;
 
 @end
 
 @implementation HomeViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self getData];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self checkFamilyModeState];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
     self.title = @"设备列表";
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -57,6 +61,8 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    
 }
 
 - (void)otaButtonClick {
@@ -225,6 +231,68 @@
     }];
 }
 
+- (void)checkFamilyModeState {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getFamilyModeConfigWithSuccess:^(NSDictionary *dictionary) {
+        
+        QuecStrongSelf(self);
+        
+        BOOL changed = QuecSmartHomeService.sharedInstance.enable != self.isFamilyMode;
+        self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
+        
+        if (!changed) {
+            if (self.dataArray.count == 0) {
+                [self getData];
+            }
+            return;
+        }
+        
+        if (self.isFamilyMode) {
+            [self getFamilyModeConfig];
+        }else {
+            [self getData];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)getFamilyModeConfig {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getCurrentFamilyWithFid:@"" currentCoordinates:@"" success:^(QuecFamilyItemModel *itemModel){
+        QuecStrongSelf(self);
+        self.currentFamilyModel = itemModel;
+        [self getFamilyRoomList:itemModel];
+        [self getCommonUsedDeviceList:itemModel];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//查询家庭中的房间列表
+- (void)getFamilyRoomList:(QuecFamilyItemModel *)model {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getFamilyRoomListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecFamilyRoomItemModel *> *list, NSInteger total) {
+        QuecStrongSelf(self);
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//查询常用设备列表
+- (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+        QuecStrongSelf(self);
+        self.dataArray = list.copy;
+        [self addDevicesToDeviceKit];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)addDevicesToDeviceKit{
     if (self.dataArray.count <= 0) {
         return;
@@ -255,6 +323,9 @@
     }];
 }
 
+- (void)familyTitleTapGestureRecognizer:(UITapGestureRecognizer *)sender {
+    NSLog(@"familyTitleTapGestureRecognizer");
+}
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -263,6 +334,33 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return self.isFamilyMode ? 40 : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
+    
+    if (!self.isFamilyMode) {
+        view.hidden = YES;
+        return view;
+    }
+    
+    view.hidden = NO;
+    UILabel *familyTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 30)];
+    familyTitle.font = [UIFont boldSystemFontOfSize:16];
+    familyTitle.textColor = UIColor.darkGrayColor;
+    familyTitle.text = [NSString stringWithFormat:@"%@ 》",self.currentFamilyModel.familyName];
+    familyTitle.userInteractionEnabled = YES;
+    [view addSubview:familyTitle];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(familyTitleTapGestureRecognizer:)];
+    [familyTitle addGestureRecognizer:tap];
+    
+    
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

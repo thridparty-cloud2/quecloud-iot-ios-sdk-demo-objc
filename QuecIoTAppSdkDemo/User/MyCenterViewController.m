@@ -17,6 +17,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
+#import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 
 @interface MyCenterViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -43,6 +44,9 @@
     self.tableView.tableHeaderView = [self getTableHeaderView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableView];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self getFamilyModeConfig];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0;
@@ -94,6 +98,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
     }
     cell.textLabel.text = @"";
+    NSString *famStr = [NSString stringWithFormat:@"家庭模式%@", QuecSmartHomeService.sharedInstance.enable ? @"已开启" : @"未开启"];
+    NSLog(@"QuecSmartHomeService.sharedInstance.enable = %d",QuecSmartHomeService.sharedInstance.enable);
     switch (indexPath.row) {
         case 0:
             cell.textLabel.text = @"修改昵称";
@@ -112,6 +118,10 @@
             break;
         case 5:
             cell.textLabel.text = @"退出登录";
+            break;
+        case 6:
+            
+            cell.textLabel.text = famStr;
             break;
             
         default:
@@ -165,6 +175,10 @@
                             [MBProgressHUD hideHUDForView:self.view animated:YES];
                             [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
                         }];
+        }
+            break;
+        case 6: {
+            [self changeHomeState];
         }
             break;
             
@@ -342,5 +356,28 @@
                 }];
 }
 
+
+- (void)changeHomeState {
+    @quec_weakify(self);
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [QuecSmartHomeService.sharedInstance enabledFamilyMode:!QuecSmartHomeService.sharedInstance.enable success:^{
+        @quec_strongify(self);
+        [self getFamilyModeConfig];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
+}
+
+- (void)getFamilyModeConfig {
+    [QuecSmartHomeService.sharedInstance getFamilyModeConfigWithSuccess:^(NSDictionary *dictionary) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
+}
 
 @end
