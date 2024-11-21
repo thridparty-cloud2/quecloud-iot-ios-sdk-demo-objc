@@ -50,6 +50,9 @@
 		640481B12CE2F52600AD521D /* QuecBleOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B02CE2F52600AD521D /* QuecBleOTAViewController.m */; };
 		640481B42CE3273500AD521D /* QuecHttpOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B32CE3273500AD521D /* QuecHttpOTAViewController.m */; };
 		640481B72CE337F700AD521D /* QuecDeviceOTAStatusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B62CE337F700AD521D /* QuecDeviceOTAStatusManager.m */; };
+		6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */; };
+		6443DB712CEEDC4500C8B128 /* FamilyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */; };
+		6443DB742CEF290700C8B128 /* FamilyRoomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -165,6 +168,12 @@
 		640481B32CE3273500AD521D /* QuecHttpOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecHttpOTAViewController.m; sourceTree = "<group>"; };
 		640481B52CE337F700AD521D /* QuecDeviceOTAStatusManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecDeviceOTAStatusManager.h; sourceTree = "<group>"; };
 		640481B62CE337F700AD521D /* QuecDeviceOTAStatusManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecDeviceOTAStatusManager.m; sourceTree = "<group>"; };
+		6443DB6C2CEE134C00C8B128 /* FamilyListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyListViewController.h; sourceTree = "<group>"; };
+		6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyListViewController.m; sourceTree = "<group>"; };
+		6443DB6F2CEEDC4500C8B128 /* FamilyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyDetailViewController.h; sourceTree = "<group>"; };
+		6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyDetailViewController.m; sourceTree = "<group>"; };
+		6443DB722CEF290700C8B128 /* FamilyRoomListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyRoomListViewController.h; sourceTree = "<group>"; };
+		6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyRoomListViewController.m; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -308,6 +317,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
 				2236137727D5949C00817F50 /* Group */,
 				2236137927D5949C00817F50 /* Home */,
@@ -373,6 +383,19 @@
 				640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */,
 			);
 			path = OTA;
+			sourceTree = "<group>";
+		};
+		6443DB6B2CEE132700C8B128 /* Family */ = {
+			isa = PBXGroup;
+			children = (
+				6443DB6C2CEE134C00C8B128 /* FamilyListViewController.h */,
+				6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */,
+				6443DB6F2CEEDC4500C8B128 /* FamilyDetailViewController.h */,
+				6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */,
+				6443DB722CEF290700C8B128 /* FamilyRoomListViewController.h */,
+				6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */,
+			);
+			path = Family;
 			sourceTree = "<group>";
 		};
 		E063D625B3279EBDA36FDEBD /* Frameworks */ = {
@@ -677,12 +700,14 @@
 				223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */,
 				640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */,
 				223613BD27D5958800817F50 /* EmailRegisterViewController.m in Sources */,
+				6443DB742CEF290700C8B128 /* FamilyRoomListViewController.m in Sources */,
 				223613AB27D5957600817F50 /* TlsTextTableViewCell.m in Sources */,
 				22B0F7C827D2FE08001368DF /* AppDelegate.m in Sources */,
 				302DA64B2A3B0BDA00D7EF8E /* ThirdLoginViewController.m in Sources */,
 				2236138327D5956800817F50 /* GroupDetailViewController.m in Sources */,
 				223613C027D5958800817F50 /* ForgetPasswordViewController.m in Sources */,
 				223613BE27D5958800817F50 /* SmsLogingViewController.m in Sources */,
+				6443DB712CEEDC4500C8B128 /* FamilyDetailViewController.m in Sources */,
 				223613A927D5957600817F50 /* WifiBleDeviceBindViewController.m in Sources */,
 				223613A227D5957600817F50 /* TslNumberUTableViewCell.m in Sources */,
 				2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */,
@@ -698,6 +723,7 @@
 				223613A327D5957600817F50 /* DeviceDetailViewController.m in Sources */,
 				223613BB27D5958800817F50 /* QueryDataViewController.m in Sources */,
 				223613BF27D5958800817F50 /* EmailLoginViewController.m in Sources */,
+				6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */,
 				223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */,
 				223613A527D5957600817F50 /* TslEnumAndDateTableViewCell.m in Sources */,
 				223613C927D5959600817F50 /* MyCenterViewController.m in Sources */,

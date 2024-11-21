@@ -15,6 +15,7 @@
 #import "QuecOTAViewController.h"
 #import "QuecDeviceOTAStatusManager.h"
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
+#import "FamilyListViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
@@ -33,11 +34,17 @@
     [self checkFamilyModeState];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
     self.title = @"设备列表";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshList) name:@"DELETEFAMILYNS_Notification" object:nil];
     
     UIButton *otaButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [otaButton setTitle:@"OTA" forState:UIControlStateNormal];
@@ -63,6 +70,10 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     
+}
+
+- (void)refreshList {
+    [self getCurrentFamilyWithFid:@""];
 }
 
 - (void)otaButtonClick {
@@ -248,7 +259,7 @@
         }
         
         if (self.isFamilyMode) {
-            [self getFamilyModeConfig];
+            [self getCurrentFamilyWithFid:@""];
         }else {
             [self getData];
         }
@@ -258,9 +269,9 @@
     }];
 }
 
-- (void)getFamilyModeConfig {
+- (void)getCurrentFamilyWithFid:(NSString *)fid {
     QuecWeakSelf(self);
-    [QuecSmartHomeService.sharedInstance getCurrentFamilyWithFid:@"" currentCoordinates:@"" success:^(QuecFamilyItemModel *itemModel){
+    [QuecSmartHomeService.sharedInstance getCurrentFamilyWithFid:fid currentCoordinates:@"" success:^(QuecFamilyItemModel *itemModel){
         QuecStrongSelf(self);
         self.currentFamilyModel = itemModel;
         [self getFamilyRoomList:itemModel];
@@ -324,7 +335,14 @@
 }
 
 - (void)familyTitleTapGestureRecognizer:(UITapGestureRecognizer *)sender {
-    NSLog(@"familyTitleTapGestureRecognizer");
+    FamilyListViewController *vc = [[FamilyListViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    QuecWeakSelf(self);
+    vc.fidbBlock = ^(NSString * _Nonnull fid) {
+        QuecStrongSelf(self);
+        [self getCurrentFamilyWithFid:fid];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -337,7 +355,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return self.isFamilyMode ? 40 : 0;
+    return self.isFamilyMode ? 100 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -355,9 +373,11 @@
     familyTitle.text = [NSString stringWithFormat:@"%@ 》",self.currentFamilyModel.familyName];
     familyTitle.userInteractionEnabled = YES;
     [view addSubview:familyTitle];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(familyTitleTapGestureRecognizer:)];
     [familyTitle addGestureRecognizer:tap];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 50, self.view.bounds.size.width, 40)];
+    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 40);
     
     
     return view;
