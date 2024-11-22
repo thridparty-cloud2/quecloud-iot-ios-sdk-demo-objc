@@ -83,7 +83,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [QuecSmartHomeService.sharedInstance deleteFamilyWithFid:self.upModel.fid success:^{
         @quec_strongify(self);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DELETEFAMILYNS_Notification" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Home_List_Refresh_Notification" object:nil];
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         

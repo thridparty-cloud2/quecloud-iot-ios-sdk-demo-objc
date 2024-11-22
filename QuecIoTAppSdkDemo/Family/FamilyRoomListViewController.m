@@ -86,6 +86,7 @@
     @quec_weakify(self);
     [QuecSmartHomeService.sharedInstance addFamilyRoomWithFid:self.upModel.fid roomName:roomName success:^{
         @quec_strongify(self);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Home_List_Refresh_Notification" object:nil];
         [self getData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -138,6 +139,7 @@
     @quec_weakify(self);
     [QuecSmartHomeService.sharedInstance deleteFamilyRoomsWithIds:@[model.frid] success:^(NSDictionary *dictionary) {
         @quec_strongify(self);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Home_List_Refresh_Notification" object:nil];
         [self getData];
     } failure:^(NSError *error) {
         

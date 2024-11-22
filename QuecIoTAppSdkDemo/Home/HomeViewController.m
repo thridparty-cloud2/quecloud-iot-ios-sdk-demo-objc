@@ -22,8 +22,10 @@
 @property (nonatomic, assign) BOOL isFamilyMode;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *roomListArray;
 @property (nonatomic, strong) NSMutableDictionary *deviceDatas;
 @property (nonatomic, strong) QuecFamilyItemModel *currentFamilyModel;
+@property (nonatomic, strong) QuecFamilyRoomItemModel *currentRoomModel;
 
 @end
 
@@ -44,7 +46,7 @@
     self.title = @"设备列表";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshList) name:@"DELETEFAMILYNS_Notification" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshList) name:@"Home_List_Refresh_Notification" object:nil];
     
     UIButton *otaButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [otaButton setTitle:@"OTA" forState:UIControlStateNormal];
@@ -286,6 +288,14 @@
     QuecWeakSelf(self);
     [QuecSmartHomeService.sharedInstance getFamilyRoomListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecFamilyRoomItemModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
+        QuecFamilyRoomItemModel *model = [[QuecFamilyRoomItemModel alloc]init];
+        model.roomName = @"常用";
+        model.frid = @"常用ID";
+        self.currentRoomModel = model;
+        NSMutableArray *array = [NSMutableArray arrayWithArray:list];
+        [array insertObject:model atIndex:0];
+        self.roomListArray = array.copy;
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];
@@ -301,6 +311,20 @@
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
+    }];
+}
+ //查询房间中设备列表
+- (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        QuecStrongSelf(self);
+        self.dataArray = list.copy;
+        [self addDevicesToDeviceKit];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
@@ -319,6 +343,22 @@
             [QuecDeviceOTAStatusManager.sharedInstance writeDeviceStateWithProductKey:deviceModel.productKey deviceKey:deviceModel.deviceKey planId:[NSString stringWithFormat:@"%ld",deviceModel.planId] state:1 userConfirmStatus:0];
         }
     }
+}
+
+- (void)roomAction:(UIButton *)sender {
+    QuecFamilyRoomItemModel *model = self.roomListArray[sender.tag];
+    if ([self.currentRoomModel.frid isEqualToString:model.frid]) {
+        return;
+    }
+    
+    self.currentRoomModel = model;
+    
+    if ([self.currentRoomModel.frid isEqualToString:@"常用ID"]) {
+        [self getCommonUsedDeviceList:self.currentFamilyModel];
+    }else {
+        [self getFamilyRoomDeviceListWithFrid:self.currentRoomModel.frid];
+    }
+    
 }
 
 #pragma mark - QuecDeviceDelegate
@@ -370,7 +410,7 @@
     UILabel *familyTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 30)];
     familyTitle.font = [UIFont boldSystemFontOfSize:16];
     familyTitle.textColor = UIColor.darkGrayColor;
-    familyTitle.text = [NSString stringWithFormat:@"%@ 》",self.currentFamilyModel.familyName];
+    familyTitle.text = [NSString stringWithFormat:@"%@--%@ 》",self.currentFamilyModel.familyName,self.currentRoomModel.roomName];
     familyTitle.userInteractionEnabled = YES;
     [view addSubview:familyTitle];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(familyTitleTapGestureRecognizer:)];
@@ -378,6 +418,36 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 50, self.view.bounds.size.width, 40)];
     scrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 40);
+    [view addSubview:scrollView];
+    UIButton *lastBtn = nil;
+    NSInteger tag = 0;
+    for (QuecFamilyRoomItemModel *model in self.roomListArray) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:model.roomName forState:UIControlStateNormal];
+        btn.tag = tag;
+        [btn addTarget:self action:@selector(roomAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        btn.backgroundColor = UIColor.systemBlueColor;
+        [scrollView addSubview:btn];
+        if (lastBtn == nil) {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@20);
+                make.centerY.equalTo(scrollView);
+                make.width.equalTo(@80);
+                make.height.equalTo(@30);
+            }];
+        }else {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(lastBtn.mas_right).offset(20);
+                make.centerY.equalTo(scrollView);
+                make.width.equalTo(@80);
+                make.height.equalTo(@30);
+            }];
+        }
+        tag++;
+        lastBtn = btn;
+    }
     
     
     return view;
