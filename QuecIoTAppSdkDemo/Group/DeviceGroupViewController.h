@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceGroupViewController : UIViewController
 
+- (void)refreshUI;
+
 @end
 
 NS_ASSUME_NONNULL_END

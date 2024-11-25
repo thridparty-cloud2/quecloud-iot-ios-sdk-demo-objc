@@ -18,6 +18,7 @@
 #import <QuecFoundationKit/QuecFoundationKit.h>
 #import "MacroDefine.h"
 #import <Masonry.h>
+#import "QuecVCManager.h"
 #endif
 
 

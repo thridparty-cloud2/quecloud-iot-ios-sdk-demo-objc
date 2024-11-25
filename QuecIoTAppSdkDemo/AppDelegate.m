@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "HomeViewController.h"
 #import "MyCenterViewController.h"
-#import "DeviceGroupViewController.h"
+#import "AutomateAndSceneVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
@@ -76,7 +76,7 @@
     homeVc.view.backgroundColor = [UIColor whiteColor];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],NSForegroundColorAttributeName,[UIFont fontWithName:@"Helvetica"size:12.0f],NSFontAttributeName,nil]forState:UIControlStateSelected];
     
-    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
+    AutomateAndSceneVC *groupVc=[[AutomateAndSceneVC alloc]init];
     groupVc.tabBarItem.title=@"分组";
     groupVc.tabBarItem.image = [UIImage imageNamed:@"group_tabbar"];
     groupVc.tabBarItem.selectedImage = [UIImage imageNamed:@"group_tabbar_select"];

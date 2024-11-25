@@ -53,6 +53,12 @@
 		6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */; };
 		6443DB712CEEDC4500C8B128 /* FamilyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */; };
 		6443DB742CEF290700C8B128 /* FamilyRoomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */; };
+		6476AA9A2CF4119300AFE2B2 /* AutomateAndSceneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */; };
+		6476AA9D2CF412E600AFE2B2 /* AutomateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */; };
+		6476AAA02CF412F200AFE2B2 /* SceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA9F2CF412F200AFE2B2 /* SceneViewController.m */; };
+		6476AAA32CF4212800AFE2B2 /* QuecVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAA22CF4212800AFE2B2 /* QuecVCManager.m */; };
+		6476AAB12CF478C500AFE2B2 /* SceneAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */; };
+		6476AAB42CF490AA00AFE2B2 /* SceneSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -174,6 +180,18 @@
 		6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyDetailViewController.m; sourceTree = "<group>"; };
 		6443DB722CEF290700C8B128 /* FamilyRoomListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyRoomListViewController.h; sourceTree = "<group>"; };
 		6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyRoomListViewController.m; sourceTree = "<group>"; };
+		6476AA982CF4119300AFE2B2 /* AutomateAndSceneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateAndSceneVC.h; sourceTree = "<group>"; };
+		6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateAndSceneVC.m; sourceTree = "<group>"; };
+		6476AA9B2CF412E600AFE2B2 /* AutomateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateViewController.h; sourceTree = "<group>"; };
+		6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateViewController.m; sourceTree = "<group>"; };
+		6476AA9E2CF412F200AFE2B2 /* SceneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneViewController.h; sourceTree = "<group>"; };
+		6476AA9F2CF412F200AFE2B2 /* SceneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneViewController.m; sourceTree = "<group>"; };
+		6476AAA12CF4212800AFE2B2 /* QuecVCManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecVCManager.h; sourceTree = "<group>"; };
+		6476AAA22CF4212800AFE2B2 /* QuecVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecVCManager.m; sourceTree = "<group>"; };
+		6476AAAF2CF478C500AFE2B2 /* SceneAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneAddViewController.h; sourceTree = "<group>"; };
+		6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneAddViewController.m; sourceTree = "<group>"; };
+		6476AAB22CF490AA00AFE2B2 /* SceneSelectedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneSelectedViewController.h; sourceTree = "<group>"; };
+		6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneSelectedViewController.m; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -317,6 +335,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6476AA972CF40EF500AFE2B2 /* AutomateWithScene */,
 				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
 				2236137727D5949C00817F50 /* Group */,
@@ -327,6 +346,8 @@
 				22B0F7C727D2FE08001368DF /* AppDelegate.m */,
 				22B0F7C927D2FE08001368DF /* SceneDelegate.h */,
 				22B0F7CA27D2FE08001368DF /* SceneDelegate.m */,
+				6476AAA12CF4212800AFE2B2 /* QuecVCManager.h */,
+				6476AAA22CF4212800AFE2B2 /* QuecVCManager.m */,
 				22B0F81327D32616001368DF /* PrefixHeader.pch */,
 				22D0BFC527F3F9F000211095 /* MacroDefine.h */,
 				22B0F7CF27D2FE08001368DF /* Main.storyboard */,
@@ -396,6 +417,23 @@
 				6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */,
 			);
 			path = Family;
+			sourceTree = "<group>";
+		};
+		6476AA972CF40EF500AFE2B2 /* AutomateWithScene */ = {
+			isa = PBXGroup;
+			children = (
+				6476AA982CF4119300AFE2B2 /* AutomateAndSceneVC.h */,
+				6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */,
+				6476AA9E2CF412F200AFE2B2 /* SceneViewController.h */,
+				6476AA9F2CF412F200AFE2B2 /* SceneViewController.m */,
+				6476AAAF2CF478C500AFE2B2 /* SceneAddViewController.h */,
+				6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */,
+				6476AAB22CF490AA00AFE2B2 /* SceneSelectedViewController.h */,
+				6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */,
+				6476AA9B2CF412E600AFE2B2 /* AutomateViewController.h */,
+				6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */,
+			);
+			path = AutomateWithScene;
 			sourceTree = "<group>";
 		};
 		E063D625B3279EBDA36FDEBD /* Frameworks */ = {
@@ -696,6 +734,7 @@
 				640481AB2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m in Sources */,
 				223613A827D5957600817F50 /* BleDeviceListViewController.m in Sources */,
 				640481B42CE3273500AD521D /* QuecHttpOTAViewController.m in Sources */,
+				6476AA9A2CF4119300AFE2B2 /* AutomateAndSceneVC.m in Sources */,
 				223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */,
 				223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */,
 				640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */,
@@ -716,6 +755,9 @@
 				223613BA27D5958800817F50 /* LoginViewController.m in Sources */,
 				223613A727D5957600817F50 /* DeviceControlViewController.m in Sources */,
 				22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */,
+				6476AA9D2CF412E600AFE2B2 /* AutomateViewController.m in Sources */,
+				6476AAA02CF412F200AFE2B2 /* SceneViewController.m in Sources */,
+				6476AAA32CF4212800AFE2B2 /* QuecVCManager.m in Sources */,
 				223613A127D5957600817F50 /* TslBoolTableViewCell.m in Sources */,
 				223613A027D5957600817F50 /* HomeViewController.m in Sources */,
 				22B0F7D927D2FE09001368DF /* main.m in Sources */,
@@ -729,6 +771,8 @@
 				223613C927D5959600817F50 /* MyCenterViewController.m in Sources */,
 				22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */,
 				223613AA27D5957600817F50 /* ConfigNetworkViewController.m in Sources */,
+				6476AAB42CF490AA00AFE2B2 /* SceneSelectedViewController.m in Sources */,
+				6476AAB12CF478C500AFE2B2 /* SceneAddViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,31 +19,38 @@
 
 @implementation DeviceGroupViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self getData];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"设备分组";
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
-    addButton.frame = CGRectMake(0, 0, 50, 50);
-    [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    addButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [addButton setTitle:@"添加分组" forState:UIControlStateNormal];
+    addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
+    [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+    headerView.backgroundColor = UIColor.lightGrayColor;
+    [headerView addSubview:addButton];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = headerView;
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    [self getData];
+    
+}
+
+- (void)refreshUI {
+    [self.tableView reloadData];
 }
 
 - (void)addButtonClick {
@@ -142,6 +149,10 @@
     detailVc.hidesBottomBarWhenPushed = YES;
     detailVc.dataModel = self.dataArray[indexPath.row];
     [self.navigationController pushViewController:detailVc animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES; // Allow editing of rows
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

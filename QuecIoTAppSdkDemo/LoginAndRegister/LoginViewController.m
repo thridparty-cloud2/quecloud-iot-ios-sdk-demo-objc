@@ -11,7 +11,7 @@
 #import "SmsLogingViewController.h"
 #import "RegisterViewController.h"
 #import "ForgetPasswordViewController.h"
-#import "DeviceGroupViewController.h"
+#import "AutomateAndSceneVC.h"
 #import "EmailLoginViewController.h"
 #import <QuecUserKit/QuecUserKit.h>
 #import <Toast/Toast.h>
@@ -374,7 +374,7 @@ static NSString * const UserSecretNA = @"";
     homeVc.tabBarItem.title=@"首页";
     homeVc.view.backgroundColor = [UIColor whiteColor];
     
-    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
+    AutomateAndSceneVC *groupVc=[[AutomateAndSceneVC alloc]init];
     groupVc.tabBarItem.title=@"分组";
     groupVc.view.backgroundColor = [UIColor whiteColor];
     
