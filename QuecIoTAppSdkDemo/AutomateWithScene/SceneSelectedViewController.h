@@ -9,9 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class QuecDeviceModel;
+
+typedef void (^SelectedDeviceListBlock)(NSArray<QuecDeviceModel *> *list);
+
 @interface SceneSelectedViewController : UIViewController
 
 @property(nonatomic, assign) BOOL isScene;
+@property (nonatomic, strong) NSArray *upSelectedArr;
+@property (nonatomic, copy)SelectedDeviceListBlock listBlock;
 
 @end
 

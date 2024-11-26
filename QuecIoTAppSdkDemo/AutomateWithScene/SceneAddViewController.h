@@ -9,7 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class QuecSceneModel;
 @interface SceneAddViewController : UIViewController
+
+@property (nonatomic, strong) QuecSceneModel *upSceneModel;
 
 @end
 

@@ -32,7 +32,7 @@ static CGFloat HeaderItemHeight = 100.f;
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
-    
+    [self.sceneVC superViewWillAppear];
     [self checkFamilyModeState];
 }
 

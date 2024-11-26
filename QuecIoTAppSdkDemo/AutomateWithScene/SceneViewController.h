@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SceneViewController : UIViewController
 
+- (void)superViewWillAppear;
+
 @end
 
 NS_ASSUME_NONNULL_END

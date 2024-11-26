@@ -10,6 +10,8 @@
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SceneAddViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <Toast/Toast.h>
 
 @interface SceneViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -47,6 +49,10 @@
     
     [self getData];
     
+}
+
+- (void)superViewWillAppear {
+    [self getData];
 }
 
 - (void)addButtonClick {
@@ -87,6 +93,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
+        UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [actionButton setTitle:@"执行场景" forState:UIControlStateNormal];
+        actionButton.frame = CGRectMake(ScreenWidth - 100, 10, 80, 40);
+        actionButton.backgroundColor = UIColor.systemBlueColor;
+        actionButton.tag = indexPath.row;
+        [actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [actionButton addTarget:self action:@selector(actionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:actionButton];
     }
     
     QuecSceneModel *model = self.dataArray[indexPath.row];
@@ -95,13 +109,65 @@
     }
     cell.textLabel.text = model.sceneInfo.name;
     
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-   
+    QuecSceneModel *model = self.dataArray[indexPath.row];
+    SceneAddViewController *vc = [[SceneAddViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.upSceneModel = model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES; // Allow editing of rows
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self deleteGroupWithRow:indexPath.row];
+    }];
+    unbindRowAction.backgroundColor = [UIColor redColor];
+    
+    return @[unbindRowAction];
+}
+
+- (void)deleteGroupWithRow:(NSInteger)row {
+    QuecSceneModel *model = self.dataArray[row];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
+    [[QuecSceneService sharedInstance] deleteSceneWithFid:fid sceneId:model.sceneInfo.sceneId success:^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+    
+}
+
+- (void)actionButtonClick:(UIButton *)sender {
+    QuecSceneModel *model = self.dataArray[sender.tag];
+    @quec_weakify(self);
+    [QuecSceneService.sharedInstance executeSceneWithFid:model.fid sceneId:model.sceneInfo.sceneId success:^(QuecActionExecuteResultModel * _Nonnull executeResultModel) {
+        
+        if (executeResultModel.executeResult) {
+            [self.view makeToast:@"执行成功" duration:1 position:CSToastPositionCenter];
+        }else {
+            [self.view makeToast:@"执行失败" duration:1 position:CSToastPositionCenter];
+        }
+        
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+    
+}
 
 @end

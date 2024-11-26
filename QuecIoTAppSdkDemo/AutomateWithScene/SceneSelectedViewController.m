@@ -22,7 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.selectedArray = @[].mutableCopy;
+    if (self.upSelectedArr.count) {
+        self.selectedArray = [NSMutableArray arrayWithArray:self.upSelectedArr];
+    }else {
+        self.selectedArray = @[].mutableCopy;
+    }
     
     UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [createButton setTitle:@"确定" forState:UIControlStateNormal];
@@ -43,7 +47,12 @@
 }
 
 - (void)createButtonClick {
-    
+    if (self.selectedArray.count) {
+        if (self.listBlock) {
+            self.listBlock(self.selectedArray.copy);
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)getData {

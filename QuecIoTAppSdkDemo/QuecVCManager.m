@@ -73,4 +73,3 @@ inline UIEdgeInsets quec_ScreenSafeInsets(void) {
     }
     return safeAreaInsets;
 }
-

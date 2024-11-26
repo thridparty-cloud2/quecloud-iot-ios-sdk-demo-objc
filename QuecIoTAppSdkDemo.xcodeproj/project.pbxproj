@@ -59,6 +59,7 @@
 		6476AAA32CF4212800AFE2B2 /* QuecVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAA22CF4212800AFE2B2 /* QuecVCManager.m */; };
 		6476AAB12CF478C500AFE2B2 /* SceneAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */; };
 		6476AAB42CF490AA00AFE2B2 /* SceneSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */; };
+		6476AAB72CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB62CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +193,8 @@
 		6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneAddViewController.m; sourceTree = "<group>"; };
 		6476AAB22CF490AA00AFE2B2 /* SceneSelectedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneSelectedViewController.h; sourceTree = "<group>"; };
 		6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneSelectedViewController.m; sourceTree = "<group>"; };
+		6476AAB52CF579ED00AFE2B2 /* SceneSetDeviceActionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneSetDeviceActionVC.h; sourceTree = "<group>"; };
+		6476AAB62CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneSetDeviceActionVC.m; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				6476AAB02CF478C500AFE2B2 /* SceneAddViewController.m */,
 				6476AAB22CF490AA00AFE2B2 /* SceneSelectedViewController.h */,
 				6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */,
+				6476AAB52CF579ED00AFE2B2 /* SceneSetDeviceActionVC.h */,
+				6476AAB62CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m */,
 				6476AA9B2CF412E600AFE2B2 /* AutomateViewController.h */,
 				6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */,
 			);
@@ -765,6 +770,7 @@
 				223613A327D5957600817F50 /* DeviceDetailViewController.m in Sources */,
 				223613BB27D5958800817F50 /* QueryDataViewController.m in Sources */,
 				223613BF27D5958800817F50 /* EmailLoginViewController.m in Sources */,
+				6476AAB72CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m in Sources */,
 				6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */,
 				223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */,
 				223613A527D5957600817F50 /* TslEnumAndDateTableViewCell.m in Sources */,
