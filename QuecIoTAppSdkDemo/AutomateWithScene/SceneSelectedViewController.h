@@ -16,6 +16,7 @@ typedef void (^SelectedDeviceListBlock)(NSArray<QuecDeviceModel *> *list);
 @interface SceneSelectedViewController : UIViewController
 
 @property(nonatomic, assign) BOOL isScene;
+@property(nonatomic, assign) BOOL isAutomate;
 @property (nonatomic, strong) NSArray *upSelectedArr;
 @property (nonatomic, copy)SelectedDeviceListBlock listBlock;
 

@@ -33,6 +33,7 @@ static CGFloat HeaderItemHeight = 100.f;
     
     self.navigationController.navigationBarHidden = YES;
     [self.sceneVC superViewWillAppear];
+    [self.automateVC superViewWillAppear];
     [self checkFamilyModeState];
 }
 
@@ -47,7 +48,6 @@ static CGFloat HeaderItemHeight = 100.f;
     self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
     
     [self createItemBtn:self.isFamilyMode];
-    
 }
 
 - (void)createItemBtn:(BOOL)isFamilyMode {
@@ -56,7 +56,7 @@ static CGFloat HeaderItemHeight = 100.f;
     
     self.scrollView.frame = CGRectMake(0, HeaderItemHeight, ScreenWidth, ScreenHeight - HeaderItemHeight - quec_TabBarHeight());
     
-    NSArray *array = @[@"自动化",@"场景", @"分组"];
+    NSArray *array = @[@"场景", @"自动化", @"分组"];
     for (int i = 0; i < array.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = i;

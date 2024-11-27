@@ -118,6 +118,12 @@
     cell.textLabel.text = model.familyName;
     cell.textLabel.textColor = [UIColor blackColor];
     
+    for (id child in cell.contentView.subviews) {
+        if ([child isKindOfClass:[UIButton class]]) {
+            [child removeFromSuperview];
+        }
+    }
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(self.view.bounds.size.width - 120 , 10, 100, 40);
     [btn setTitle:@"家庭详情" forState:UIControlStateNormal];

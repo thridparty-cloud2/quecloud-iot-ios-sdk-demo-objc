@@ -6,8 +6,16 @@
 //
 
 #import "AutomateViewController.h"
+#import <QuecAutomateKit/QuecAutomateKit.h>
+#import <QuecSmartHomeKit/QuecSmartHomeKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <Toast/Toast.h>
+#import "AutomateAddViewController.h"
 
-@interface AutomateViewController ()
+@interface AutomateViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *dataArray;
 
 @end
 
@@ -16,7 +24,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
    
-    NSLog(@"self.view.bounds.size.width11=%f",self.view.bounds.size.width);
+    self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
 
 }
 
@@ -24,7 +32,109 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
+    
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addButton setTitle:@"添加自动化" forState:UIControlStateNormal];
+    addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
+    [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+    headerView.backgroundColor = UIColor.lightGrayColor;
+    [headerView addSubview:addButton];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    [self getData];
+    
 }
 
+- (void)superViewWillAppear {
+    [self getData];
+}
+
+- (void)addButtonClick {
+    AutomateAddViewController *vc = [[AutomateAddViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)getData {
+    
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
+    
+    @quec_weakify(self);
+    [QuecAutomateService getAutomationListWithFid:fid pageNumber:1 pageSize:100 success:^(NSArray<QuecAutomateModel *> * _Nonnull models, NSUInteger total) {
+        @quec_strongify(self);
+        
+        self.dataArray = [NSArray arrayWithArray:models];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - UITableViewDelegate & UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
+    }
+    
+    QuecAutomateModel *model = self.dataArray[indexPath.row];
+    cell.textLabel.text = model.name;
+    
+    for (id child in cell.contentView.subviews) {
+        if ([child isKindOfClass:[UISwitch class]]) {
+            [child removeFromSuperview];
+        }
+    }
+    
+    UISwitch *actionSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(ScreenWidth - 60, 20, 50, 40)];
+    actionSwitch.tag = indexPath.row;
+    [actionSwitch addTarget:self action:@selector(stateChanged:) forControlEvents:UIControlEventValueChanged];
+    [cell.contentView addSubview:actionSwitch];
+    actionSwitch.on = model.status;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+- (void)stateChanged:(UISwitch *)state {
+    NSLog(@"stateChanged: %d",state.on);
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
+    QuecAutomateModel *model = self.dataArray[state.tag];
+    @quec_weakify(self);
+    [QuecAutomateService updateAutomationSwitchStatusWithFid:fid automationId:model.automationId status:state.on success:^{
+        model.status = state.on;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView reloadData];
+    }];
+    
+}
 
 @end

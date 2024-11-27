@@ -115,6 +115,12 @@
     QuecFamilyRoomItemModel *model = self.dataArray[indexPath.row];
     cell.textLabel.text = model.roomName;
     
+    for (id child in cell.contentView.subviews) {
+        if ([child isKindOfClass:[UIButton class]]) {
+            [child removeFromSuperview];
+        }
+    }
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(self.view.bounds.size.width - 120 , 10, 100, 40);
     [btn setTitle:@"删除房间" forState:UIControlStateNormal];

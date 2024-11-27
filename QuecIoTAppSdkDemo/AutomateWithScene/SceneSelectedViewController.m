@@ -8,12 +8,19 @@
 #import "SceneSelectedViewController.h"
 #import <QuecDeviceKit/QuecDeviceKit.h>
 #import <QuecDeviceKit/QuecDeviceListParamsModel.h>
+#import <QuecSmartHomeKit/QuecSmartHomeKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <Toast/Toast.h>
 
 @interface SceneSelectedViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSMutableArray *selectedArray;
+
+@property (nonatomic, strong) NSArray *roomListArray;
+@property (nonatomic, strong) QuecFamilyItemModel *currentFamilyModel;
+@property (nonatomic, strong) QuecFamilyRoomItemModel *currentRoomModel;
 
 @end
 
@@ -57,19 +64,80 @@
 
 - (void)getData {
     
-    QuecDeviceListParamsModel *paramsModel = [[QuecDeviceListParamsModel alloc]init];
-    paramsModel.pageNumber = 1;
-    paramsModel.pageSize = 100;
-    paramsModel.isAssociation = 0;
+    if (QuecSmartHomeService.sharedInstance.enable) {//开启了家具模式
+        [self getCurrentFamilyWithFid:[QuecSmartHomeService sharedInstance].currentFamily.fid];
+    }else {
+        QuecDeviceListParamsModel *paramsModel = [[QuecDeviceListParamsModel alloc]init];
+        paramsModel.pageNumber = 1;
+        paramsModel.pageSize = 100;
+        paramsModel.isAssociation = 0;
+        
+        @quec_weakify(self);
+        [QuecDeviceService.sharedInstance getDeviceListWithParams:paramsModel success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+            @quec_strongify(self);
+            self.dataArray = [NSArray arrayWithArray:list];
+            [self.tableView reloadData];
+        } failure:^(NSError *error) {
+            
+        }];
+    }
     
-    @quec_weakify(self);
-    [QuecDeviceService.sharedInstance getDeviceListWithParams:paramsModel success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
-        @quec_strongify(self);
-        self.dataArray = [NSArray arrayWithArray:list];
+}
+
+- (void)getCurrentFamilyWithFid:(NSString *)fid {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getCurrentFamilyWithFid:fid currentCoordinates:@"" success:^(QuecFamilyItemModel *itemModel){
+        QuecStrongSelf(self);
+        self.currentFamilyModel = itemModel;
+        [self getFamilyRoomList:itemModel];
+        [self getCommonUsedDeviceList:itemModel];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//查询家庭中的房间列表
+- (void)getFamilyRoomList:(QuecFamilyItemModel *)model {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getFamilyRoomListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecFamilyRoomItemModel *> *list, NSInteger total) {
+        QuecStrongSelf(self);
+        QuecFamilyRoomItemModel *model = [[QuecFamilyRoomItemModel alloc]init];
+        model.roomName = @"常用";
+        model.frid = @"常用ID";
+        self.currentRoomModel = model;
+        NSMutableArray *array = [NSMutableArray arrayWithArray:list];
+        [array insertObject:model atIndex:0];
+        self.roomListArray = array.copy;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];
+}
+
+//查询常用设备列表
+- (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+        QuecStrongSelf(self);
+        self.dataArray = list.copy;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//查询房间中设备列表
+- (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
+   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+   QuecWeakSelf(self);
+   [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+       [MBProgressHUD hideHUDForView:self.view animated:YES];
+       QuecStrongSelf(self);
+       self.dataArray = list.copy;
+       [self.tableView reloadData];
+   } failure:^(NSError *error) {
+       [MBProgressHUD hideHUDForView:self.view animated:YES];
+   }];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -79,6 +147,63 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return QuecSmartHomeService.sharedInstance.enable ? 100 : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
+    
+    if (!QuecSmartHomeService.sharedInstance.enable) {
+        view.hidden = YES;
+        return view;
+    }
+    
+    view.hidden = NO;
+    UILabel *familyTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 30)];
+    familyTitle.font = [UIFont boldSystemFontOfSize:16];
+    familyTitle.textColor = UIColor.darkGrayColor;
+    familyTitle.text = [NSString stringWithFormat:@"%@--%@",self.currentFamilyModel.familyName,self.currentRoomModel.roomName];
+    familyTitle.userInteractionEnabled = YES;
+    [view addSubview:familyTitle];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 50, self.view.bounds.size.width, 40)];
+    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 2, 40);
+    [view addSubview:scrollView];
+    UIButton *lastBtn = nil;
+    NSInteger tag = 0;
+    for (QuecFamilyRoomItemModel *model in self.roomListArray) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:model.roomName forState:UIControlStateNormal];
+        btn.tag = tag;
+        [btn addTarget:self action:@selector(roomAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        btn.backgroundColor = UIColor.systemBlueColor;
+        [scrollView addSubview:btn];
+        if (lastBtn == nil) {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@20);
+                make.centerY.equalTo(scrollView);
+                make.width.equalTo(@80);
+                make.height.equalTo(@30);
+            }];
+        }else {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(lastBtn.mas_right).offset(20);
+                make.centerY.equalTo(scrollView);
+                make.width.equalTo(@80);
+                make.height.equalTo(@30);
+            }];
+        }
+        tag++;
+        lastBtn = btn;
+    }
+    
+    
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -105,6 +230,14 @@
     /// 多绑设备和分享设备以及纯蓝牙设备不支持加入场景
     if (self.isScene && (model.isShared || model.bindMode == 1 || model.capabilitiesBitmask == 4)) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.view makeToast:@"多绑设备和分享设备以及纯蓝牙设备不支持加入场景" duration:1 position:CSToastPositionCenter];
+        return;
+    }
+    
+    /// 多绑设备和分享设备以及纯蓝牙设备不支持加入场景
+    if (self.isAutomate && (model.isShared || model.bindMode == 1 || model.capabilitiesBitmask == 4)) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.view makeToast:@"多绑设备和分享设备以及纯蓝牙设备不支持加入自动化" duration:1 position:CSToastPositionCenter];
         return;
     }
     
@@ -115,6 +248,22 @@
     }
     
     [self.tableView reloadData];
+}
+
+- (void)roomAction:(UIButton *)sender {
+    QuecFamilyRoomItemModel *model = self.roomListArray[sender.tag];
+    if ([self.currentRoomModel.frid isEqualToString:model.frid]) {
+        return;
+    }
+    
+    self.currentRoomModel = model;
+    
+    if ([self.currentRoomModel.frid isEqualToString:@"常用ID"]) {
+        [self getCommonUsedDeviceList:self.currentFamilyModel];
+    }else {
+        [self getFamilyRoomDeviceListWithFrid:self.currentRoomModel.frid];
+    }
+    
 }
 
 @end

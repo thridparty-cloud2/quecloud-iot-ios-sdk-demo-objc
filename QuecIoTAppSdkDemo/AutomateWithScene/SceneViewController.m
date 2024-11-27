@@ -77,6 +77,7 @@
         
     } failure:^(NSError *error) {
         @quec_strongify(self);
+        
     }];
 }
 
@@ -93,14 +94,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
-        UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [actionButton setTitle:@"执行场景" forState:UIControlStateNormal];
-        actionButton.frame = CGRectMake(ScreenWidth - 100, 10, 80, 40);
-        actionButton.backgroundColor = UIColor.systemBlueColor;
-        actionButton.tag = indexPath.row;
-        [actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        [actionButton addTarget:self action:@selector(actionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:actionButton];
     }
     
     QuecSceneModel *model = self.dataArray[indexPath.row];
@@ -108,7 +101,21 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.sceneInfo.icon] placeholderImage:[UIImage imageNamed:@"group_tabbar"]];
     }
     cell.textLabel.text = model.sceneInfo.name;
+        
+    for (id child in cell.contentView.subviews) {
+        if ([child isKindOfClass:[UIButton class]]) {
+            [child removeFromSuperview];
+        }
+    }
     
+    UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionButton setTitle:@"执行场景" forState:UIControlStateNormal];
+    actionButton.frame = CGRectMake(ScreenWidth - 100, 10, 80, 40);
+    actionButton.backgroundColor = UIColor.systemBlueColor;
+    actionButton.tag = indexPath.row;
+    [actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [actionButton addTarget:self action:@selector(actionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:actionButton];
     
     return cell;
 }

@@ -42,7 +42,7 @@
 }
 
 - (void)createButtonClick {
-    NSLog(@"根据业务需求选择要执行的物模型动作回传给上一级页面");
+    NSLog(@"根据业务需求选择要执行的物模型动作回传给上一级页面, 可多选");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
