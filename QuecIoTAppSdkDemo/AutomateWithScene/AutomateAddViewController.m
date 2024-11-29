@@ -14,6 +14,7 @@
 #import "SceneSelectedViewController.h"
 #import <QuecCommonUtil/QuecCommonUtil.h>
 #import "AutomateAbilityPublishedVC.h"
+#import <QuecSceneKit/QuecSceneKit.h>
 
 @interface AutomateAddViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic, strong) QuecAutomationConditionModel *timeConditionModel;
 @property (nonatomic, strong) QuecAutomationActionModel *timeActionModel;
+@property (nonatomic, strong) QuecAutomationActionModel *sceneActionModel;
 
 @end
 
@@ -85,8 +87,8 @@
         }
     }
     
-    if (!doAction) {
-        [self.view makeToast:@"执行任务中的设备请设置执行动作" duration:1 position:CSToastPositionCenter];
+    if (!doAction && self.timeActionModel == nil) {
+        [self.view makeToast:@"执行任务中设备和场景至少要选择一个" duration:1 position:CSToastPositionCenter];
         return;
     }
     
@@ -382,7 +384,7 @@
     vc.listBlock = ^(NSArray<QuecDeviceModel *> * _Nonnull list) {
         @quec_strongify(self);
         NSMutableArray *arr = @[].mutableCopy;
-        NSInteger sort = self.timeActionModel == nil ? 1 : 2;
+        NSInteger sort = (self.timeActionModel == nil && self.sceneActionModel == nil) ? 1 : ((self.timeActionModel && self.sceneActionModel) ? 3 : 2);
         for (QuecDeviceModel *model in list) {
             // 使用 indexOfObject: 方法查找对象的索引
             NSUInteger index = [self.dataTwoDeviceArray indexOfObject:model];
@@ -406,13 +408,44 @@
 }
 
 - (void)btn4Action:(UIButton *)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self);
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
     
+    @quec_weakify(self);
+    [[QuecSceneService sharedInstance] getSceneListWithFid:fid pageNumber:1 pageSize:100 success:^(NSArray<QuecSceneModel *> * _Nonnull list, NSInteger total) {
+        @quec_strongify(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (total == 0) {
+            [self.view makeToast:@"没有场景数据可选" duration:1 position:CSToastPositionCenter];
+            return;
+        }
+        
+        //Demo仅做示范，默认选择第一个场景数据，实际业务支持多选
+        if (self.sceneActionModel == nil) {
+            QuecSceneModel *sceneModel = list[0];
+            NSInteger sort = (self.dataTwoArray.count == 0 && self.timeActionModel == nil) ? 1 : (self.timeActionModel == nil ? self.dataTwoArray.count + 1 : self.dataTwoArray.count + 2);
+            
+            QuecAutomationActionModel *model = [[QuecAutomationActionModel alloc]initWithType:4 icon:sceneModel.sceneInfo.icon name:sceneModel.sceneInfo.name productKey:nil deviceKey:nil sceneId:sceneModel.sceneInfo.sceneId delayTime:nil property:nil sort:sort];
+            self.sceneActionModel = model;
+            [self.view makeToast:@"添加场景执行任务成功" duration:1 position:CSToastPositionCenter];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        @quec_strongify(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.description duration:1 position:CSToastPositionCenter];
+    }];
 }
 
 - (void)btn5Action:(UIButton *)sender {
     
     if (self.timeActionModel == nil) {
-        NSInteger sort = self.dataTwoArray.count == 0 ? 1 : self.dataTwoArray.count + 1;
+        NSInteger sort = (self.dataTwoArray.count == 0 && self.sceneActionModel == nil) ? 1 : (self.sceneActionModel == nil ? self.dataTwoArray.count + 1 : self.dataTwoArray.count + 2);
         QuecAutomationActionModel *model = [[QuecAutomationActionModel alloc]initWithType:1 icon:nil name:nil productKey:nil deviceKey:nil sceneId:nil delayTime:@(120) property:nil sort:sort];
         self.timeActionModel = model;
         [self.view makeToast:@"添加延时执行任务成功" duration:1 position:CSToastPositionCenter];

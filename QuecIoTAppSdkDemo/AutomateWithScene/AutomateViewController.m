@@ -11,6 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Toast/Toast.h>
 #import "AutomateAddViewController.h"
+#import "AutomateDetailViewController.h"
 
 @interface AutomateViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -117,6 +118,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    QuecAutomateModel *model = self.dataArray[indexPath.row];
+    AutomateDetailViewController *vc = [[AutomateDetailViewController alloc]init];
+    vc.automateModel = model;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES; // Allow editing of rows
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self deleteGroupWithRow:indexPath.row];
+    }];
+    unbindRowAction.backgroundColor = [UIColor redColor];
+    
+    return @[unbindRowAction];
+}
+
+- (void)deleteGroupWithRow:(NSInteger)row {
+    QuecAutomateModel *model = self.dataArray[row];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
+    
+    [QuecAutomateService deleteAutomationWithFid:fid automationId:model.automationId success:^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self getData];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
     
 }
 

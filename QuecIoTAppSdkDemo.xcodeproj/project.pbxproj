@@ -61,6 +61,7 @@
 		6476AAB42CF490AA00AFE2B2 /* SceneSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB32CF490AA00AFE2B2 /* SceneSelectedViewController.m */; };
 		6476AAB72CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB62CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m */; };
 		6476AABA2CF5B83600AFE2B2 /* AutomateAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB92CF5B83600AFE2B2 /* AutomateAddViewController.m */; };
+		64D4314E2CF83F1F0011DD3F /* AutomateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */; };
 		64DE8EF32CF7020800342EB7 /* AutomateAbilityPublishedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DE8EF22CF7020800342EB7 /* AutomateAbilityPublishedVC.m */; };
 		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
 /* End PBXBuildFile section */
@@ -199,6 +200,8 @@
 		6476AAB62CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneSetDeviceActionVC.m; sourceTree = "<group>"; };
 		6476AAB82CF5B83600AFE2B2 /* AutomateAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateAddViewController.h; sourceTree = "<group>"; };
 		6476AAB92CF5B83600AFE2B2 /* AutomateAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateAddViewController.m; sourceTree = "<group>"; };
+		64D4314C2CF83F1F0011DD3F /* AutomateDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateDetailViewController.h; sourceTree = "<group>"; };
+		64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateDetailViewController.m; sourceTree = "<group>"; };
 		64DE8EF12CF7020800342EB7 /* AutomateAbilityPublishedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateAbilityPublishedVC.h; sourceTree = "<group>"; };
 		64DE8EF22CF7020800342EB7 /* AutomateAbilityPublishedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateAbilityPublishedVC.m; sourceTree = "<group>"; };
 		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +347,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				64D431522CF964550011DD3F /* CreateGroups */,
 				6476AA972CF40EF500AFE2B2 /* AutomateWithScene */,
 				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
@@ -447,8 +451,17 @@
 				6476AAB92CF5B83600AFE2B2 /* AutomateAddViewController.m */,
 				64DE8EF12CF7020800342EB7 /* AutomateAbilityPublishedVC.h */,
 				64DE8EF22CF7020800342EB7 /* AutomateAbilityPublishedVC.m */,
+				64D4314C2CF83F1F0011DD3F /* AutomateDetailViewController.h */,
+				64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */,
 			);
 			path = AutomateWithScene;
+			sourceTree = "<group>";
+		};
+		64D431522CF964550011DD3F /* CreateGroups */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreateGroups;
 			sourceTree = "<group>";
 		};
 		E063D625B3279EBDA36FDEBD /* Frameworks */ = {
@@ -755,6 +768,7 @@
 				64DE8EF32CF7020800342EB7 /* AutomateAbilityPublishedVC.m in Sources */,
 				640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */,
 				223613BD27D5958800817F50 /* EmailRegisterViewController.m in Sources */,
+				64D4314E2CF83F1F0011DD3F /* AutomateDetailViewController.m in Sources */,
 				6476AABA2CF5B83600AFE2B2 /* AutomateAddViewController.m in Sources */,
 				6443DB742CEF290700C8B128 /* FamilyRoomListViewController.m in Sources */,
 				223613AB27D5957600817F50 /* TlsTextTableViewCell.m in Sources */,

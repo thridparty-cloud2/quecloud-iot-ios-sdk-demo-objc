@@ -16,6 +16,8 @@
 #import "QuecDeviceOTAStatusManager.h"
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 #import "FamilyListViewController.h"
+#import <QuecGroupKit/QuecGroupKit.h>
+#import <QuecGroupKit/QuecGroupCreateBean.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
 
@@ -26,6 +28,15 @@
 @property (nonatomic, strong) NSMutableDictionary *deviceDatas;
 @property (nonatomic, strong) QuecFamilyItemModel *currentFamilyModel;
 @property (nonatomic, strong) QuecFamilyRoomItemModel *currentRoomModel;
+
+@property (nonatomic, assign) BOOL isEdit;
+@property (nonatomic, strong) NSMutableArray *editDeviceList;
+
+@property (nonatomic, strong) UIButton *createGroupsBtn;
+
+@property (nonatomic, strong) UIButton *editButton;
+@property (nonatomic, strong) UIBarButtonItem *addBarButton;
+@property (nonatomic, strong) UIBarButtonItem *editBarButton;
 
 @end
 
@@ -42,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
+    self.isFamilyMode = NO;
     self.title = @"设备列表";
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -62,16 +73,28 @@
     [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    self.addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    
+    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitle:@"取消" forState:UIControlStateSelected];
+    editButton.frame = CGRectMake(0, 0, 50, 50);
+    [editButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [editButton addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.editButton = editButton;
+    self.editBarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+    
+    self.navigationItem.rightBarButtonItems = @[self.addBarButton];
     _deviceDatas = @{}.mutableCopy;
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
-    
+    [self getCurrentFamilyWithFid:@""];
 }
 
 - (void)refreshList {
@@ -86,6 +109,138 @@
 
 - (void)addButtonClick {
     [self showActionSheet];
+}
+
+- (void)editClick:(UIButton *)sender {
+    
+    if (!self.isFamilyMode) {
+        [self.view makeToast:@"仅家庭模式下可编辑群组" duration:2 position:CSToastPositionCenter];
+        return;
+    }
+    
+    sender.selected = !sender.selected;
+    self.isEdit = sender.selected;
+    [self.tableView setEditing:sender.selected];
+    self.editDeviceList = [NSMutableArray array];
+    
+    if (self.isEdit) {
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
+        self.createGroupsBtn.alpha = 0.5;
+        self.createGroupsBtn.enabled = NO;
+        [view addSubview:self.createGroupsBtn];
+        self.tableView.tableFooterView = view;
+    }else {
+        self.tableView.tableFooterView = UIView.new;
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)refreshCreateGroupBtn {
+    
+    if (self.editDeviceList.count == 0) {
+        self.createGroupsBtn.alpha = 0.5;
+        self.createGroupsBtn.enabled = NO;
+        return;
+    }
+    
+    BOOL isEnabled = YES;
+    if (self.isFamilyMode && self.currentFamilyModel.memberRole == 3) {//家庭模式下普通成员不可编辑
+        isEnabled = NO;
+    }else if(![self canCreateGroupWithDevices:self.editDeviceList]) {
+        isEnabled = NO;
+    }
+    
+    if (isEnabled) {
+        self.createGroupsBtn.alpha = 1.0;
+        self.createGroupsBtn.enabled = YES;
+    }else {
+        self.createGroupsBtn.alpha = 0.5;
+        self.createGroupsBtn.enabled = NO;
+    }
+    
+}
+
+- (BOOL)canCreateGroupWithDevices:(NSArray<QuecDeviceModel *> *)devices {
+    
+    BOOL result = true;
+    NSString *preSecondCode = nil;
+    for (QuecDeviceModel * device in devices) {
+        if (device.isGroupDevice) {//群组不可再创建群组
+            return false;
+        }
+        
+        if (!device.groupState) {//二级品类开关未开启
+            return false;
+        }
+        
+        if (device.bindMode == 1) {//多绑不可以创建群组
+            return false;
+        }
+        
+        if (device.isShared) {//分享设备不可以创建群组
+            return false;
+        }
+        if (device.capabilitiesBitmask == 4) {//纯蓝牙设备不可以创建群组
+            return false;
+        }
+        
+        if (preSecondCode == nil) {
+            preSecondCode = device.secondItemCode;
+        }
+        if ([device.secondItemCode isValid] && ![preSecondCode isEqualToString:device.secondItemCode]) {
+            return false;
+        }
+    }
+    
+    return result;
+}
+
+- (void)createGroupsAction {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSMutableArray *deviceList = @[].mutableCopy;
+    for (QuecDeviceModel *device in self.editDeviceList) {
+        QuecGroupCreateDeviceBean *deviceBean = [[QuecGroupCreateDeviceBean alloc]init];
+        deviceBean.productKey = device.productKey;
+        deviceBean.deviceKey = device.deviceKey;
+        [deviceList addObject:deviceBean];
+    }
+    
+    QuecGroupCreateBean *createModel = [[QuecGroupCreateBean alloc]init];
+    long long timestamp = (long long)quec_TimestampMSEC();//获取毫秒级时间戳
+    createModel.groupDeviceName = [NSString stringWithFormat:@"%@%lld",@"随意群组命名_",timestamp];
+    
+    NSString *fid = @"";
+    if (QuecSmartHomeService.sharedInstance.enable) {
+        fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
+    }
+    createModel.fid = fid;
+    createModel.frid = @"";
+    createModel.isCommonUsed = YES;
+    createModel.deviceList = deviceList.copy;
+    [self editClick:self.editButton];
+    @quec_weakify(self);
+    [QuecGroupService createGroupWithBean:createModel success:^(QuecGroupCreateResultBean * _Nonnull result) {
+        @quec_strongify(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self refreshList];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.description duration:1 position:CSToastPositionCenter];
+    }];
+}
+//查询群组基础信息
+- (void)getGroupDeviceInfoWithId:(NSString *)gid {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    @quec_weakify(self);
+    [QuecGroupService getGroupInfoWithId:gid success:^(QuecGroupBean * _Nonnull result) {
+        @quec_strongify(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:@"查询群组基础信息成功" duration:2 position:CSToastPositionCenter];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.description duration:1 position:CSToastPositionCenter];
+    }];
 }
 
 // WIFI设备绑定
@@ -261,8 +416,10 @@
         }
         
         if (self.isFamilyMode) {
+            self.navigationItem.rightBarButtonItems = @[self.addBarButton, self.editBarButton];
             [self getCurrentFamilyWithFid:@""];
         }else {
+            self.navigationItem.rightBarButtonItems = @[self.addBarButton];
             [self getData];
         }
         
@@ -304,7 +461,8 @@
 //查询常用设备列表
 - (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
-    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    
+    [QuecSmartHomeService getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 isGroupDeviceShow:YES success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
         self.dataArray = list.copy;
         [self addDevicesToDeviceKit];
@@ -312,6 +470,7 @@
     } failure:^(NSError *error) {
         
     }];
+    
 }
  //查询房间中设备列表
 - (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
@@ -458,16 +617,46 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
     }
+    
     QuecDeviceModel *model = self.dataArray[indexPath.row];
     cell.textLabel.text = model.deviceName;
+    if (model.gdid && model.gdid.length > 0) {
+        cell.textLabel.text = [NSString stringWithFormat:@"群组：%@",model.deviceName];
+    }
     cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.detailTextLabel.text = model.onlineChannelState ?  @"在线" : @"离线";
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.isEdit) {
+        NSLog(@"isEdit--didSelectRowAtIndexPath");
+        QuecDeviceModel *model = self.dataArray[indexPath.row];
+        [self.editDeviceList addObject:model];
+        [self refreshCreateGroupBtn];
+        return;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    QuecDeviceModel *model = self.dataArray[indexPath.row];
+    if (model.gdid && model.gdid.length > 0) {
+        [self getGroupDeviceInfoWithId:model.gdid];
+        return;
+    }
+    
     [self jumpTpDetainWithRow:indexPath.row];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isEdit) {
+        NSLog(@"isEdit--didDeselectRowAtIndexPath");
+        QuecDeviceModel *model = self.dataArray[indexPath.row];
+        [self.editDeviceList removeObject:model];
+        [self refreshCreateGroupBtn];
+        return;
+    }
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -479,7 +668,7 @@
     }];
     renameRowAction.backgroundColor = [UIColor lightGrayColor];
     //解绑
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"解绑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         QuecStrongSelf(self)
         [self unbindDeviceWithRow:indexPath.row];
     }];
@@ -550,7 +739,11 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecDeviceModel *model = [self.dataArray quec_safeObjectAtIndex:row];
     @quec_weakify(self);
-    [QuecDevice batchRemoveWithFid:@"" isInit:NO deviceList:@[model] success:^{
+    NSString *fid = @"";
+    if (model.fid) {
+        fid = model.fid;
+    }
+    [QuecDevice batchRemoveWithFid:fid isInit:NO deviceList:@[model] success:^{
         @quec_strongify(self);
         [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -628,6 +821,19 @@
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+}
+
+#pragma mark - lazy
+- (UIButton *)createGroupsBtn {
+    if (!_createGroupsBtn) {
+        _createGroupsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _createGroupsBtn.frame = CGRectMake(40, 40, ScreenWidth - 80, 40);
+        [_createGroupsBtn setTitle:@"创建群组" forState:UIControlStateNormal];
+        _createGroupsBtn.backgroundColor = UIColor.systemBlueColor;
+        [_createGroupsBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [_createGroupsBtn addTarget:self action:@selector(createGroupsAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _createGroupsBtn;
 }
 
 @end
