@@ -85,13 +85,11 @@ static NSString * const UserSecretNA = @"";
     self.countryCodeField.textColor = [UIColor lightGrayColor];
     self.countryCodeField.font = [UIFont systemFontOfSize:16];
     self.countryCodeField.returnKeyType = UIReturnKeyDone;
-    self.countryCodeField.text = @"86";
     [self.view addSubview:self.countryCodeField];
     
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 250,viewWidth - 110, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.phoneTextField.placeholder = @"请输入手机号";
-    self.phoneTextField.text = @"18556500181";
     self.phoneTextField.textColor = [UIColor lightGrayColor];
     self.phoneTextField.font = [UIFont systemFontOfSize:16];
     self.phoneTextField.returnKeyType = UIReturnKeyDone;
@@ -109,7 +107,6 @@ static NSString * const UserSecretNA = @"";
     self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 330,viewWidth - 60, 50)];
     self.pswTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.pswTextField.placeholder = @"请输入密码";
-    self.pswTextField.text = @"Qwer1234";
     self.pswTextField.textColor = [UIColor lightGrayColor];
     self.pswTextField.font = [UIFont systemFontOfSize:16];
     self.pswTextField.returnKeyType = UIReturnKeyDone;
@@ -211,52 +208,42 @@ static NSString * const UserSecretNA = @"";
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入userDomain";
-        textField.text = @"C.DM.5903.1";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入userDomainSecret";
-        textField.text = @"EufftRJSuWuVY7c6txzGifV9bJcfXHAFa7hXY5doXSn7";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入baseUrl";
-        textField.text = @"https://uat-iot-api.quectelcn.com";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入webSocketUrl";
-        textField.text = @"wss://uat-iot-ws.quectelcn.com/ws/v1";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入webSocketV2Url";
-        textField.text = @"wss://uat-iot-south.quectelcn.com:8443/ws/v2";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入mcc";
-        textField.text = @"460";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入tcpAddr";
-        textField.text = @"mqtt://uat-iot-south.quectelcn.com:1883";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入pskAddr";
-        textField.text = @"mqtts://uat-iot-south.quectelcn.com:8886";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入tlsAddr";
-        textField.text = @"mqtts://uat-iot-south.quectelcn.com:8884";
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入cerAddr";
-        textField.text = @"mqtts://uat-iot-south.quectelcn.com:8885";
         
     }];
     [alertVc addAction:sureAction];

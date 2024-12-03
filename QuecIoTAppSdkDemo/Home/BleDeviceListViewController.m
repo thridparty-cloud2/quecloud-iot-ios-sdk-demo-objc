@@ -11,6 +11,7 @@
 #import <QuecSmartConfigKit/QuecSmartConfigKit.h>
 #import <Toast/Toast.h>
 #import <QuecDeviceKit/QuecDeviceKit.h>
+#import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 
 @interface BleDeviceListViewController ()<UITableViewDelegate, UITableViewDataSource, QuecBleManagerDelegate, QuecPairingDelegate>
 
@@ -46,7 +47,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.dataArray = @[].mutableCopy;
-    self.fid = @"";
+    self.fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"扫描" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);

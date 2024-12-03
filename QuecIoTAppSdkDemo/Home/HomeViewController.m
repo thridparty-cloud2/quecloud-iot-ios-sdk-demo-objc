@@ -408,16 +408,9 @@
         BOOL changed = QuecSmartHomeService.sharedInstance.enable != self.isFamilyMode;
         self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
         
-        if (!changed) {
-            if (self.dataArray.count == 0) {
-                [self getData];
-            }
-            return;
-        }
-        
         if (self.isFamilyMode) {
             self.navigationItem.rightBarButtonItems = @[self.addBarButton, self.editBarButton];
-            [self getCurrentFamilyWithFid:@""];
+            [self getCurrentFamilyWithFid:[QuecSmartHomeService sharedInstance].currentFamily.fid];
         }else {
             self.navigationItem.rightBarButtonItems = @[self.addBarButton];
             [self getData];
