@@ -19,7 +19,7 @@ target 'QuecIoTAppSdkDemo' do
 
   commpod
   # Pods for QuecIoTAppSdkDemo
-  pod 'QuecIotSdk' , '~> 1.12.0-beta.7'
+  pod 'QuecIotSdk' , '~> 1.12.0-beta.9'
   pod 'MQTTClient' , '~> 0.15.4'
   pod 'QuecSmartHomeKit' , '~> 2.0.8'
   pod 'QuecAutomateKit' , '~> 0.2.0'
