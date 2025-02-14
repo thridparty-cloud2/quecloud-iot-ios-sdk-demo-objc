@@ -62,14 +62,14 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel
-  - QuecBleChannelKit (1.5.1):
+  - QuecBleChannelKit (1.5.5):
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
-  - QuecCommonUtil (0.4.0):
+  - QuecCommonUtil (0.4.2):
     - QuecFoundationKit
-  - QuecConnectivityKit (0.3.0)
-  - QuecDeviceKit (1.8.7):
+  - QuecConnectivityKit (0.3.3)
+  - QuecDeviceKit (1.9.0):
     - QuecCommonUtil
     - QuecConnectivityKit
     - QuecFoundationKit
@@ -84,7 +84,7 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel
-  - QuecIotChannelKit (0.7.2):
+  - QuecIotChannelKit (0.7.7):
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -96,22 +96,22 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (1.12.0-beta.9):
-    - QuecBleChannelKit (= 1.5.1)
-    - QuecCommonUtil (= 0.4.0)
-    - QuecConnectivityKit (= 0.3.0)
-    - QuecDeviceKit (= 1.8.7)
+  - QuecIotSdk (1.12.0):
+    - QuecBleChannelKit (= 1.5.5)
+    - QuecCommonUtil (= 0.4.2)
+    - QuecConnectivityKit (= 0.3.3)
+    - QuecDeviceKit (= 1.9.0)
     - QuecFoundationKit (= 0.8.8)
-    - QuecIotChannelKit (= 0.7.2)
+    - QuecIotChannelKit (= 0.7.7)
     - QuecLogKit (= 1.3.0)
     - QuecMQTTChannelKit (= 0.0.6)
     - QuecNetworkChannelKit (= 1.1.7)
-    - QuecOTAUpgradeKit (= 0.1.1)
+    - QuecOTAUpgradeKit (= 0.1.6)
     - QuecSdkConfig (= 0.4.2)
-    - QuecSmartConfigKit (= 0.2.5)
-    - QuecSocketChannelKit (= 0.1.6)
-    - QuecUserKit (= 1.4.9)
-    - QuecWebSocketChannelKit (= 0.2.5)
+    - QuecSmartConfigKit (= 0.2.6)
+    - QuecSocketChannelKit (= 0.1.7)
+    - QuecUserKit (= 1.5.1)
+    - QuecWebSocketChannelKit (= 0.2.6)
   - QuecLogKit (1.3.0)
   - QuecMQTTChannelKit (0.0.6):
     - MQTTClient/Websocket
@@ -124,7 +124,7 @@ PODS:
   - QuecNetworkChannelKit (1.1.7):
     - AFNetworking
     - QuecLogKit
-  - QuecOTAUpgradeKit (0.1.1):
+  - QuecOTAUpgradeKit (0.1.6):
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -141,7 +141,7 @@ PODS:
     - QuecSdkConfig
     - YYModel (~> 1.0.4)
   - QuecSdkConfig (0.4.2)
-  - QuecSmartConfigKit (0.2.5):
+  - QuecSmartConfigKit (0.2.6):
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecDeviceKit
@@ -156,18 +156,18 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel
-  - QuecSocketChannelKit (0.1.6):
+  - QuecSocketChannelKit (0.1.7):
     - CocoaAsyncSocket (~> 7.6.5)
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
-  - QuecUserKit (1.4.9):
+  - QuecUserKit (1.5.1):
     - QuecFoundationKit
     - QuecLogKit
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel (~> 1.0.4)
-  - QuecWebSocketChannelKit (0.2.5):
+  - QuecWebSocketChannelKit (0.2.6):
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
@@ -189,7 +189,7 @@ DEPENDENCIES:
   - MQTTClient (~> 0.15.4)
   - QuecAutomateKit (~> 0.2.0)
   - QuecGroupKit (~> 0.3.1)
-  - QuecIotSdk (~> 1.12.0-beta.9)
+  - QuecIotSdk (~> 1.12.0)
   - QuecSceneKit (~> 0.3.2)
   - QuecSmartHomeKit (~> 2.0.8)
   - SDWebImage (~> 5.11.1)
@@ -239,30 +239,30 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MQTTClient: a1006050a14baf983a58e83f216beef24b263b90
   QuecAutomateKit: 2058ac3299c6a1228b1209705920caff52c6fe61
-  QuecBleChannelKit: 7b1471f4e9a2ac60075581232cf179e4aa29ae1a
-  QuecCommonUtil: a1996056ee7fa36014097336fd1829bed64893c2
-  QuecConnectivityKit: 14179c782dab59716921179b44a48d7770fb493c
-  QuecDeviceKit: a6d7b56baa71248d0544d69d7f49d762604c7bd8
+  QuecBleChannelKit: de3c0de191f3df014890cafc85d651629623c0a5
+  QuecCommonUtil: 82a7d645543ed9a458252eee0e7c20225d1a97ef
+  QuecConnectivityKit: 99b7a77ad83f2c4330be0708e267e6d9501e6f42
+  QuecDeviceKit: 8525f3d477038c633c86845a3bf35562cb90bfe8
   QuecFoundationKit: 4c52922cdd69ffde0bc59c8416d0352a67623221
   QuecGroupKit: 665dadac096499cb9ee58cb60f16aa527765f2e5
-  QuecIotChannelKit: b3d1db99e73395455b2f775544837fab27d5ba61
-  QuecIotSdk: 329263bbdb15d0f021aacf26e7d192104a01548a
+  QuecIotChannelKit: 34ef9ff6dbf12df56e14ca6fc12719d0bdf79a7d
+  QuecIotSdk: f1f4def6416334705fa573c11625398feaa697cd
   QuecLogKit: 165abb8e6ece4381cddade539c9d45e923a22c53
   QuecMQTTChannelKit: 5e29253407c339e9b0ddf3da269695466098d47e
   QuecNetworkChannelKit: 3c714167b7f88606b7ad931deab670badf92c7c5
-  QuecOTAUpgradeKit: e6531e58457583c1c77b4ae46d57a83beaf38b5c
+  QuecOTAUpgradeKit: 63295421ef90ff90d6dfb268e2891a25b0d87d7b
   QuecSceneKit: c903c41c89024defe49dd5baf27288312f8806c9
   QuecSdkConfig: d1039d876a081d358f4fc07bde96f5af51be0421
-  QuecSmartConfigKit: f68d95e151838a3ea72a87a2d609f3a6d6ce948c
+  QuecSmartConfigKit: 7e90f08bd0084b4b9a20a5ae65fe91410515ff96
   QuecSmartHomeKit: 6e9829d8e7d3f92220d5e6b41d6ebb981db19eed
-  QuecSocketChannelKit: ca3ddb24f80cbbd2c2d4ae6588fcaa85d69d60f8
-  QuecUserKit: 2c1f824ae617022b7e9bce499d402f87c75646a3
-  QuecWebSocketChannelKit: b271bcd7f26cd6cfd8a74d2eb3ab3bc9939d79d0
+  QuecSocketChannelKit: 90146b85c5dd43b7d18201fd9c2638822659afc3
+  QuecUserKit: fd8ee19402eca6d8a892527cbec22b6a6bcc5aaa
+  QuecWebSocketChannelKit: a77e36f39c90e853efbba90fe02ef41ea4437b21
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: eae80fc11f54ac6ec938ce9d6c182087b3f940c5
+PODFILE CHECKSUM: efcaad59fcc2a7c647c1f7b09b7df8addf7edbc0
 
 COCOAPODS: 1.12.0
