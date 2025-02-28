@@ -62,14 +62,14 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel
-  - QuecBleChannelKit (1.5.5):
+  - QuecBleChannelKit (1.5.6):
     - QuecCommonUtil
     - QuecFoundationKit
     - QuecLogKit
   - QuecCommonUtil (0.4.2):
     - QuecFoundationKit
   - QuecConnectivityKit (0.3.3)
-  - QuecDeviceKit (1.9.0):
+  - QuecDeviceKit (1.9.1):
     - QuecCommonUtil
     - QuecConnectivityKit
     - QuecFoundationKit
@@ -84,7 +84,7 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel
-  - QuecIotChannelKit (0.7.7):
+  - QuecIotChannelKit (0.7.8):
     - QuecBleChannelKit
     - QuecCommonUtil
     - QuecConnectivityKit
@@ -96,13 +96,13 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (1.12.0):
-    - QuecBleChannelKit (= 1.5.5)
+  - QuecIotSdk (1.12.1-beta.2):
+    - QuecBleChannelKit (= 1.5.6)
     - QuecCommonUtil (= 0.4.2)
     - QuecConnectivityKit (= 0.3.3)
-    - QuecDeviceKit (= 1.9.0)
+    - QuecDeviceKit (= 1.9.1)
     - QuecFoundationKit (= 0.8.8)
-    - QuecIotChannelKit (= 0.7.7)
+    - QuecIotChannelKit (= 0.7.8)
     - QuecLogKit (= 1.3.0)
     - QuecMQTTChannelKit (= 0.0.6)
     - QuecNetworkChannelKit (= 1.1.7)
@@ -189,7 +189,7 @@ DEPENDENCIES:
   - MQTTClient (~> 0.15.4)
   - QuecAutomateKit (~> 0.2.0)
   - QuecGroupKit (~> 0.3.1)
-  - QuecIotSdk (~> 1.12.0)
+  - QuecIotSdk (~> 1.12.1-beta.2)
   - QuecSceneKit (~> 0.3.2)
   - QuecSmartHomeKit (~> 2.0.8)
   - SDWebImage (~> 5.11.1)
@@ -239,14 +239,14 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MQTTClient: a1006050a14baf983a58e83f216beef24b263b90
   QuecAutomateKit: 2058ac3299c6a1228b1209705920caff52c6fe61
-  QuecBleChannelKit: de3c0de191f3df014890cafc85d651629623c0a5
+  QuecBleChannelKit: d6972a4d21507667ce55f7cd36bab7fb68354420
   QuecCommonUtil: 82a7d645543ed9a458252eee0e7c20225d1a97ef
   QuecConnectivityKit: 99b7a77ad83f2c4330be0708e267e6d9501e6f42
-  QuecDeviceKit: 8525f3d477038c633c86845a3bf35562cb90bfe8
+  QuecDeviceKit: ba826910e92af82ba4af43ed39b52ea37f3aa5da
   QuecFoundationKit: 4c52922cdd69ffde0bc59c8416d0352a67623221
   QuecGroupKit: 665dadac096499cb9ee58cb60f16aa527765f2e5
-  QuecIotChannelKit: 34ef9ff6dbf12df56e14ca6fc12719d0bdf79a7d
-  QuecIotSdk: f1f4def6416334705fa573c11625398feaa697cd
+  QuecIotChannelKit: 14599bc51de3d5c6c0c9b0949d2512ddf15f7256
+  QuecIotSdk: 840e354cbcca353d4d5a7bed535f3e339cf25e5a
   QuecLogKit: 165abb8e6ece4381cddade539c9d45e923a22c53
   QuecMQTTChannelKit: 5e29253407c339e9b0ddf3da269695466098d47e
   QuecNetworkChannelKit: 3c714167b7f88606b7ad931deab670badf92c7c5
@@ -263,6 +263,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: efcaad59fcc2a7c647c1f7b09b7df8addf7edbc0
+PODFILE CHECKSUM: c1c7d7571b658b9e9341086a9f03dc551fd52a36
 
 COCOAPODS: 1.12.0
