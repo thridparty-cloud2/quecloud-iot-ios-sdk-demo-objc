@@ -99,7 +99,10 @@
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (self.type == 1) {
-        [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:QuecVerifyCodeTypeReset ssid:nil stid:nil success:^{
+        [QuecUserService.sharedInstance sendVerifyCodeByPhone:self.phoneTextField.text ? : @""
+                                            internationalCode:@"86"
+                                                         type:QuecVerifyCodeTypeReset
+                                                      success:^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {

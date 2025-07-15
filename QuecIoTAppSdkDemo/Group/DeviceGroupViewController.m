@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.title = @"分组";
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"添加分组" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
@@ -91,7 +91,7 @@
     QuecDeviceGroupParamModel *model = [[QuecDeviceGroupParamModel alloc] init];
     model.name = groupName;
     if (isUpdate) {
-        [[QuecDeviceService sharedInstance] updateDeviceGroupInfoWithDeviceGroupId:dgid infoModel:model success:^{
+        [QuecDeviceGroupService.sharedInstance updateDeviceGroupInfoWithDeviceGroupId:dgid infoModel:model success:^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
@@ -101,7 +101,7 @@
     }
     else {
         
-        [[QuecDeviceService sharedInstance] addDeviceGroupWithInfo:model success:^{
+        [[QuecDeviceGroupService sharedInstance] addDeviceGroupWithInfo:model success:^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
@@ -114,7 +114,7 @@
 
 - (void)getData {
     @quec_weakify(self);
-    [[QuecDeviceService sharedInstance] getDeviceGroupListWithPageNumber:1 pageSize:100 extra:nil success:^(NSArray<QuecDeviceGroupInfoModel *> *list, NSInteger total) {
+    [[QuecDeviceGroupService sharedInstance] getDeviceGroupListWithPageNumber:1 pageSize:100 extra:nil success:^(NSArray<QuecDeviceGroupInfoModel *> *list, NSInteger total) {
         @quec_strongify(self);
         self.dataArray = list.copy;
         [self.tableView reloadData];
@@ -173,7 +173,7 @@
 - (void)deleteGroupWithRow:(NSInteger)row {
     QuecDeviceGroupInfoModel *model = self.dataArray[row];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] deleteDeviceGroupWithDeviceGroupId:model.dgid success:^{
+    [[QuecDeviceGroupService sharedInstance] deleteDeviceGroupWithDeviceGroupId:model.dgid success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {

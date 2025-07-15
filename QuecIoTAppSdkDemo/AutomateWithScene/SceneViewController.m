@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"场景";
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"添加场景" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
@@ -69,15 +69,14 @@
     }
     
     @quec_weakify(self);
-    [[QuecSceneService sharedInstance] getSceneListWithFid:fid pageNumber:1 pageSize:100 success:^(NSArray<QuecSceneModel *> * _Nonnull list, NSInteger total) {
+    [[QuecSceneService sharedInstance] getSceneListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecSceneModel *> * _Nonnull list, NSInteger total) {
         @quec_strongify(self);
         
         self.dataArray = [NSArray arrayWithArray:list];
         [self.tableView reloadData];
-        
     } failure:^(NSError *error) {
         @quec_strongify(self);
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 
@@ -101,7 +100,7 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.sceneInfo.icon] placeholderImage:[UIImage imageNamed:@"group_tabbar"]];
     }
     cell.textLabel.text = model.sceneInfo.name;
-        
+    
     for (id child in cell.contentView.subviews) {
         if ([child isKindOfClass:[UIButton class]]) {
             [child removeFromSuperview];
@@ -149,32 +148,28 @@
     if (QuecSmartHomeService.sharedInstance.enable) {
         fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     }
-    [[QuecSceneService sharedInstance] deleteSceneWithFid:fid sceneId:model.sceneInfo.sceneId success:^{
+    [QuecSceneService.sharedInstance deleteSceneWithSceneId:model.sceneInfo.sceneId success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
 }
 
 - (void)actionButtonClick:(UIButton *)sender {
     QuecSceneModel *model = self.dataArray[sender.tag];
     @quec_weakify(self);
-    [QuecSceneService.sharedInstance executeSceneWithFid:model.fid sceneId:model.sceneInfo.sceneId success:^(QuecActionExecuteResultModel * _Nonnull executeResultModel) {
-        
+    [QuecSceneService.sharedInstance executeSceneWithSceneId:model.sceneInfo.sceneId success:^(QuecActionExecuteResultModel * _Nonnull executeResultModel) {
         if (executeResultModel.executeResult) {
             [self.view makeToast:@"执行成功" duration:1 position:CSToastPositionCenter];
         }else {
             [self.view makeToast:@"执行失败" duration:1 position:CSToastPositionCenter];
         }
-        
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
 }
 
 @end

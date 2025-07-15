@@ -8,10 +8,9 @@
 #import "RegisterViewController.h"
 #import <Toast/Toast.h>
 #import <QuecUserKit/QuecUserKit.h>
-#import "QueryDataViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface RegisterViewController () <QueryDataViewControllerDelegate>
+@interface RegisterViewController ()
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *smsTextField;
 @property (nonatomic, strong) UITextField *pswTextField;
@@ -34,32 +33,7 @@
     self.languageId = 0;
     self.timeZoneId = 0;
     CGFloat viewWidth = self.view.frame.size.width;
-    
     CGFloat buttonWidth = (viewWidth - 80) / 3.0;
-    self.nationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.nationButton setTitle:@"国家" forState:UIControlStateNormal];
-    self.nationButton.frame = CGRectMake(30, 150,buttonWidth, 30);
-    [self.nationButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    self.nationButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.nationButton addTarget:self action:@selector(nationButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.nationButton];
-
-    self.languageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.languageButton setTitle:@"语言" forState:UIControlStateNormal];
-    self.languageButton.frame = CGRectMake((viewWidth - buttonWidth) / 2.0, 150,buttonWidth, 30);
-    [self.languageButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    self.languageButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.languageButton addTarget:self action:@selector(languageButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.languageButton];
-
-    self.timeZoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.timeZoneButton setTitle:@"时区" forState:UIControlStateNormal];
-    self.timeZoneButton.frame = CGRectMake(viewWidth - buttonWidth - 30 , 150,buttonWidth, 30);
-    [self.timeZoneButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    self.timeZoneButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.timeZoneButton addTarget:self action:@selector(timeZoneButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.timeZoneButton];
-    
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 200, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.phoneTextField.placeholder = @"请输入手机号";
@@ -122,35 +96,17 @@
     [self.view addSubview:registerButton];
 }
 
-- (void)nationButtonClick {
-    QueryDataViewController *dataVc = [[QueryDataViewController alloc] init];
-    dataVc.type = 1;
-    dataVc.delegate = self;
-    [self.navigationController pushViewController:dataVc animated:YES];
-}
-
-- (void)languageButtonClick {
-    QueryDataViewController *dataVc = [[QueryDataViewController alloc] init];
-    dataVc.type = 2;
-    dataVc.delegate = self;
-    [self.navigationController pushViewController:dataVc animated:YES];
-}
-
-- (void)timeZoneButtonClick {
-    QueryDataViewController *dataVc = [[QueryDataViewController alloc] init];
-    dataVc.type = 3;
-    dataVc.delegate = self;
-    [self.navigationController pushViewController:dataVc animated:YES];
-}
 - (void)checkPhoneButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] validateInternationalPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" success:^(NSDictionary *data) {
+    [QuecUserService.sharedInstance validateInternationalPhone:self.phoneTextField.text ? : @""
+                                             internationalCode:@"86"
+                                                       success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"手机号验证成功" duration:3 position:CSToastPositionCenter];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 - (void)checksmsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -165,19 +121,26 @@
 
 - (void)registerButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] registerByPhone:self.phoneTextField.text ? : @"" code:self.smsTextField.text ? : @"" password:self.pswTextField.text ? : @"" internationalCode:@"86" nationality:0 lang:0 timezone:0 success:^{
+    [QuecUserService.sharedInstance registerByPhone:self.phoneTextField.text ? : @""
+                                               code:self.smsTextField.text ? : @""
+                                           password:self.pswTextField.text ? : @""
+                                  internationalCode:@"86"
+                                            success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"注册成功" duration:3 position:CSToastPositionCenter];
         [self.navigationController popoverPresentationController];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:QuecVerifyCodeTypeRegister ssid:nil stid:nil success:^{
+    [QuecUserService.sharedInstance sendVerifyCodeByPhone:self.phoneTextField.text ? : @""
+                                        internationalCode:@"86"
+                                                     type:QuecVerifyCodeTypeRegister
+                                                  success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
     } failure:^(NSError *error) {

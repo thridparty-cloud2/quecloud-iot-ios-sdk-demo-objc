@@ -17,7 +17,6 @@
 #import <YYModel/YYModel.h>
 #import <QuecIotChannelKit/QuecIotChannelKit.h>
 #import "BRPickerView.h"
-//#import "QuecOTAViewController.h"
 
 
 @interface DeviceControlViewController ()<UITableViewDelegate, UITableViewDataSource, TslNumberUTableViewCellDelegate, TslBoolTableViewCellDelegate>
@@ -27,7 +26,7 @@
 @property (nonatomic, strong) BRDatePickerView *datePickerView;
 @property (nonatomic, assign) NSInteger dateIndex;
 @property (nonatomic, assign) NSInteger enumIndex;
-@property (nonatomic, strong) QuecDevice *currentDevice;
+@property (nonatomic, strong) QuecDeviceClient *currentDevice;
 
 @end
 
@@ -86,7 +85,7 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.currentDevice = [QuecDevice deviceWithId:self.dataModel.deviceId];
+    self.currentDevice = [QuecDeviceClient deviceWithId:self.dataModel.deviceId];
     [self getTls];
 }
 
@@ -100,69 +99,38 @@
 /// The DP updates.
 /// @param device device instance.
 /// @param dps  command dictionary.
-- (void)device:(QuecDevice *)device dpsUpdate:(QuecIotDataPointsModel *)dps{
+- (void)device:(QuecDeviceClient *)device dpsUpdate:(QuecIotDataPointsModel *)dps{
     NSLog(@"dpsUpdate-------->%@", [dps yy_modelToJSONObject]);
 }
 
 - (void)getTls {
     QuecWeakSelf(self);
-    [[QuecDeviceService sharedInstance] getProductTSLWithProductKey:self.dataModel.productKey success:^(QuecProductTSLModel *tslModel) {
-        QuecStrongSelf(self);
-        self.dataArray = tslModel.properties.copy;
-        if (self.dataModel.capabilitiesBitmask != 4) {
-            [self getTslValue];
-        }else{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (self.dataModel.capabilitiesBitmask == 4 || (self.dataModel.capabilitiesBitmask == 7 && [self.dataModel.verified isEqualToString:@"0"])) {
+        [QuecDeviceService.sharedInstance getProductTSLWithProductKey:self.dataModel.productKey success:^(QuecProductTSLModel *tslModel) {
+            QuecStrongSelf(self);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            self.dataArray = tslModel.properties.copy;
             [self.tableView reloadData];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
-- (void)getTslValue {
-    [[QuecDeviceService sharedInstance] getDeviceBusinessAttributesWithProductKey:self.dataModel.productKey deviceKey:self.dataModel.deviceKey gatewayPk:@"" gatewayDk:@"" codeList:@"" type:@"" success:^(QuecProductTSLInfoModel *tslInfoModel) {
-        [self handleDataWithDataModel:tslInfoModel];
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
-- (void)handleDataWithDataModel:(QuecProductTSLInfoModel *)tslInfoModel {
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.dataArray.count; i ++) {
-        QuecProductTSLPropertyModel *model = self.dataArray[i];
-        if ([model.subType isEqualToString:QuecProductionTslSubTypeR]) {
-            continue;
-        }
-        if (![self isAllowedDataType:model.dataType]) {
-            continue;
-        }
-        for (int j = 0; j < tslInfoModel.customizeTslInfo.count; j ++) {
-            QuecProductTSLCustomInfoModel *infoModel = tslInfoModel.customizeTslInfo[j];
-            if ([model.code isEqualToString:infoModel.resourceCode]) {
-                model.attributeValue = infoModel.resourceValue;
-                break;
-            }
-        }
-        [tempArray addObject:model];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
+    } else {
+        [QuecDeviceService.sharedInstance getProductTslAndDeviceBusinessAttributesWithProductKey:self.dataModel.productKey
+                                                                                       deviceKey:self.dataModel.deviceKey
+                                                                                       gatewayPk:@""
+                                                                                       gatewayDk:@""
+                                                                                        codeList:@""
+                                                                                            type:@"1,2,3"
+                                                                                         success:^(NSArray<QuecProductTSLPropertyModel *> *list) {
+            QuecStrongSelf(self);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            self.dataArray = list.copy;
+            [self.tableView reloadData];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
     }
-    if (tempArray.count) {
-        self.dataArray = tempArray.mutableCopy;
-    }
-    [self.tableView reloadData];
-}
-
-- (BOOL)isAllowedDataType:(NSString *)dataType {
-    if ([QuecProductionTslDataTypeBOOL isEqualToString:dataType]
-        || [QuecProductionTslDataTypeTEXT isEqualToString:dataType]
-        || [QuecProductionTslDataTypeINT isEqualToString:dataType]
-        || [QuecProductionTslDataTypeFLOAT isEqualToString:dataType]
-        || [QuecProductionTslDataTypeDOUBLE isEqualToString:dataType]
-        || [QuecProductionTslDataTypeENUM isEqualToString:dataType]
-        || [QuecProductionTslDataTypeDATE isEqualToString:dataType]) {
-        return YES;
-    }
-    return NO;
 }
 
 - (void)detailButtonClick {
@@ -170,77 +138,6 @@
     detailVc.dataModel = self.dataModel;
     [self.navigationController pushViewController:detailVc animated:YES];
 }
-
-//- (void)handleWebSocketDataWithModel:(QuecWebSocketDataModel *)dataModel {
-//    NSDictionary *dictionary = dataModel.data;
-//    if ([dictionary[@"type"] isEqualToString:@"MATTR"]) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        NSDictionary *kvDictionary = dictionary[@"data"][@"kv"];
-//        NSString *code = [[kvDictionary allKeys] firstObject];
-//        NSString *value = [NSString stringWithFormat:@"%@",[kvDictionary allValues].firstObject];
-//        QuecProductTSLPropertyModel *indexModel;
-//        NSInteger index = 0;
-//        for (int i = 0; i < self.dataArray.count; i ++) {
-//            QuecProductTSLPropertyModel *model = self.dataArray[i];
-//            if ([model.code isEqualToString:code]) {
-//                model.attributeValue = value;
-//                indexModel = model;
-//                index = i;
-//                break;
-//            }
-//        }
-//        NSMutableArray *copyArray = self.dataArray.mutableCopy;
-//        if (indexModel) {
-//            [copyArray replaceObjectAtIndex:index withObject:indexModel];
-//        }
-//        self.dataArray = copyArray.copy;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
-//    }
-//    else if ([dictionary[@"type"] isEqualToString:QuecWebSocketMessageTypeONLINE]) {
-//
-//    }
-//}
-
-//- (void)quecWebSocketDidReceiveMessageWithDataModel:(QuecWebSocketDataModel *)dataModel {
-//    if ([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeSend_ack]) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"status"];
-//        if ([toast isEqualToString:@"succ"]) {
-//            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
-//        }
-//        else {
-//            [self.view makeToast:@"下发失败" duration:3 position:CSToastPositionCenter];
-//        }
-//    }
-//    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeError]) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        NSString *toast = [(NSDictionary *)dataModel.data objectForKey:@"msg"];
-//        [self.view makeToast:toast duration:3 position:CSToastPositionCenter];
-//        [self.tableView reloadData];
-//    }
-//    else if([dataModel.cmd isEqualToString:QuecWebSocketCmdTypeMessage]) {
-//        [self handleWebSocketDataWithModel:dataModel];
-//    }
-//}
-
-#pragma mark - UITableViewDelegate & UITableViewDataSource
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 40;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(20, 5, 60, 30);
-//    [btn setTitle:@"OTA升级" forState:UIControlStateNormal];
-//    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(pushOTA) forControlEvents:UIControlEventTouchUpInside];
-//    [view addSubview:btn];
-//    
-//    return view;;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
@@ -382,40 +279,6 @@
     }];
 }
 
-//- (void)sendDataToDeviceWithData:(NSDictionary *)data row:(NSInteger)row {
-//    if ([self.dataModel.deviceStatus isEqualToString:@"离线"]) {
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        [[QuecDeviceService sharedInstance] sendDataToDevicesByHttpWithData:@[data].yy_modelToJSONString deviceList:@[@{@"deviceKey":self.dataModel.deviceKey, @"productKey":self.dataModel.productKey}] type:2 dataFormat:2 success:^(NSDictionary *dictionary) {
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
-//            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
-//        } failure:^(NSError *error) {
-//            [self.tableView reloadData];
-//            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        }];
-//    }
-//    else {
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        QuecWebSocketDataModel *dataModel = [[QuecWebSocketDataModel alloc] init];
-//        dataModel.cmd = QuecWebSocketCmdTypeSend;
-//        NSMutableDictionary *dataDictionary = @{}.mutableCopy;
-//        [dataDictionary setValue:self.dataModel.deviceKey forKey:@"deviceKey"];
-//        [dataDictionary setValue:self.dataModel.productKey forKey:@"productKey"];
-//        [dataDictionary setValue:@"WRITE-ATTR" forKey:@"type"];
-//
-//        NSMutableDictionary *contentDictionary = data.mutableCopy;
-//        [dataDictionary setValue:@[contentDictionary].yy_modelToJSONString forKey:@"kv"];
-//
-//        dataModel.data = dataDictionary;
-////        [[QuecDeviceService sharedInstance] sendDataToDeviceByWebSocketWithDataModel:dataModel];
-//
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        });
-//    }
-//
-//}
-
 - (void)showTextInputWithText:(NSString *)text row:(NSInteger)row  {
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请输入文本" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -471,10 +334,5 @@
     [self sendDps:@[dataPoint]];
 }
 
-//- (void)pushOTA {
-//    QuecOTAViewController *vc = [[QuecOTAViewController alloc]init];
-//    vc.dataModel = self.dataModel;
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
 
 @end

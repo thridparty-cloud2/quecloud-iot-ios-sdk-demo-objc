@@ -24,7 +24,6 @@
 		223613AA27D5957600817F50 /* ConfigNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236139B27D5957600817F50 /* ConfigNetworkViewController.m */; };
 		223613AB27D5957600817F50 /* TlsTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236139E27D5957600817F50 /* TlsTextTableViewCell.m */; };
 		223613BA27D5958800817F50 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613AD27D5958800817F50 /* LoginViewController.m */; };
-		223613BB27D5958800817F50 /* QueryDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613AE27D5958800817F50 /* QueryDataViewController.m */; };
 		223613BC27D5958800817F50 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613B027D5958800817F50 /* RegisterViewController.m */; };
 		223613BD27D5958800817F50 /* EmailRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613B127D5958800817F50 /* EmailRegisterViewController.m */; };
 		223613BE27D5958800817F50 /* SmsLogingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613B227D5958800817F50 /* SmsLogingViewController.m */; };
@@ -34,6 +33,7 @@
 		223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C227D5959600817F50 /* UpdateInputViewController.m */; };
 		223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C427D5959600817F50 /* UpdatePswViewController.m */; };
 		223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223613C627D5959600817F50 /* UpdatePhoneViewController.m */; };
+		2276F1B32DC0E6E5002D739E /* CommonTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2276F1B22DC0E6E5002D739E /* CommonTestViewController.m */; };
 		22B0F7C827D2FE08001368DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7C727D2FE08001368DF /* AppDelegate.m */; };
 		22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7CA27D2FE08001368DF /* SceneDelegate.m */; };
 		22B0F7D127D2FE08001368DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22B0F7CF27D2FE08001368DF /* Main.storyboard */; };
@@ -43,17 +43,13 @@
 		22B0F7E327D2FE09001368DF /* QuecIoTAppSdkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7E227D2FE09001368DF /* QuecIoTAppSdkDemoTests.m */; };
 		22B0F7ED27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EC27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m */; };
 		22B0F7EF27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */; };
+		22D2F24E2DBE0134002DB15A /* QuecOtaPlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */; };
 		22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */; };
 		302DA64B2A3B0BDA00D7EF8E /* ThirdLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */; };
 		640481A82CE1B27700AD521D /* QuecOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481A72CE1B27700AD521D /* QuecOTAViewController.m */; };
-		640481AB2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */; };
-		640481B12CE2F52600AD521D /* QuecBleOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B02CE2F52600AD521D /* QuecBleOTAViewController.m */; };
-		640481B42CE3273500AD521D /* QuecHttpOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B32CE3273500AD521D /* QuecHttpOTAViewController.m */; };
-		640481B72CE337F700AD521D /* QuecDeviceOTAStatusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 640481B62CE337F700AD521D /* QuecDeviceOTAStatusManager.m */; };
 		6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */; };
 		6443DB712CEEDC4500C8B128 /* FamilyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */; };
 		6443DB742CEF290700C8B128 /* FamilyRoomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */; };
-		6476AA9A2CF4119300AFE2B2 /* AutomateAndSceneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */; };
 		6476AA9D2CF412E600AFE2B2 /* AutomateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */; };
 		6476AAA02CF412F200AFE2B2 /* SceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AA9F2CF412F200AFE2B2 /* SceneViewController.m */; };
 		6476AAA32CF4212800AFE2B2 /* QuecVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAA22CF4212800AFE2B2 /* QuecVCManager.m */; };
@@ -118,7 +114,6 @@
 		2236139E27D5957600817F50 /* TlsTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TlsTextTableViewCell.m; sourceTree = "<group>"; };
 		223613AC27D5958800817F50 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		223613AD27D5958800817F50 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		223613AE27D5958800817F50 /* QueryDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryDataViewController.m; sourceTree = "<group>"; };
 		223613AF27D5958800817F50 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		223613B027D5958800817F50 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		223613B127D5958800817F50 /* EmailRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailRegisterViewController.m; sourceTree = "<group>"; };
@@ -129,7 +124,6 @@
 		223613B627D5958800817F50 /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
 		223613B727D5958800817F50 /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
 		223613B827D5958800817F50 /* SmsLogingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmsLogingViewController.h; sourceTree = "<group>"; };
-		223613B927D5958800817F50 /* QueryDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryDataViewController.h; sourceTree = "<group>"; };
 		223613C127D5959600817F50 /* MyCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCenterViewController.m; sourceTree = "<group>"; };
 		223613C227D5959600817F50 /* UpdateInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateInputViewController.m; sourceTree = "<group>"; };
 		223613C327D5959600817F50 /* UpdatePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePhoneViewController.h; sourceTree = "<group>"; };
@@ -138,14 +132,14 @@
 		223613C627D5959600817F50 /* UpdatePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePhoneViewController.m; sourceTree = "<group>"; };
 		223613C727D5959600817F50 /* UpdatePswViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePswViewController.h; sourceTree = "<group>"; };
 		223613C827D5959600817F50 /* MyCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCenterViewController.h; sourceTree = "<group>"; };
+		2276F1B12DC0E6E5002D739E /* CommonTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTestViewController.h; sourceTree = "<group>"; };
+		2276F1B22DC0E6E5002D739E /* CommonTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTestViewController.m; sourceTree = "<group>"; };
 		22B0F7C327D2FE08001368DF /* QuecIoTAppSdkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuecIoTAppSdkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B0F7C627D2FE08001368DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22B0F7C727D2FE08001368DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		22B0F7C927D2FE08001368DF /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		22B0F7CA27D2FE08001368DF /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		22B0F7D027D2FE08001368DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22B0F7D227D2FE09001368DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		22B0F7D527D2FE09001368DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		22B0F7D727D2FE09001368DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22B0F7D827D2FE09001368DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22B0F7DE27D2FE09001368DF /* QuecIoTAppSdkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuecIoTAppSdkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,30 +156,24 @@
 		22B0F81327D32616001368DF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		22B0F81627D32934001368DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22D0BFC527F3F9F000211095 /* MacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroDefine.h; sourceTree = "<group>"; };
+		22D2F24C2DBE0134002DB15A /* QuecOtaPlanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOtaPlanModel.h; sourceTree = "<group>"; };
+		22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOtaPlanModel.m; sourceTree = "<group>"; };
 		22E0E92D2A399CAE0074B60C /* BleDeviceListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleDeviceListTableViewCell.h; sourceTree = "<group>"; };
 		22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleDeviceListTableViewCell.m; sourceTree = "<group>"; };
+		22E1AC172DC071C5000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		22E1AC182DC071C6000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		302DA6492A3B0BDA00D7EF8E /* ThirdLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdLoginViewController.h; sourceTree = "<group>"; };
 		302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginViewController.m; sourceTree = "<group>"; };
 		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		640481A62CE1B27700AD521D /* QuecOTAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOTAViewController.h; sourceTree = "<group>"; };
 		640481A72CE1B27700AD521D /* QuecOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOTAViewController.m; sourceTree = "<group>"; };
-		640481A92CE1F0E600AD521D /* QuecOTAPlanInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOTAPlanInfoModel.h; sourceTree = "<group>"; };
-		640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOTAPlanInfoModel.m; sourceTree = "<group>"; };
-		640481AF2CE2F52600AD521D /* QuecBleOTAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecBleOTAViewController.h; sourceTree = "<group>"; };
-		640481B02CE2F52600AD521D /* QuecBleOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecBleOTAViewController.m; sourceTree = "<group>"; };
-		640481B22CE3273500AD521D /* QuecHttpOTAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecHttpOTAViewController.h; sourceTree = "<group>"; };
-		640481B32CE3273500AD521D /* QuecHttpOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecHttpOTAViewController.m; sourceTree = "<group>"; };
-		640481B52CE337F700AD521D /* QuecDeviceOTAStatusManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecDeviceOTAStatusManager.h; sourceTree = "<group>"; };
-		640481B62CE337F700AD521D /* QuecDeviceOTAStatusManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecDeviceOTAStatusManager.m; sourceTree = "<group>"; };
 		6443DB6C2CEE134C00C8B128 /* FamilyListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyListViewController.h; sourceTree = "<group>"; };
 		6443DB6D2CEE134C00C8B128 /* FamilyListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyListViewController.m; sourceTree = "<group>"; };
 		6443DB6F2CEEDC4500C8B128 /* FamilyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyDetailViewController.h; sourceTree = "<group>"; };
 		6443DB702CEEDC4500C8B128 /* FamilyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyDetailViewController.m; sourceTree = "<group>"; };
 		6443DB722CEF290700C8B128 /* FamilyRoomListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyRoomListViewController.h; sourceTree = "<group>"; };
 		6443DB732CEF290700C8B128 /* FamilyRoomListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FamilyRoomListViewController.m; sourceTree = "<group>"; };
-		6476AA982CF4119300AFE2B2 /* AutomateAndSceneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateAndSceneVC.h; sourceTree = "<group>"; };
-		6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateAndSceneVC.m; sourceTree = "<group>"; };
 		6476AA9B2CF412E600AFE2B2 /* AutomateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateViewController.h; sourceTree = "<group>"; };
 		6476AA9C2CF412E600AFE2B2 /* AutomateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateViewController.m; sourceTree = "<group>"; };
 		6476AA9E2CF412F200AFE2B2 /* SceneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneViewController.h; sourceTree = "<group>"; };
@@ -249,6 +237,8 @@
 				2236137C27D5956800817F50 /* DeviceSelectViewController.m */,
 				2236138027D5956800817F50 /* GroupDetailViewController.h */,
 				2236137F27D5956800817F50 /* GroupDetailViewController.m */,
+				2276F1B12DC0E6E5002D739E /* CommonTestViewController.h */,
+				2276F1B22DC0E6E5002D739E /* CommonTestViewController.m */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -264,8 +254,6 @@
 				223613B727D5958800817F50 /* ForgetPasswordViewController.m */,
 				223613B327D5958800817F50 /* LoginViewController.h */,
 				223613AD27D5958800817F50 /* LoginViewController.m */,
-				223613B927D5958800817F50 /* QueryDataViewController.h */,
-				223613AE27D5958800817F50 /* QueryDataViewController.m */,
 				223613AF27D5958800817F50 /* RegisterViewController.h */,
 				223613B027D5958800817F50 /* RegisterViewController.m */,
 				223613B827D5958800817F50 /* SmsLogingViewController.h */,
@@ -347,7 +335,6 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
-				64D431522CF964550011DD3F /* CreateGroups */,
 				6476AA972CF40EF500AFE2B2 /* AutomateWithScene */,
 				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
@@ -407,14 +394,8 @@
 			children = (
 				640481A62CE1B27700AD521D /* QuecOTAViewController.h */,
 				640481A72CE1B27700AD521D /* QuecOTAViewController.m */,
-				640481AF2CE2F52600AD521D /* QuecBleOTAViewController.h */,
-				640481B02CE2F52600AD521D /* QuecBleOTAViewController.m */,
-				640481B22CE3273500AD521D /* QuecHttpOTAViewController.h */,
-				640481B32CE3273500AD521D /* QuecHttpOTAViewController.m */,
-				640481B52CE337F700AD521D /* QuecDeviceOTAStatusManager.h */,
-				640481B62CE337F700AD521D /* QuecDeviceOTAStatusManager.m */,
-				640481A92CE1F0E600AD521D /* QuecOTAPlanInfoModel.h */,
-				640481AA2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m */,
+				22D2F24C2DBE0134002DB15A /* QuecOtaPlanModel.h */,
+				22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */,
 			);
 			path = OTA;
 			sourceTree = "<group>";
@@ -435,8 +416,6 @@
 		6476AA972CF40EF500AFE2B2 /* AutomateWithScene */ = {
 			isa = PBXGroup;
 			children = (
-				6476AA982CF4119300AFE2B2 /* AutomateAndSceneVC.h */,
-				6476AA992CF4119300AFE2B2 /* AutomateAndSceneVC.m */,
 				6476AA9E2CF412F200AFE2B2 /* SceneViewController.h */,
 				6476AA9F2CF412F200AFE2B2 /* SceneViewController.m */,
 				6476AAAF2CF478C500AFE2B2 /* SceneAddViewController.h */,
@@ -455,13 +434,6 @@
 				64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */,
 			);
 			path = AutomateWithScene;
-			sourceTree = "<group>";
-		};
-		64D431522CF964550011DD3F /* CreateGroups */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CreateGroups;
 			sourceTree = "<group>";
 		};
 		E063D625B3279EBDA36FDEBD /* Frameworks */ = {
@@ -496,7 +468,7 @@
 				22B0F7C027D2FE08001368DF /* Frameworks */,
 				22B0F7C127D2FE08001368DF /* Resources */,
 				54773B158CA8BC90F6D8E8B4 /* [CP] Embed Pods Frameworks */,
-				290E9466499D4B6327F8A90F /* [CP] Copy Pods Resources */,
+				2FDBAA84FA1934ED8730C18B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -535,7 +507,7 @@
 				22B0F7E527D2FE09001368DF /* Frameworks */,
 				22B0F7E627D2FE09001368DF /* Resources */,
 				1BDB5F49F5BC28136F6DF938 /* [CP] Embed Pods Frameworks */,
-				7AFD8F64C08768F14FCC0FFA /* [CP] Copy Pods Resources */,
+				8E52F49DD654ADA75D878B5E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -574,7 +546,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				"zh-Hans",
 			);
 			mainGroup = 22B0F7BA27D2FE08001368DF;
 			productRefGroup = 22B0F7C427D2FE08001368DF /* Products */;
@@ -655,7 +627,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		290E9466499D4B6327F8A90F /* [CP] Copy Pods Resources */ = {
+		2FDBAA84FA1934ED8730C18B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -689,23 +661,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7AFD8F64C08768F14FCC0FFA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		85BA6B492B481719E5BBBF2A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -726,6 +681,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E52F49DD654ADA75D878B5E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B35C5936F9F51164D81202AA /* [CP] Check Pods Manifest.lock */ = {
@@ -758,11 +730,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				223613A427D5957600817F50 /* ShareInfoViewController.m in Sources */,
-				640481B72CE337F700AD521D /* QuecDeviceOTAStatusManager.m in Sources */,
-				640481AB2CE1F0E600AD521D /* QuecOTAPlanInfoModel.m in Sources */,
 				223613A827D5957600817F50 /* BleDeviceListViewController.m in Sources */,
-				640481B42CE3273500AD521D /* QuecHttpOTAViewController.m in Sources */,
-				6476AA9A2CF4119300AFE2B2 /* AutomateAndSceneVC.m in Sources */,
 				223613CA27D5959600817F50 /* UpdateInputViewController.m in Sources */,
 				223613CC27D5959600817F50 /* UpdatePhoneViewController.m in Sources */,
 				64DE8EF32CF7020800342EB7 /* AutomateAbilityPublishedVC.m in Sources */,
@@ -777,6 +745,7 @@
 				2236138327D5956800817F50 /* GroupDetailViewController.m in Sources */,
 				223613C027D5958800817F50 /* ForgetPasswordViewController.m in Sources */,
 				223613BE27D5958800817F50 /* SmsLogingViewController.m in Sources */,
+				22D2F24E2DBE0134002DB15A /* QuecOtaPlanModel.m in Sources */,
 				6443DB712CEEDC4500C8B128 /* FamilyDetailViewController.m in Sources */,
 				223613A927D5957600817F50 /* WifiBleDeviceBindViewController.m in Sources */,
 				223613A227D5957600817F50 /* TslNumberUTableViewCell.m in Sources */,
@@ -792,14 +761,13 @@
 				223613A127D5957600817F50 /* TslBoolTableViewCell.m in Sources */,
 				223613A027D5957600817F50 /* HomeViewController.m in Sources */,
 				22B0F7D927D2FE09001368DF /* main.m in Sources */,
-				640481B12CE2F52600AD521D /* QuecBleOTAViewController.m in Sources */,
 				223613A327D5957600817F50 /* DeviceDetailViewController.m in Sources */,
-				223613BB27D5958800817F50 /* QueryDataViewController.m in Sources */,
 				223613BF27D5958800817F50 /* EmailLoginViewController.m in Sources */,
 				6476AAB72CF579ED00AFE2B2 /* SceneSetDeviceActionVC.m in Sources */,
 				6443DB6E2CEE134C00C8B128 /* FamilyListViewController.m in Sources */,
 				223613CB27D5959600817F50 /* UpdatePswViewController.m in Sources */,
 				223613A527D5957600817F50 /* TslEnumAndDateTableViewCell.m in Sources */,
+				2276F1B32DC0E6E5002D739E /* CommonTestViewController.m in Sources */,
 				223613C927D5959600817F50 /* MyCenterViewController.m in Sources */,
 				22B0F7CB27D2FE08001368DF /* SceneDelegate.m in Sources */,
 				223613AA27D5957600817F50 /* ConfigNetworkViewController.m in Sources */,
@@ -844,7 +812,7 @@
 		22B0F7CF27D2FE08001368DF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				22B0F7D027D2FE08001368DF /* Base */,
+				22E1AC172DC071C5000EBCA3 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -852,7 +820,7 @@
 		22B0F7D427D2FE09001368DF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				22B0F7D527D2FE09001368DF /* Base */,
+				22E1AC182DC071C6000EBCA3 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -864,6 +832,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -923,6 +892,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -999,9 +969,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1076,9 +1045,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

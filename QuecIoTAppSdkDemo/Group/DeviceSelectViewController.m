@@ -35,28 +35,19 @@
 - (void)getDeviceList {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
-    [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    QuecDeviceListParamsModel * paramModdel = [[QuecDeviceListParamsModel alloc]init];
+    paramModdel.pageSize = 10 ;
+    paramModdel.pageNumber = 1 ;
+    [[QuecDeviceService sharedInstance] getDeviceListWithParams:paramModdel success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataArray = list.copy;
         [self.tableView reloadData];
-        [self getGroupList];
     } failure:^(NSError *error) {
         @quec_strongify(self);
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-}
-
-- (void)getGroupList {
-    for (int  i = 0; i < self.dataArray.count; i ++) {
-        QuecDeviceModel *model = self.dataArray[i];
-        [[QuecDeviceService sharedInstance] getDeviceGroupListWithDeviceKey:model.deviceKey productKey:model.productKey success:^(NSArray<QuecDeviceGroupInfoModel *> *list) {
-                    
-                } failure:^(NSError *error) {
-                    
-                }];
-    }
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -96,14 +87,14 @@
 
 - (void)addDeviceToGroupWithRow:(NSInteger)row {
     QuecDeviceModel *model = self.dataArray[row];
-    [[QuecDeviceService sharedInstance] addDeviceToGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":model.deviceKey, @"pk": model.productKey}] success:^(NSDictionary *data) {
+    [QuecDeviceGroupService.sharedInstance addDeviceToGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":model.deviceKey, @"pk": model.productKey}] success:^(QuecOperateDeviceToGroupModel * _Nonnull model) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"添加成功" duration:3 position:CSToastPositionCenter];
         [self getDeviceList];
-        } failure:^(NSError *error) {
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 

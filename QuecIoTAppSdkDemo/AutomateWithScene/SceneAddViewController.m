@@ -41,19 +41,17 @@ static int const kSceneNoExistErrorCode = 6046;
 }
 
 - (void)getDetailData {
-    [QuecSceneService.sharedInstance getSceneInfoWithFid:self.upSceneModel.fid sceneId:self.upSceneModel.sceneInfo.sceneId success:^(QuecSceneModel * _Nonnull scene) {
-        
+    [QuecSceneService.sharedInstance getSceneInfoWithSceneId:self.upSceneModel.sceneInfo.sceneId success:^(QuecSceneModel * _Nonnull scene) {
         self.nameTextField.text = scene.sceneInfo.name;
         NSMutableArray *array = @[].mutableCopy;
         for (QuecSceneMetaDataModel *metaModel in scene.sceneInfo.metaDataList) {
-            QuecDevice *device = [QuecDevice deviceWithId:quec_deviceId(metaModel.productKey, metaModel.deviceKey)];
+            QuecDeviceClient *device = [QuecDeviceClient deviceWithId:quec_deviceId(metaModel.productKey, metaModel.deviceKey)];
             if (device) {
                 [array addObject:device.model];
             }
         }
         self.dataArray = [NSArray arrayWithArray:array.copy];
         [self.tableView reloadData];
-        
     } failure:^(NSError *error) {
         
     }];

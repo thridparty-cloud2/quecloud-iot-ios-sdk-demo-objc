@@ -51,7 +51,7 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-
+    
 }
 
 - (void)addButtonClick {
@@ -116,7 +116,7 @@
     long long timestamp = (long long)quec_TimestampMSEC();//获取毫秒级时间戳
     model.name = [NSString stringWithFormat:@"%@%lld",@"随意命名_",timestamp];
     
-    [QuecAutomateService addAutomationWithModel:model success:^{
+    [QuecAutomateService.sharedInstance addAutomationWithModel:model success:^{
         [self.view makeToast:@"创建成功" duration:3 position:CSToastPositionCenter];
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
@@ -258,7 +258,7 @@
 }
 
 - (void)getAutomationTSL:(QuecDeviceModel *)deviceModel withType:(NSInteger)type success:(void (^)(BOOL isSuccess))success {
-    [QuecAutomateService getAutomationTSLWithProductKey:deviceModel.productKey type:type success:^(NSArray<QuecProductTSLPropertyModel *> * _Nonnull conditions, NSArray<QuecProductTSLPropertyModel *> * _Nonnull actions) {
+    [QuecAutomateService.sharedInstance getAutomationTSLWithProductKey:deviceModel.productKey type:type success:^(NSArray<QuecProductTSLPropertyModel *> * _Nonnull conditions, NSArray<QuecProductTSLPropertyModel *> * _Nonnull actions) {
         
         if ((type == 1 && conditions.count !=0) || (type == 2 && conditions.count !=0)) {
             if (success) {
@@ -362,7 +362,7 @@
                 QuecAutomationConditionModel *deviceConditionModel = [[QuecAutomationConditionModel alloc]initWithType:0 icon:nil name:model.deviceName timer:nil productKey:model.productKey deviceKey:model.deviceKey property:nil sort:sort];
                 [arr addObject:deviceConditionModel];
             }
-
+            
             sort++;
         }
         
@@ -409,14 +409,13 @@
 
 - (void)btn4Action:(UIButton *)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    QuecWeakSelf(self);
     NSString *fid = @"";
     if (QuecSmartHomeService.sharedInstance.enable) {
         fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     }
     
     @quec_weakify(self);
-    [[QuecSceneService sharedInstance] getSceneListWithFid:fid pageNumber:1 pageSize:100 success:^(NSArray<QuecSceneModel *> * _Nonnull list, NSInteger total) {
+    [[QuecSceneService sharedInstance] getSceneListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecSceneModel *> * _Nonnull list, NSInteger total) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if (total == 0) {
@@ -433,8 +432,6 @@
             self.sceneActionModel = model;
             [self.view makeToast:@"添加场景执行任务成功" duration:1 position:CSToastPositionCenter];
         }
-        
-        
     } failure:^(NSError *error) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];

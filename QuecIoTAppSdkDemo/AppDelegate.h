@@ -11,5 +11,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (UIViewController *)getMainController;
+
 @end
 

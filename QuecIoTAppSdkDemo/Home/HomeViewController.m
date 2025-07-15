@@ -12,14 +12,13 @@
 #import "DeviceControlViewController.h"
 #import "ShareInfoViewController.h"
 #import "BleDeviceListViewController.h"
-#import "QuecOTAViewController.h"
-#import "QuecDeviceOTAStatusManager.h"
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 #import "FamilyListViewController.h"
 #import <QuecGroupKit/QuecGroupKit.h>
 #import <QuecGroupKit/QuecGroupCreateBean.h>
+#import <QuecOTAUpgradeKit/QuecOTAUpgradeKit.h>
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, QuecDeviceClientDelegate>
 
 @property (nonatomic, assign) BOOL isFamilyMode;
 @property (nonatomic, strong) UITableView *tableView;
@@ -59,18 +58,10 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshList) name:@"Home_List_Refresh_Notification" object:nil];
     
-    UIButton *otaButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [otaButton setTitle:@"OTA" forState:UIControlStateNormal];
-    otaButton.frame = CGRectMake(0, 0, 50, 50);
-    [otaButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    otaButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [otaButton addTarget:self action:@selector(otaButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:otaButton];
-    
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addButton setTitle:@"添加设备" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
-    [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
     self.addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
@@ -79,7 +70,7 @@
     [editButton setTitle:@"编辑" forState:UIControlStateNormal];
     [editButton setTitle:@"取消" forState:UIControlStateSelected];
     editButton.frame = CGRectMake(0, 0, 50, 50);
-    [editButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [editButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [editButton addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
     self.editButton = editButton;
@@ -95,16 +86,14 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self getCurrentFamilyWithFid:@""];
+    
+    [QuecOTAManager.sharedInstance setBleCustomOtaProgramWithPk:@"p11u7u" dk:@"AABBCCDD0022" enable:YES];
+    [QuecOTAManager.sharedInstance setBleCustomOtaProgramWithPk:@"pe17x3" dk:@"AABBCCDD0022" enable:YES];
+    [QuecOTAManager.sharedInstance setBleCustomOtaProgramWithPk:@"pu13t1" dk:@"AABBCCDD0022" enable:YES];
 }
 
 - (void)refreshList {
     [self getCurrentFamilyWithFid:@""];
-}
-
-- (void)otaButtonClick {
-    QuecOTAViewController *vc = [[QuecOTAViewController alloc]init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)addButtonClick {
@@ -220,7 +209,7 @@
     createModel.deviceList = deviceList.copy;
     [self editClick:self.editButton];
     @quec_weakify(self);
-    [QuecGroupService createGroupWithBean:createModel success:^(QuecGroupCreateResultBean * _Nonnull result) {
+    [QuecGroupService.sharedInstance createGroupWithBean:createModel success:^(QuecGroupCreateResultBean * _Nonnull result) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self refreshList];
@@ -233,7 +222,7 @@
 - (void)getGroupDeviceInfoWithId:(NSString *)gid {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
-    [QuecGroupService getGroupInfoWithId:gid success:^(QuecGroupBean * _Nonnull result) {
+    [QuecGroupService.sharedInstance getGroupInfoWithId:gid success:^(QuecGroupBean * _Nonnull result) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"查询群组基础信息成功" duration:2 position:CSToastPositionCenter];
@@ -389,25 +378,29 @@
 
 - (void)getData {
     QuecWeakSelf(self);
-    [[QuecDeviceService sharedInstance] getDeviceListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    QuecDeviceListParamsModel * paramModel = [[QuecDeviceListParamsModel alloc] init];
+    paramModel.pageNumber = 1 ;
+    paramModel.pageSize = 100 ;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [QuecDeviceService.sharedInstance getDeviceListWithParams:paramModel success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataArray = list.copy;
         [self addDevicesToDeviceKit];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"getDeviceList error:%@", error.localizedDescription);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 
 - (void)checkFamilyModeState {
     QuecWeakSelf(self);
-    [QuecSmartHomeService.sharedInstance getFamilyModeConfigWithSuccess:^(NSDictionary *dictionary) {
-        
+    [QuecSmartHomeService.sharedInstance getFamilyModeConfigWithSuccess:^(QuecFamilyModeConfigModel *model) {
         QuecStrongSelf(self);
-        
-        BOOL changed = QuecSmartHomeService.sharedInstance.enable != self.isFamilyMode;
+//        BOOL changed = QuecSmartHomeService.sharedInstance.enable != self.isFamilyMode;
         self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
-        
         if (self.isFamilyMode) {
             self.navigationItem.rightBarButtonItems = @[self.addBarButton, self.editBarButton];
             [self getCurrentFamilyWithFid:[QuecSmartHomeService sharedInstance].currentFamily.fid];
@@ -415,9 +408,8 @@
             self.navigationItem.rightBarButtonItems = @[self.addBarButton];
             [self getData];
         }
-        
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 
@@ -454,14 +446,20 @@
 //查询常用设备列表
 - (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
-    
-    [QuecSmartHomeService getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 isGroupDeviceShow:YES success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid
+                                                             pageNumber:1
+                                                               pageSize:1000
+                                                      isGroupDeviceShow:YES
+                                                                success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataArray = list.copy;
         [self addDevicesToDeviceKit];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
     
 }
@@ -469,7 +467,11 @@
 - (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self);
-    [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid
+                                                              pageNumber:1
+                                                                pageSize:1000
+                                                       isGroupDeviceShow:NO
+                                                                 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         QuecStrongSelf(self);
         self.dataArray = list.copy;
@@ -486,14 +488,11 @@
     }
     [QuecIotCacheService.sharedInstance addDeviceModelList:self.dataArray];
     for (QuecDeviceModel *deviceModel in self.dataArray) {
-        QuecDevice *device = [QuecDevice deviceWithId:deviceModel.deviceId];
+        QuecDeviceClient *device = [QuecDeviceClient deviceWithId:deviceModel.deviceId];
         device.delegate = self;
         [device connect];
         [_deviceDatas quec_safeSetObject:device forKey:deviceModel.deviceId];
-        NSLog(@"getDeviceList-deviceModel:%@", deviceModel);
-        if (deviceModel.upgradeStatus == 1 || (deviceModel.upgradeStatus == 0 && deviceModel.userConfirmStatus == 1)) {
-            [QuecDeviceOTAStatusManager.sharedInstance writeDeviceStateWithProductKey:deviceModel.productKey deviceKey:deviceModel.deviceKey planId:[NSString stringWithFormat:@"%ld",deviceModel.planId] state:1 userConfirmStatus:0];
-        }
+        [QuecOTAManager.sharedInstance checkDeviceHttpOtaWithDeviceModel:deviceModel];
     }
 }
 
@@ -514,7 +513,7 @@
 }
 
 #pragma mark - QuecDeviceDelegate
-- (void)device:(QuecDevice *)device onlineUpdate:(NSUInteger)onlineState {
+- (void)device:(QuecDeviceClient *)device onlineUpdate:(NSUInteger)onlineState {
     [self.dataArray enumerateObjectsUsingBlock:^(QuecDeviceModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.deviceId isEqualToString:device.model.deviceId]) {
             obj.onlineChannelState = onlineState;
@@ -561,8 +560,8 @@
     view.hidden = NO;
     UILabel *familyTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 30)];
     familyTitle.font = [UIFont boldSystemFontOfSize:16];
-    familyTitle.textColor = UIColor.darkGrayColor;
-    familyTitle.text = [NSString stringWithFormat:@"%@--%@ 》",self.currentFamilyModel.familyName,self.currentRoomModel.roomName];
+    familyTitle.textColor = UIColor.systemBlueColor;
+    familyTitle.text = [NSString stringWithFormat:@"%@--%@ >",self.currentFamilyModel.familyName,self.currentRoomModel.roomName];
     familyTitle.userInteractionEnabled = YES;
     [view addSubview:familyTitle];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(familyTitleTapGestureRecognizer:)];
@@ -714,7 +713,7 @@
         }];
     }
     else {
-        [[QuecDeviceService sharedInstance] updateDeviceNameByShareUserWithDeviceName:deviceName shareCode:model.shareCode success:^{
+        [QuecDeviceShareService.sharedInstance updateDeviceNameByShareUserWithDeviceName:deviceName shareCode:model.shareCode success:^{
             QuecStrongSelf(self)
             [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -736,7 +735,7 @@
     if (model.fid) {
         fid = model.fid;
     }
-    [QuecDevice batchRemoveWithFid:fid isInit:NO deviceList:@[model] success:^{
+    [QuecDeviceClient batchRemoveWithFid:fid isInit:NO deviceList:@[model] success:^{
         @quec_strongify(self);
         [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -774,7 +773,7 @@
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk name:(NSString *)name{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self)
-    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk deviceName:name success:^{
+    [QuecDeviceService.sharedInstance bindWifiDeviceWithAuthCode:authCode productKey:pk deviceKey:dk deviceName:name capabilitiesBitmask:0 success:^(QuecDeviceBindAuthCodeModel *model) {
         QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -789,7 +788,7 @@
 - (void)requestBindDeviceByShare_code:(NSString *)share_code{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self)
-    [[QuecDeviceService sharedInstance] acceptShareByShareUserWithShareCode:share_code deviceName:@"Test Share Bind" success:^{
+    [QuecDeviceShareService.sharedInstance acceptShareByShareUserWithShareCode:share_code deviceName:@"Test Share Bind" success:^{
         QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -804,7 +803,7 @@
 - (void)requestBindDeviceBySn:(NSString *)sn pk:(NSString *)pk name:(NSString *)name{
     QuecWeakSelf(self)
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] bindDeviceBySerialNumber:sn productKey:pk deviceName:name success:^(NSString *productKey, NSString *deviceKey){
+    [QuecDeviceService.sharedInstance bindDeviceWithSerialNumber:sn productKey:pk deviceName:name success:^(QuecDeviceBindSNModel *model) {
         QuecStrongSelf(self)
         [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];

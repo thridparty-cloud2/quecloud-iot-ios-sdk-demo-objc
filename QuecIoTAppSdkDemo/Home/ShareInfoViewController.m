@@ -27,7 +27,7 @@
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareButton setTitle:@"获取分享码" forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(20, 100, 80, 50);
-    [shareButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [shareButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     shareButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:shareButton];
@@ -65,22 +65,22 @@
 }
 
 - (void)getData {
-    [[QuecDeviceService sharedInstance] getDeviceShareUserListWithDeviceKey:self.dataModel.deviceKey productKey:self.dataModel.productKey success:^(NSArray<QuecShareUserModel *> *list) {
+    [[QuecDeviceShareService sharedInstance] getDeviceShareUserListWithDeviceKey:self.dataModel.deviceKey productKey:self.dataModel.productKey success:^(NSArray<QuecShareUserModel *> *list) {
         self.dataArray = list;
         [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 
 - (void)shareButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDate *date = [NSDate date];
     NSTimeInterval time = (long long)[date timeIntervalSince1970] * 1000 + 10 * 60 * 1000;
-    [[QuecDeviceService sharedInstance] setShareInfoByOwnerWithDeviceKey:self.dataModel.deviceKey productKey:self.dataModel.productKey acceptingExpireTime:time coverMark:1
-                                                    isSharingAlwaysValid:YES
-                                                       sharingExpireTime:0 success:^(NSString *shareCode) {
+    [[QuecDeviceShareService sharedInstance] setShareInfoByOwnerWithDeviceKey:self.dataModel.deviceKey productKey:self.dataModel.productKey acceptingExpireTime:time coverMark:1
+                                                         isSharingAlwaysValid:YES
+                                                            sharingExpireTime:0 success:^(NSString *shareCode) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.shareCodeLabel.text = shareCode;
     }failure:^(NSError *error) {
@@ -124,12 +124,12 @@
 
 - (void)deleteShareUserWithRow:(NSInteger)row {
     QuecShareUserModel *model = self.dataArray[row];
-    [[QuecDeviceService sharedInstance] unShareDeviceByOwnerWithShareCode:model.shareInfo.shareCode success:^{
+    [[QuecDeviceShareService sharedInstance] unShareDeviceByOwnerWithShareCode:model.shareInfo.shareCode success:^{
         [self getData];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 
 @end

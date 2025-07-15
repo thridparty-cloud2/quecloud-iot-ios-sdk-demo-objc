@@ -78,7 +78,7 @@
     [smsButton addTarget:self action:@selector(smsButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:smsButton];
     
-  
+    
     UIButton *sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     sureButton.layer.cornerRadius = 10.0;
     sureButton.layer.borderColor = [UIColor grayColor].CGColor;
@@ -93,34 +93,34 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text internationalCode:@"86" type:2 ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text internationalCode:@"86" type:QuecVerifyCodeTypeLogin success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 
 - (void)oldSmsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.oldPhoneTextField.text internationalCode:@"86" type:QuecVerifyCodeTypeLogout ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.oldPhoneTextField.text internationalCode:@"86" type:QuecVerifyCodeTypeLogout success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 - (void)sureButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] updatePhone:self.phoneTextField.text newInternationalCode:@"86" newPhoneCode:self.smsTextField.text oldPhone:self.oldPhoneTextField.text oldInternationalCode:@"86" oldPhoneCode:self.oldSmsTextField.text success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"手机号修改成功" duration:3 position:CSToastPositionCenter];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.phoneTextField resignFirstResponder];

@@ -55,7 +55,7 @@
 
 - (void)getData {
     @quec_weakify(self);
-    [QuecAutomateService getAutomationTSLWithProductKey:self.deviceModel.productKey type:self.type success:^(NSArray<QuecProductTSLPropertyModel *> * _Nonnull conditions, NSArray<QuecProductTSLPropertyModel *> * _Nonnull actions) {
+    [QuecAutomateService.sharedInstance getAutomationTSLWithProductKey:self.deviceModel.productKey type:self.type success:^(NSArray<QuecProductTSLPropertyModel *> * _Nonnull conditions, NSArray<QuecProductTSLPropertyModel *> * _Nonnull actions) {
         @quec_strongify(self);
         if (self.type == 1) {
             self.dataArray = [NSArray arrayWithArray:conditions];
@@ -64,7 +64,7 @@
         }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 

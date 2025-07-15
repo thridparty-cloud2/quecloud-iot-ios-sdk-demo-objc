@@ -11,7 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "HomeViewController.h"
 #import "MyCenterViewController.h"
-#import "DeviceGroupViewController.h"
+#import "AppDelegate.h"
 
 @interface ThirdLoginViewController ()
 @property (nonatomic, strong) UITextField *countryCodeField;
@@ -77,22 +77,7 @@
 
 
 - (void)loginSuccess {
-    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
-    HomeViewController *homeVc=[[HomeViewController alloc]init];
-    homeVc.tabBarItem.title=@"首页";
-    homeVc.view.backgroundColor = [UIColor whiteColor];
-    
-    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
-    groupVc.tabBarItem.title=@"分组";
-    groupVc.view.backgroundColor = [UIColor whiteColor];
-    
-    MyCenterViewController *myVc=[[MyCenterViewController alloc]init];
-    myVc.tabBarItem.title=@"我的";
-    myVc.view.backgroundColor = [UIColor whiteColor];
-    
-    tabbarVc.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:homeVc],[[UINavigationController alloc] initWithRootViewController:groupVc],[[UINavigationController alloc] initWithRootViewController:myVc]];
-    
-    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarVc;
+    [UIApplication sharedApplication].keyWindow.rootViewController = [AppDelegate getMainController];;
 }
 
 

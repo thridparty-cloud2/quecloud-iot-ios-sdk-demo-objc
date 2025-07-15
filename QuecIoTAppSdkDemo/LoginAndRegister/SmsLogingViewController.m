@@ -11,7 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "HomeViewController.h"
 #import "MyCenterViewController.h"
-#import "DeviceGroupViewController.h"
+#import "AppDelegate.h"
 
 @interface SmsLogingViewController ()
 @property (nonatomic, strong) UITextField *countryCodeField;
@@ -92,7 +92,7 @@
 
 - (void)smsButtonClick {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:QuecVerifyCodeTypeLogin ssid:nil stid:nil success:^{
+    [[QuecUserService sharedInstance] sendVerifyCodeByPhone:self.phoneTextField.text ? : @"" internationalCode:@"86" type:QuecVerifyCodeTypeLogin success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
     } failure:^(NSError *error) {
@@ -107,22 +107,7 @@
 }
 
 - (void)loginSuccess {
-    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
-    HomeViewController *homeVc=[[HomeViewController alloc]init];
-    homeVc.tabBarItem.title=@"首页";
-    homeVc.view.backgroundColor = [UIColor whiteColor];
-    
-    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
-    groupVc.tabBarItem.title=@"分组";
-    groupVc.view.backgroundColor = [UIColor whiteColor];
-    
-    MyCenterViewController *myVc=[[MyCenterViewController alloc]init];
-    myVc.tabBarItem.title=@"我的";
-    myVc.view.backgroundColor = [UIColor whiteColor];
-
-    tabbarVc.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:homeVc],[[UINavigationController alloc] initWithRootViewController:groupVc],[[UINavigationController alloc] initWithRootViewController:myVc]];
-    
-    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarVc;
+    [UIApplication sharedApplication].keyWindow.rootViewController = [AppDelegate getMainController];
 }
 
 @end

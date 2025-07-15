@@ -70,18 +70,25 @@
 
 - (void)getData {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] getDeviceGroupInfoWithDeviceGroupId:self.dataModel.dgid success:^(QuecDeviceGroupInfoModel *dataModel) {
+    [[QuecDeviceGroupService sharedInstance] getDeviceGroupInfoWithDeviceGroupId:self.dataModel.dgid
+                                                                         success:^(QuecDeviceGroupInfoModel *dataModel) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self->_textView.text = dataModel.yy_modelToJSONString;
-        } failure:^(NSError *error) {
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 - (void)getDeviceList {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[QuecDeviceService sharedInstance] getDeviceListWithDeviceGroupId:self.dataModel.dgid deviceGroupName:@"" deviceKeyList:@"" productKey:@"" pageNumber:1 pageSize:10 success:^(NSArray<NSDictionary *> *data, NSInteger total) {
+    [[QuecDeviceGroupService sharedInstance] getDeviceListWithDeviceGroupId:self.dataModel.dgid
+                                                            deviceGroupName:@""
+                                                              deviceKeyList:@""
+                                                                 productKey:@""
+                                                                 pageNumber:1
+                                                                   pageSize:10
+                                                                    success:^(NSArray<NSDictionary *> *data, NSInteger total) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataArray = data.copy;
         [self.tableView reloadData];
@@ -128,14 +135,16 @@
 
 - (void)deleteDeviceFromGroupWithRow:(NSInteger)row {
     QuecDeviceModel *deviceModel = self.dataArray[row];
-    [[QuecDeviceService sharedInstance] deleteDeviceFromGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":deviceModel.deviceKey, @"pk": deviceModel.productKey}] success:^(NSDictionary *data) {
+    [QuecDeviceGroupService.sharedInstance deleteDeviceFromGroupWithDeviceGroupId:self.dataModel.dgid
+                                                                       deviceList:@[@{@"dk":deviceModel.deviceKey, @"pk": deviceModel.productKey}]
+                                                                          success:^(QuecOperateDeviceToGroupModel * _Nonnull model) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"删除成功" duration:3 position:CSToastPositionCenter];
         [self getDeviceList];
-        } failure:^(NSError *error) {
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }];
+    } failure:^(NSError *error) {
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 

@@ -13,7 +13,8 @@
 #import <QuecUserKit/QuecUserKit.h>
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
-#import "DeviceGroupViewController.h"
+#import "AppDelegate.h"
+
 @interface EmailLoginViewController ()
 @property (nonatomic, strong) UITextField *countryCodeField;
 @property (nonatomic, strong) UITextField *phoneTextField;
@@ -116,22 +117,8 @@
 }
 
 - (void)loginSuccess {
-    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
-    HomeViewController *homeVc=[[HomeViewController alloc]init];
-    homeVc.tabBarItem.title=@"首页";
-    homeVc.view.backgroundColor = [UIColor whiteColor];
     
-    DeviceGroupViewController *groupVc=[[DeviceGroupViewController alloc]init];
-    groupVc.tabBarItem.title=@"分组";
-    groupVc.view.backgroundColor = [UIColor whiteColor];
-    
-    MyCenterViewController *myVc=[[MyCenterViewController alloc]init];
-    myVc.tabBarItem.title=@"我的";
-    myVc.view.backgroundColor = [UIColor whiteColor];
-
-    tabbarVc.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:homeVc],[[UINavigationController alloc] initWithRootViewController:groupVc],[[UINavigationController alloc] initWithRootViewController:myVc]];
-    
-    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarVc;
+    [UIApplication sharedApplication].keyWindow.rootViewController = [AppDelegate getMainController];
 }
 
 @end

@@ -45,13 +45,13 @@
             }];
     }
     else {
-        [[QuecDeviceService sharedInstance] getDeviceInfoByShareCode:self.dataModel.shareCode ? (self.dataModel.shareCode) : (@"") success:^(QuecDeviceModel *deviceModel) {
+        [[QuecDeviceShareService sharedInstance] getDeviceInfoByShareCode:self.dataModel.shareCode ? (self.dataModel.shareCode) : (@"") success:^(QuecDeviceModel * _Nonnull deviceModel) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             self->_textView.text = deviceModel.yy_modelToJSONString;
-            } failure:^(NSError *error) {
-                [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }];
+        } failure:^(NSError *error) {
+            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }];
     }
    
    

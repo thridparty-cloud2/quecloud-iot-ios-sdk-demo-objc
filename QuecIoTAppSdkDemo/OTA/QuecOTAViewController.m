@@ -1,22 +1,13 @@
-//
-//  QuecOTAViewController.m
-//  QuecIoTAppSdkDemo
-//
-//  Created by Leo Xue(薛昭) on 2024/11/11.
-//
-
 #import "QuecOTAViewController.h"
 #import <QuecOTAUpgradeKit/QuecOTAUpgradeKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Toast/Toast.h>
-#import "QuecOTAPlanInfoModel.h"
-#import "QuecBleOTAViewController.h"
-#import "QuecHttpOTAViewController.h"
+#import "QuecOtaPlanModel.h"
 
 @interface QuecOTAViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic, strong)UITableView *tableView;
-@property(nonatomic, strong)NSArray *dataArray;
+@property(nonatomic, strong) UITableView *tableView;
+@property(nonatomic, strong) NSArray<QuecOtaPlanModel *> *otaPlansList;
 
 @end
 
@@ -25,21 +16,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-    
-    self.dataArray = @[@"查询HTTP-OTA是否有待升级设备", @"查询BLE-OTA是否有待升级设备"];
-    
+    self.title = @"OTA列表";
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
+    [self loadOTAPlanData];
+    @quec_weakify(self);
+    [QuecOTAManager.sharedInstance addStateListener:self state:^(QuecOTAStateModel * _Nonnull stateModel) {
+        @quec_strongify(self);
+        NSString *deviceId = [NSString stringWithFormat:@"%@@%@", stateModel.pk, stateModel.dk];
+        for (QuecOtaPlanModel *planModel in self.otaPlansList) {
+            NSString *lastDeviceId = [NSString stringWithFormat:@"%@@%@", planModel.pk, planModel.dk];
+            if ([deviceId isEqualToString:lastDeviceId]) {
+                planModel.progress = stateModel.progress;
+                planModel.state = stateModel.state;
+                break;
+            }
+        }
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [QuecOTAManager.sharedInstance removeStateListener:self];
 }
 
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    return self.otaPlansList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -51,97 +59,73 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellID"];
     }
-    cell.textLabel.text = self.dataArray[indexPath.row];
-    cell.textLabel.textColor = [UIColor blackColor];
+    QuecOtaPlanModel *planInfo = [self.otaPlansList quec_safeObjectAtIndex:indexPath.row];
+    if ([planInfo isKindOfClass:QuecOtaPlanModel.class]) {
+        cell.textLabel.text = planInfo.planInfoModel.deviceName;
+        NSString *desc = @"";
+        NSLog(@"==============>state: %d   progress: %.2f", planInfo.state, planInfo.progress);
+        switch (planInfo.state) {
+            case QuecOTAUpgrading:
+                desc = [NSString stringWithFormat:@"升级中: %.0f%@", planInfo.progress *100., @"%"];
+                break;
+            case QuecOTAUpgradeSuccess:
+                desc = @"升级成功";
+                break;
+            case QuecOTAUpgradeFailure:
+            case QuecOTAUpgradeExpired:
+                desc = @"升级失败";
+                break;
+            default:
+                desc = @"待升级";
+                break;
+        }
+        cell.detailTextLabel.text = desc;
+    }
+    
+    cell.textLabel.textColor = UIColor.blackColor;
+    cell.detailTextLabel.textColor = UIColor.lightGrayColor;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        [self loadHttpOTAData];
-    }else {
-        [self loadBleOTAData];
+    /// Simulate the OTA upgrade
+    QuecOtaPlanModel *planInfo = [self.otaPlansList quec_safeObjectAtIndex:indexPath.row];
+    if ([planInfo isKindOfClass:QuecOtaPlanModel.class] && planInfo.state == QuecOTAUpgradeEmpty) {
+        [QuecOTAManager.sharedInstance startOtaWithPlanInfoModel:planInfo.planInfoModel];
     }
 }
 
-- (void)loadHttpOTAData {
+- (void)loadOTAPlanData {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
-    [QuecHttpOTAService.sharedInstance getUserlsHaveDeviceUpgrade:@"" success:^(NSInteger number) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [QuecOTAManager.sharedInstance checkAllVersionWithPage:1 pageSize:10 planListBlock:^(NSArray<QuecOtaPlanInfoModel *> * _Nonnull planInfos) {
         @quec_strongify(self);
-        if (number > 0) {
-            QuecHttpOTAViewController *vc = [[QuecHttpOTAViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else {
-            [self.view makeToast:@"没有待升级的HTTP-OTA设备" duration:3 position:CSToastPositionCenter];
-        }
-    } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        NSLog(@"QuecOTAViewController--loadHttpOTAData--error: %@",error);
+        if (planInfos.count) {
+            self.otaPlansList = [planInfos quec_map:^id _Nonnull(QuecOtaPlanInfoModel * _Nonnull obj) {
+                QuecOtaPlanModel *planModel = QuecOtaPlanModel.new;
+                planModel.planId = obj.planId;
+                planModel.pk = obj.productKey;
+                planModel.dk = obj.deviceKey;
+                planModel.planInfoModel = obj;
+                
+                NSInteger deviceStatus = obj.deviceStatus;
+                QuecOTAStateModel *statusModel = [QuecOTAManager.sharedInstance getOtaStateWithProductKey:obj.productKey deviceKey:obj.deviceKey];
+                if (statusModel.state == QuecOTAUpgrading) {
+                    planModel.state = QuecOTAUpgrading;
+                    planModel.progress = statusModel.progress;
+                }else {
+                    planModel.state = deviceStatus == QuecOTAUpgradeFailure ? QuecOTAUpgradeEmpty : (QuecOTAState)deviceStatus;
+                    planModel.progress = obj.upgradeProgress;
+                }
+                return planModel;
+            }];
+            [self.tableView reloadData];
+        }else{
+            [self.view makeToast:@"empty ota plans" duration:3 position:CSToastPositionCenter];
+        }
     }];
 }
-
-- (void)loadBleOTAData {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    @quec_weakify(self);
-    [self loadPureBLEDeviceData:^(NSInteger number) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        @quec_strongify(self);
-        if (number > 0) {
-            QuecBleOTAViewController *vc = [[QuecBleOTAViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else {
-            [self.view makeToast:@"没有待升级的BLE-OTA设备" duration:3 position:CSToastPositionCenter];
-        }
-    }];
-}
-
-- (void)loadPureBLEDeviceData:(void (^)(NSInteger))success {
-    // 获取连接的蓝牙设备列表
-    NSArray *bleList = [QuecDevice getConnectedBleList];
-    if (!bleList || bleList.count == 0) {
-        // 如果没有连接的设备，直接返回空数组
-        NSLog(@"loadPureBLEDeviceData--bleList is null");
-        success(0);
-        return;
-    }
-
-    // 创建存储 OTA 计划数据的数组
-    NSMutableArray *dataArray = [NSMutableArray array];
-    dispatch_group_t dispatchGroup = dispatch_group_create();
-
-    for (NSDictionary *dict in bleList) {
-        // 从字典中提取 pk 和 dk 的值
-        NSString *pk = dict[@"pk"];
-        NSString *dk = dict[@"dk"];
-        if (!pk || !dk) {
-            // 跳过当前循环
-            continue;
-        }
-        
-        // Enter the group before starting the async task
-        dispatch_group_enter(dispatchGroup);
-        
-        [QuecBleOTAManager.sharedInstance checkVersionWithProductKey:pk deviceKey:dk infoBlock:^(QuecBleOTAInfoModel * _Nullable infoModel) {
-            if (infoModel != nil) {
-                [dataArray addObject:infoModel];
-            } else {
-                NSLog(@"No info model received.");
-            }
-            
-            dispatch_group_leave(dispatchGroup);
-        }];
-
-    }
-    
-    // When all tasks have completed, the group will be notified and the success closure will be called
-    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
-        success([dataArray count]);
-    });
-}
-
 
 @end

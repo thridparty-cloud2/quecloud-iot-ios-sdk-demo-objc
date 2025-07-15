@@ -117,27 +117,27 @@
 //查询常用设备列表
 - (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
-    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+    [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 isGroupDeviceShow:NO success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
         self.dataArray = list.copy;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 
 //查询房间中设备列表
 - (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
-   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-   QuecWeakSelf(self);
-   [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid pageNumber:1 pageSize:1000 success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
-       [MBProgressHUD hideHUDForView:self.view animated:YES];
-       QuecStrongSelf(self);
-       self.dataArray = list.copy;
-       [self.tableView reloadData];
-   } failure:^(NSError *error) {
-       [MBProgressHUD hideHUDForView:self.view animated:YES];
-   }];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QuecWeakSelf(self);
+    [QuecSmartHomeService.sharedInstance getFamilyRoomDeviceListWithFrid:frid pageNumber:1 pageSize:1000 isGroupDeviceShow:NO success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        QuecStrongSelf(self);
+        self.dataArray = list.copy;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -214,7 +214,7 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     QuecDeviceModel *model = self.dataArray[indexPath.row];
     cell.textLabel.text = model.deviceName;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryNone;
     if ([self.selectedArray containsObject:model]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

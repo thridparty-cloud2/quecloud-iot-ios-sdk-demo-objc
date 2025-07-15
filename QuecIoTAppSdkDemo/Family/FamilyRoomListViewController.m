@@ -8,7 +8,7 @@
 #import "FamilyRoomListViewController.h"
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
-
+#import <Toast/Toast.h>
 @interface FamilyRoomListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView *tableView;
@@ -143,12 +143,12 @@
     QuecFamilyRoomItemModel *model = self.dataArray[sender.tag];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
-    [QuecSmartHomeService.sharedInstance deleteFamilyRoomsWithIds:@[model.frid] success:^(NSDictionary *dictionary) {
+    [QuecSmartHomeService.sharedInstance deleteFamilyRoomsWithIds:@[model.frid] success:^{
         @quec_strongify(self);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Home_List_Refresh_Notification" object:nil];
         [self getData];
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 

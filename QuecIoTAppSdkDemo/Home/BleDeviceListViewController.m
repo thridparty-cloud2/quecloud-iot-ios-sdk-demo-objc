@@ -51,7 +51,7 @@
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"扫描" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
-    [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [addButton addTarget:self action:@selector(startScan) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
@@ -63,7 +63,7 @@
     [self.dataArray removeAllObjects];
     [self.tableView reloadData];
     /// 需要打开系统及App蓝牙权限
-    [[QuecDevicePairingService sharedInstance] scanWithFid:self.fid filier:nil];
+    [QuecDevicePairingService.sharedInstance scanWithFilier:nil];
 }
 
 - (void)stopScan {
@@ -86,19 +86,25 @@
     @quec_weakify(self);
     cell.bindAction = ^(NSIndexPath * _Nonnull indexPath) {
         @quec_strongify(self);
-        if (model.peripheral.peripheralModel.capabilitiesBitmask != 4 && ![self.ssid quec_isStringAndNotEmpty]){
-            [self configWifiWithIndex:indexPath];
+        if ([self isSupportBtBind:model.peripheral]){
+            [self startBinding:indexPath];
             return;
         }
-        [self startBinding:indexPath];
+        [self configWifiWithIndex:indexPath];
     };
     return cell;
+}
+
+- (BOOL)isSupportBtBind:(QuecPairingPeripheral *)pairingPeripheral{
+    BOOL pureBt = pairingPeripheral.peripheralModel.capabilitiesBitmask == 4;
+    BOOL capabilitEnable = ((pairingPeripheral.peripheralModel.capabilitiesBitmask & 4) == 4) && pairingPeripheral.activeBluetooth;
+    return pureBt || capabilitEnable;
 }
 
 - (void)startBinding:(NSIndexPath *)indexPath{
     BleDeviceBindModel *model = [self.dataArray quec_safeObjectAtIndex:indexPath.row];
     [self stopScan];
-    [[QuecDevicePairingService sharedInstance] startPairingByDevices:@[model.peripheral] fid:self.fid ssid:self.ssid pwd:self.pwd];
+    [QuecDevicePairingService.sharedInstance startPairingWithDevices:@[model.peripheral] ssid:self.ssid pwd:self.pwd];
     model.bindState = QuecBinding;
     [self.tableView reloadData];
     

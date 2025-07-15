@@ -78,13 +78,12 @@
     QuecFamilyParamModel *paramModel = [[QuecFamilyParamModel alloc]init];
     paramModel.familyName = familyName;
     @quec_weakify(self);
-    [QuecSmartHomeService.sharedInstance addFamilyWithFamilyParamModel:paramModel success:^(NSDictionary *dictionary) {
+    [QuecSmartHomeService.sharedInstance addFamilyWithFamilyParamModel:paramModel success:^{
         @quec_strongify(self);
         [self getData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
 }
 
 

@@ -11,12 +11,12 @@
 #import "SmsLogingViewController.h"
 #import "RegisterViewController.h"
 #import "ForgetPasswordViewController.h"
-#import "AutomateAndSceneVC.h"
 #import "EmailLoginViewController.h"
 #import <QuecUserKit/QuecUserKit.h>
 #import <Toast/Toast.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ThirdLoginViewController.h"
+#import "AppDelegate.h"
 
 static NSString * const UserDomainCN = @"";
 static NSString * const UserSecretCN = @"";
@@ -356,22 +356,7 @@ static NSString * const UserSecretNA = @"";
 }
 
 - (void)loginSuccess {
-    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
-    HomeViewController *homeVc=[[HomeViewController alloc]init];
-    homeVc.tabBarItem.title=@"首页";
-    homeVc.view.backgroundColor = [UIColor whiteColor];
-    
-    AutomateAndSceneVC *groupVc=[[AutomateAndSceneVC alloc]init];
-    groupVc.tabBarItem.title=@"分组";
-    groupVc.view.backgroundColor = [UIColor whiteColor];
-    
-    MyCenterViewController *myVc=[[MyCenterViewController alloc]init];
-    myVc.tabBarItem.title=@"我的";
-    myVc.view.backgroundColor = [UIColor whiteColor];
-
-    tabbarVc.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:homeVc],[[UINavigationController alloc] initWithRootViewController:groupVc],[[UINavigationController alloc] initWithRootViewController:myVc]];
-    
-    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarVc;
+    [UIApplication sharedApplication].keyWindow.rootViewController = [AppDelegate getMainController];;
 }
 
 

@@ -63,7 +63,7 @@
     self.detailModel.name = [NSString stringWithFormat:@"%@%lld",@"就改了个名_",timestamp];
     
     @quec_weakify(self);
-    [QuecAutomateService editAutomationWithModel:self.detailModel success:^{
+    [QuecAutomateService.sharedInstance editAutomationWithModel:self.detailModel success:^{
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:@"编辑成功" duration:2 position:CSToastPositionCenter];
@@ -82,14 +82,14 @@
         fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     }
     
-    [QuecAutomateService getAutomationInfoWithFid:fid automationId:self.automateModel.automationId success:^(QuecAutomateModel * _Nonnull model) {
+    [QuecAutomateService.sharedInstance getAutomationInfoWithAutomationId:self.automateModel.automationId success:^(QuecAutomateModel * _Nonnull model) {
         self.detailModel = model;
         self.dataOneArray = [NSArray arrayWithArray:model.conditions];
         self.dataTwoArray = [NSArray arrayWithArray:model.actions];
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
     
 }

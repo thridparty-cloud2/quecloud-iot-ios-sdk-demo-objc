@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
-    
+    self.title = @"自动化";
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setTitle:@"添加自动化" forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
@@ -73,13 +73,12 @@
     }
     
     @quec_weakify(self);
-    [QuecAutomateService getAutomationListWithFid:fid pageNumber:1 pageSize:100 success:^(NSArray<QuecAutomateModel *> * _Nonnull models, NSUInteger total) {
+    [QuecAutomateService.sharedInstance getAutomationListWithPageNumber:1 pageSize:100 success:^(NSArray<QuecAutomateModel *> * _Nonnull models, NSUInteger total) {
         @quec_strongify(self);
-        
         self.dataArray = [NSArray arrayWithArray:models];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
 }
 
@@ -146,15 +145,13 @@
     if (QuecSmartHomeService.sharedInstance.enable) {
         fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     }
-    
-    [QuecAutomateService deleteAutomationWithFid:fid automationId:model.automationId success:^{
+    [QuecAutomateService.sharedInstance deleteAutomationWithAutomationId:model.automationId success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
 }
 
 - (void)stateChanged:(UISwitch *)state {
@@ -165,13 +162,15 @@
     }
     QuecAutomateModel *model = self.dataArray[state.tag];
     @quec_weakify(self);
-    [QuecAutomateService updateAutomationSwitchStatusWithFid:fid automationId:model.automationId status:state.on success:^{
+    [QuecAutomateService.sharedInstance updateAutomationSwitchStatusWithAutomationId:model.automationId status:state.on success:^{
+        @quec_strongify(self);
         model.status = state.on;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+        @quec_strongify(self);
         [self.tableView reloadData];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
     }];
-    
 }
 
 @end

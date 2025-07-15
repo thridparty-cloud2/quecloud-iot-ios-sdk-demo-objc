@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "HomeViewController.h"
 #import "MyCenterViewController.h"
-#import "AutomateAndSceneVC.h"
+#import "CommonTestViewController.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
@@ -38,21 +38,21 @@
     self.window.backgroundColor = [UIColor whiteColor];
     // 同步检查登录状态
     if ([QuecUserService sharedInstance].isLogin) {
-        self.window.rootViewController = [self getMainController];
+        self.window.rootViewController = [AppDelegate getMainController];
     }
     else {
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     }
     // 异步检查是否登录状态
     [[QuecUserService sharedInstance] checkUserLoginState:^(BOOL isLogin) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (isLogin) {
-                self.window.rootViewController = [self getMainController];
-            }
-            else  {
-                self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-            }
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (isLogin) {
+//                self.window.rootViewController = [AppDelegate getMainController];
+//            }
+//            else  {
+//                self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+//            }
+//        });
     }];
     [self.window makeKeyAndVisible];
     // 设置token失效监听
@@ -67,7 +67,7 @@
     return YES;
 }
 
-- (UIViewController *)getMainController {
++ (UIViewController *)getMainController {
     UITabBarController *tabbarVc = [[UITabBarController alloc] init];
     HomeViewController *homeVc=[[HomeViewController alloc]init];
     homeVc.tabBarItem.title=@"首页";
@@ -76,8 +76,8 @@
     homeVc.view.backgroundColor = [UIColor whiteColor];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],NSForegroundColorAttributeName,[UIFont fontWithName:@"Helvetica"size:12.0f],NSFontAttributeName,nil]forState:UIControlStateSelected];
     
-    AutomateAndSceneVC *groupVc=[[AutomateAndSceneVC alloc]init];
-    groupVc.tabBarItem.title=@"分组";
+    CommonTestViewController *groupVc=[[CommonTestViewController alloc]init];
+    groupVc.tabBarItem.title=@"通用";
     groupVc.tabBarItem.image = [UIImage imageNamed:@"group_tabbar"];
     groupVc.tabBarItem.selectedImage = [UIImage imageNamed:@"group_tabbar_select"];
     groupVc.view.backgroundColor = [UIColor whiteColor];
