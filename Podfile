@@ -1,8 +1,8 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.0'
 source 'https://github.com/CocoaPods/Specs.git'
-#source 'https://github.com/thridparty-cloud2/QuecPublicSpecs.git'
-source 'ssh://git@gitlab.quectel.com:8061/frontend/QuecPublicSpecs.git'
+source 'https://github.com/thridparty-cloud2/QuecPublicSpecs.git'
+#source 'ssh://git@gitlab.quectel.com:8061/frontend/QuecPublicSpecs.git'
 
 def commpod
   pod 'Toast', '~> 4.0.0'
@@ -24,12 +24,12 @@ target 'QuecIoTAppSdkDemo' do
   
 #  pod 'MQTTClient' , '~> 0.15.4'
 
-  pod 'QuecIotSdk', '2.0.0'
+  pod 'QuecIotSdk', '2.19.3'
   
   pod 'QuecSmartHomeKit', '~> 2.1.0'
   pod 'QuecSceneKit', '~> 0.4.0'
   pod 'QuecAutomateKit', '~> 0.3.0'
-  pod 'QuecGroupKit', '~> 0.5.0'
+  pod 'QuecGroupKit', '~> 0.5.3'
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

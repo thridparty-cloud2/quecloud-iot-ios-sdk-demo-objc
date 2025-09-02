@@ -116,13 +116,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     } else {
-        [QuecDeviceService.sharedInstance getProductTslAndDeviceBusinessAttributesWithProductKey:self.dataModel.productKey
-                                                                                       deviceKey:self.dataModel.deviceKey
-                                                                                       gatewayPk:@""
-                                                                                       gatewayDk:@""
-                                                                                        codeList:@""
-                                                                                            type:@"1,2,3"
-                                                                                         success:^(NSArray<QuecProductTSLPropertyModel *> *list) {
+        [QuecDeviceService.sharedInstance getProductTslAndDeviceBusinessAttributesWithProductKey:self.dataModel.productKey deviceKey:self.dataModel.deviceKey gatewayPk:@"" gatewayDk:@"" codeList:@"" type:@"1,2,3" filterType:1 success:^(NSArray<QuecProductTSLPropertyModel *> *list) {
             QuecStrongSelf(self);
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             self.dataArray = list.copy;
