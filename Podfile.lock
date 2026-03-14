@@ -14,31 +14,31 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - BRPickerView (2.9.7):
-    - BRPickerView/All (= 2.9.7)
-  - BRPickerView/All (2.9.7):
+  - BRPickerView (2.9.9):
+    - BRPickerView/All (= 2.9.9)
+  - BRPickerView/All (2.9.9):
     - BRPickerView/Default
     - BRPickerView/Deprecated
-  - BRPickerView/Core (2.9.7)
-  - BRPickerView/DatePicker (2.9.7):
+  - BRPickerView/Core (2.9.9)
+  - BRPickerView/DatePicker (2.9.9):
     - BRPickerView/Core
-  - BRPickerView/Default (2.9.7):
+  - BRPickerView/Default (2.9.9):
     - BRPickerView/DatePicker
     - BRPickerView/TextPicker
-  - BRPickerView/Deprecated (2.9.7):
+  - BRPickerView/Deprecated (2.9.9):
     - BRPickerView/Core
-    - BRPickerView/Deprecated/AddressPickerView (= 2.9.7)
-    - BRPickerView/Deprecated/Base (= 2.9.7)
-    - BRPickerView/Deprecated/StringPickerView (= 2.9.7)
-  - BRPickerView/Deprecated/AddressPickerView (2.9.7):
-    - BRPickerView/Core
-    - BRPickerView/Deprecated/Base
-  - BRPickerView/Deprecated/Base (2.9.7):
-    - BRPickerView/Core
-  - BRPickerView/Deprecated/StringPickerView (2.9.7):
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.9)
+    - BRPickerView/Deprecated/Base (= 2.9.9)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.9)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.9):
     - BRPickerView/Core
     - BRPickerView/Deprecated/Base
-  - BRPickerView/TextPicker (2.9.7):
+  - BRPickerView/Deprecated/Base (2.9.9):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.9):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.9):
     - BRPickerView/Core
   - CocoaAsyncSocket (7.6.5)
   - IQKeyboardManager (6.5.19)
@@ -129,6 +129,23 @@ PODS:
     - QuecNetworkChannelKit
     - QuecSdkConfig
     - YYModel (~> 1.0.4)
+  - QuecPayKit (1.1.4):
+    - QuecPayKit/default (= 1.1.4)
+  - QuecPayKit/common (1.1.4)
+  - QuecPayKit/default (1.1.4):
+    - QuecPayKit/common
+  - QuecPayKit/paypal (1.1.4):
+    - QuecPayKit/common
+  - QuecPayKit/wechat (1.1.4):
+    - QuecPayKit/common
+    - WechatOpenSDK-XCFramework
+  - QuecPaymentSdk (0.0.3):
+    - QuecFoundationKit
+    - QuecLogKit
+    - QuecNetworkChannelKit
+    - QuecPayKit
+    - QuecSdkConfig
+    - YYModel (~> 1.0.4)
   - QuecSceneKit (0.4.0):
     - QuecDeviceKit
     - QuecFoundationKit
@@ -175,6 +192,7 @@ PODS:
   - SDWebImage/Core (5.11.1)
   - SocketRocket (0.7.1)
   - Toast (4.0.0)
+  - WechatOpenSDK-XCFramework (2.0.5)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -185,6 +203,9 @@ DEPENDENCIES:
   - QuecAutomateKit (~> 0.3.0)
   - QuecGroupKit (~> 0.5.3)
   - QuecIotSdk (= 2.19.4)
+  - QuecPayKit/paypal (= 1.1.4)
+  - QuecPayKit/wechat (= 1.1.4)
+  - QuecPaymentSdk (= 0.0.3)
   - QuecSceneKit (~> 0.4.0)
   - QuecSmartHomeKit (~> 2.1.0)
   - SDWebImage (~> 5.11.1)
@@ -201,6 +222,7 @@ SPEC REPOS:
     - SDWebImage
     - SocketRocket
     - Toast
+    - WechatOpenSDK-XCFramework
     - YYModel
   https://github.com/thridparty-cloud2/QuecPublicSpecs.git:
     - MQTTClient
@@ -217,6 +239,8 @@ SPEC REPOS:
     - QuecMQTTChannelKit
     - QuecNetworkChannelKit
     - QuecOTAUpgradeKit
+    - QuecPayKit
+    - QuecPaymentSdk
     - QuecSceneKit
     - QuecSdkConfig
     - QuecSmartConfigKit
@@ -227,7 +251,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  BRPickerView: 6548c8fbe21c0f29e72ab2fae177d196edc83f09
+  BRPickerView: 84b2effb81f3b9ebd27f1d31de867ae0b37024f7
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -246,6 +270,8 @@ SPEC CHECKSUMS:
   QuecMQTTChannelKit: 7e0cff316a736d78033a7205d25ebe2a6d67db99
   QuecNetworkChannelKit: 3c714167b7f88606b7ad931deab670badf92c7c5
   QuecOTAUpgradeKit: 8801b62e6d6eede30bc7915f750ace5b3f1e08b6
+  QuecPayKit: f095bd6592089418838f03260be6fef7f5306618
+  QuecPaymentSdk: 8e1dcfef4d4f9d48a49789b335790b546e715989
   QuecSceneKit: e91a18a5d666266431feeb07c134a77341c90fa6
   QuecSdkConfig: 0d8793e1bc8a6a0a2e2022a6aa1d4135a2b17af0
   QuecSmartConfigKit: 40d5d6818c89ddb775bf666e22e844cffac05a6b
@@ -256,8 +282,9 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  WechatOpenSDK-XCFramework: ff342ae616bb86df3d236aca38059dfd4bc4a949
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: e94122788cb4110d81c4d6bb1994531390725721
+PODFILE CHECKSUM: 0473879fa5392e10a23d1a48c8bbb8e5b6e32668
 
 COCOAPODS: 1.16.0

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0186BE3EF7E2DC5FCABDF274 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */; };
-		0EE93959FE412C2AD5A809FA /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */; };
 		2236138127D5956800817F50 /* DeviceSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137C27D5956800817F50 /* DeviceSelectViewController.m */; };
 		2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137E27D5956800817F50 /* DeviceGroupViewController.m */; };
 		2236138327D5956800817F50 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137F27D5956800817F50 /* GroupDetailViewController.m */; };
@@ -43,6 +41,8 @@
 		22B0F7E327D2FE09001368DF /* QuecIoTAppSdkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7E227D2FE09001368DF /* QuecIoTAppSdkDemoTests.m */; };
 		22B0F7ED27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EC27D2FE09001368DF /* QuecIoTAppSdkDemoUITests.m */; };
 		22B0F7EF27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0F7EE27D2FE09001368DF /* QuecIoTAppSdkDemoUITestsLaunchTests.m */; };
+		22BA26F02F628B7500547556 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BA26EF2F628B7500547556 /* File.swift */; };
+		22BA26F72F628ECF00547556 /* QuecPaypalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BA26F62F628ECF00547556 /* QuecPaypalViewController.m */; };
 		22D2F24E2DBE0134002DB15A /* QuecOtaPlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */; };
 		22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */; };
 		302DA64B2A3B0BDA00D7EF8E /* ThirdLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */; };
@@ -59,7 +59,9 @@
 		6476AABA2CF5B83600AFE2B2 /* AutomateAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6476AAB92CF5B83600AFE2B2 /* AutomateAddViewController.m */; };
 		64D4314E2CF83F1F0011DD3F /* AutomateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */; };
 		64DE8EF32CF7020800342EB7 /* AutomateAbilityPublishedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DE8EF22CF7020800342EB7 /* AutomateAbilityPublishedVC.m */; };
-		68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
+		7C3EC5CBDB49BAE689909456 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0E44663EDDD9E637849F2A6 /* Pods_QuecIoTAppSdkDemoTests.framework */; };
+		DA0F26DFE688FE8019366156 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7A0CE7C7345C54DB971185 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */; };
+		DCA6C5423E996D6820C59B88 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7869F931D3B2EE47D1DFD7 /* Pods_QuecIoTAppSdkDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +82,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2236136E27D5917700817F50 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2236137027D5918400817F50 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		2236137227D5918F00817F50 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -155,6 +156,10 @@
 		22B0F81127D30F1C001368DF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		22B0F81327D32616001368DF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		22B0F81627D32934001368DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		22BA26EE2F628B7400547556 /* QuecIoTAppSdkDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuecIoTAppSdkDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		22BA26EF2F628B7500547556 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		22BA26F52F628ECF00547556 /* QuecPaypalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecPaypalViewController.h; sourceTree = "<group>"; };
+		22BA26F62F628ECF00547556 /* QuecPaypalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecPaypalViewController.m; sourceTree = "<group>"; };
 		22D0BFC527F3F9F000211095 /* MacroDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroDefine.h; sourceTree = "<group>"; };
 		22D2F24C2DBE0134002DB15A /* QuecOtaPlanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOtaPlanModel.h; sourceTree = "<group>"; };
 		22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOtaPlanModel.m; sourceTree = "<group>"; };
@@ -162,10 +167,11 @@
 		22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleDeviceListTableViewCell.m; sourceTree = "<group>"; };
 		22E1AC172DC071C5000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		22E1AC182DC071C6000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
-		2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		302DA6492A3B0BDA00D7EF8E /* ThirdLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdLoginViewController.h; sourceTree = "<group>"; };
 		302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginViewController.m; sourceTree = "<group>"; };
-		41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		3AA89FEE26D5BEF7C76ED8D5 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3E7869F931D3B2EE47D1DFD7 /* Pods_QuecIoTAppSdkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5123CE4F72A9E717D3BFF362 /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		640481A62CE1B27700AD521D /* QuecOTAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuecOTAViewController.h; sourceTree = "<group>"; };
 		640481A72CE1B27700AD521D /* QuecOTAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOTAViewController.m; sourceTree = "<group>"; };
 		6443DB6C2CEE134C00C8B128 /* FamilyListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FamilyListViewController.h; sourceTree = "<group>"; };
@@ -192,12 +198,12 @@
 		64D4314D2CF83F1F0011DD3F /* AutomateDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateDetailViewController.m; sourceTree = "<group>"; };
 		64DE8EF12CF7020800342EB7 /* AutomateAbilityPublishedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutomateAbilityPublishedVC.h; sourceTree = "<group>"; };
 		64DE8EF22CF7020800342EB7 /* AutomateAbilityPublishedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutomateAbilityPublishedVC.m; sourceTree = "<group>"; };
-		6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		C4C7D57CD90C0E5DD8870EDA /* Pods-QuecIoTAppSdkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.release.xcconfig"; sourceTree = "<group>"; };
-		FC2C2FAD27CF2CA736FE55AC /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		867A1F04E443658230B91CCD /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemoTests/Pods-QuecIoTAppSdkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A85DCE8F8A653F6ADAB2731A /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.debug.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		B1F8B8B45BFBA6658E24956D /* Pods-QuecIoTAppSdkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo.release.xcconfig"; sourceTree = "<group>"; };
+		C6971A1004FFF735A3B23A6A /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DF7A0CE7C7345C54DB971185 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0E44663EDDD9E637849F2A6 /* Pods_QuecIoTAppSdkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0186BE3EF7E2DC5FCABDF274 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
+				DCA6C5423E996D6820C59B88 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68A98B3638962444D346B8E7 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */,
+				7C3EC5CBDB49BAE689909456 /* Pods_QuecIoTAppSdkDemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE93959FE412C2AD5A809FA /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */,
+				DA0F26DFE688FE8019366156 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +341,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				22BA26F12F628E8800547556 /* Pay */,
 				6476AA972CF40EF500AFE2B2 /* AutomateWithScene */,
 				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
@@ -355,6 +362,8 @@
 				22B0F7D427D2FE09001368DF /* LaunchScreen.storyboard */,
 				22B0F7D727D2FE09001368DF /* Info.plist */,
 				22B0F7D827D2FE09001368DF /* main.m */,
+				22BA26EF2F628B7500547556 /* File.swift */,
+				22BA26EE2F628B7400547556 /* QuecIoTAppSdkDemo-Bridging-Header.h */,
 			);
 			path = QuecIoTAppSdkDemo;
 			sourceTree = "<group>";
@@ -376,15 +385,24 @@
 			path = QuecIoTAppSdkDemoUITests;
 			sourceTree = "<group>";
 		};
+		22BA26F12F628E8800547556 /* Pay */ = {
+			isa = PBXGroup;
+			children = (
+				22BA26F52F628ECF00547556 /* QuecPaypalViewController.h */,
+				22BA26F62F628ECF00547556 /* QuecPaypalViewController.m */,
+			);
+			path = Pay;
+			sourceTree = "<group>";
+		};
 		3725CEBF97E831FB460FC865 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */,
-				C4C7D57CD90C0E5DD8870EDA /* Pods-QuecIoTAppSdkDemo.release.xcconfig */,
-				2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */,
-				B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */,
-				93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */,
-				FC2C2FAD27CF2CA736FE55AC /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */,
+				A85DCE8F8A653F6ADAB2731A /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */,
+				B1F8B8B45BFBA6658E24956D /* Pods-QuecIoTAppSdkDemo.release.xcconfig */,
+				3AA89FEE26D5BEF7C76ED8D5 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */,
+				C6971A1004FFF735A3B23A6A /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */,
+				867A1F04E443658230B91CCD /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */,
+				5123CE4F72A9E717D3BFF362 /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -449,9 +467,9 @@
 				22B0F80B27D30EF9001368DF /* libz.tbd */,
 				22B0F80927D30EB3001368DF /* libresolv.9.tbd */,
 				22B0F80027D3055E001368DF /* QuecNetworkChannelKit.framework */,
-				0372189689BF4C83B061BDC4 /* Pods_QuecIoTAppSdkDemo.framework */,
-				6840F00651B011734D5896B2 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */,
-				FC3907E5F14A4BA9B66F0E77 /* Pods_QuecIoTAppSdkDemoTests.framework */,
+				3E7869F931D3B2EE47D1DFD7 /* Pods_QuecIoTAppSdkDemo.framework */,
+				DF7A0CE7C7345C54DB971185 /* Pods_QuecIoTAppSdkDemo_QuecIoTAppSdkDemoUITests.framework */,
+				F0E44663EDDD9E637849F2A6 /* Pods_QuecIoTAppSdkDemoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -463,12 +481,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22B0F7F227D2FE09001368DF /* Build configuration list for PBXNativeTarget "QuecIoTAppSdkDemo" */;
 			buildPhases = (
-				85BA6B492B481719E5BBBF2A /* [CP] Check Pods Manifest.lock */,
+				7647CCD3FEE974E4202860F8 /* [CP] Check Pods Manifest.lock */,
 				22B0F7BF27D2FE08001368DF /* Sources */,
 				22B0F7C027D2FE08001368DF /* Frameworks */,
 				22B0F7C127D2FE08001368DF /* Resources */,
-				54773B158CA8BC90F6D8E8B4 /* [CP] Embed Pods Frameworks */,
-				2FDBAA84FA1934ED8730C18B /* [CP] Copy Pods Resources */,
+				1ECCCD7C1B11918E55E3723F /* [CP] Embed Pods Frameworks */,
+				9393EC151C2E29D4D7E41A98 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -483,7 +501,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22B0F7F527D2FE09001368DF /* Build configuration list for PBXNativeTarget "QuecIoTAppSdkDemoTests" */;
 			buildPhases = (
-				0A64269B5236A46E7505C437 /* [CP] Check Pods Manifest.lock */,
+				1A388D99DA1605952B50E9DD /* [CP] Check Pods Manifest.lock */,
 				22B0F7DA27D2FE09001368DF /* Sources */,
 				22B0F7DB27D2FE09001368DF /* Frameworks */,
 				22B0F7DC27D2FE09001368DF /* Resources */,
@@ -502,12 +520,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22B0F7F827D2FE09001368DF /* Build configuration list for PBXNativeTarget "QuecIoTAppSdkDemoUITests" */;
 			buildPhases = (
-				B35C5936F9F51164D81202AA /* [CP] Check Pods Manifest.lock */,
+				F6B7BBA01DFF850F1EFEAE80 /* [CP] Check Pods Manifest.lock */,
 				22B0F7E427D2FE09001368DF /* Sources */,
 				22B0F7E527D2FE09001368DF /* Frameworks */,
 				22B0F7E627D2FE09001368DF /* Resources */,
-				1BDB5F49F5BC28136F6DF938 /* [CP] Embed Pods Frameworks */,
-				8E52F49DD654ADA75D878B5E /* [CP] Copy Pods Resources */,
+				3561806A7F3485B6C6D7EFDF /* [CP] Embed Pods Frameworks */,
+				7EA9A63D4423A8B5F97987EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -529,6 +547,7 @@
 				TargetAttributes = {
 					22B0F7C227D2FE08001368DF = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 2620;
 					};
 					22B0F7DD27D2FE09001368DF = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -588,7 +607,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A64269B5236A46E7505C437 /* [CP] Check Pods Manifest.lock */ = {
+		1A388D99DA1605952B50E9DD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -610,41 +629,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1BDB5F49F5BC28136F6DF938 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2FDBAA84FA1934ED8730C18B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		54773B158CA8BC90F6D8E8B4 /* [CP] Embed Pods Frameworks */ = {
+		1ECCCD7C1B11918E55E3723F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -661,7 +646,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		85BA6B492B481719E5BBBF2A /* [CP] Check Pods Manifest.lock */ = {
+		3561806A7F3485B6C6D7EFDF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7647CCD3FEE974E4202860F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -683,7 +685,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E52F49DD654ADA75D878B5E /* [CP] Copy Pods Resources */ = {
+		7EA9A63D4423A8B5F97987EA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -700,7 +702,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests/Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B35C5936F9F51164D81202AA /* [CP] Check Pods Manifest.lock */ = {
+		9393EC151C2E29D4D7E41A98 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuecIoTAppSdkDemo/Pods-QuecIoTAppSdkDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6B7BBA01DFF850F1EFEAE80 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -754,9 +773,11 @@
 				223613BC27D5958800817F50 /* RegisterViewController.m in Sources */,
 				223613BA27D5958800817F50 /* LoginViewController.m in Sources */,
 				223613A727D5957600817F50 /* DeviceControlViewController.m in Sources */,
+				22BA26F02F628B7500547556 /* File.swift in Sources */,
 				22E0E92F2A399CAE0074B60C /* BleDeviceListTableViewCell.m in Sources */,
 				6476AA9D2CF412E600AFE2B2 /* AutomateViewController.m in Sources */,
 				6476AAA02CF412F200AFE2B2 /* SceneViewController.m in Sources */,
+				22BA26F72F628ECF00547556 /* QuecPaypalViewController.m in Sources */,
 				6476AAA32CF4212800AFE2B2 /* QuecVCManager.m in Sources */,
 				223613A127D5957600817F50 /* TslBoolTableViewCell.m in Sources */,
 				223613A027D5957600817F50 /* HomeViewController.m in Sources */,
@@ -945,10 +966,11 @@
 		};
 		22B0F7F327D2FE09001368DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41AF74E17CFEE9E29F2DCDB8 /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */;
+			baseConfigurationReference = A85DCE8F8A653F6ADAB2731A /* Pods-QuecIoTAppSdkDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QuecIoTAppSdkDemo/QuecIoTAppSdkDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -971,7 +993,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1014,16 +1036,20 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.quectel.SdkDemo.temp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QuecIoTAppSdkDemo/QuecIoTAppSdkDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		22B0F7F427D2FE09001368DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4C7D57CD90C0E5DD8870EDA /* Pods-QuecIoTAppSdkDemo.release.xcconfig */;
+			baseConfigurationReference = B1F8B8B45BFBA6658E24956D /* Pods-QuecIoTAppSdkDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QuecIoTAppSdkDemo/QuecIoTAppSdkDemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1047,7 +1073,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1091,13 +1117,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QuecIoTAppSdkDemo/QuecIoTAppSdkDemo-Bridging-Header.h";
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		22B0F7F627D2FE09001368DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93316327909814E368DE1DF4 /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */;
+			baseConfigurationReference = 867A1F04E443658230B91CCD /* Pods-QuecIoTAppSdkDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1116,7 +1144,7 @@
 		};
 		22B0F7F727D2FE09001368DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC2C2FAD27CF2CA736FE55AC /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */;
+			baseConfigurationReference = 5123CE4F72A9E717D3BFF362 /* Pods-QuecIoTAppSdkDemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1135,7 +1163,7 @@
 		};
 		22B0F7F927D2FE09001368DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B0C2B2AD8AFF00F6DC829E1 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */;
+			baseConfigurationReference = 3AA89FEE26D5BEF7C76ED8D5 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1152,7 +1180,7 @@
 		};
 		22B0F7FA27D2FE09001368DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B148823D9F1A7B284979A247 /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */;
+			baseConfigurationReference = C6971A1004FFF735A3B23A6A /* Pods-QuecIoTAppSdkDemo-QuecIoTAppSdkDemoUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

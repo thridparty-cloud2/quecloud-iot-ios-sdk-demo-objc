@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '14.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/thridparty-cloud2/QuecPublicSpecs.git'
 #source 'ssh://git@gitlab.quectel.com:8061/frontend/QuecPublicSpecs.git'
@@ -31,10 +31,15 @@ target 'QuecIoTAppSdkDemo' do
   pod 'QuecAutomateKit', '~> 0.3.0'
   pod 'QuecGroupKit', '~> 0.5.3'
   
+  pod 'QuecPaymentSdk', '0.0.3'
+  pod 'QuecPayKit/paypal', '1.1.4'
+  pod 'QuecPayKit/wechat', '1.1.4'
+  
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        
+        config.build_settings['SWIFT_VERSION'] = '5.9'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14'
         config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
         config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
         config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"

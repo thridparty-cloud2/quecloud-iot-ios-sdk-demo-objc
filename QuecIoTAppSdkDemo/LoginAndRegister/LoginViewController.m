@@ -18,12 +18,12 @@
 #import "ThirdLoginViewController.h"
 #import "AppDelegate.h"
 
-static NSString * const UserDomainCN = @"";
-static NSString * const UserSecretCN = @"";
-static NSString * const UserDomainEU = @"";
-static NSString * const UserSecretEU = @"";
-static NSString * const UserDomainNA = @"";
-static NSString * const UserSecretNA = @"";
+static NSString * const UserDomainCN = @"C.DM.5903.1";
+static NSString * const UserSecretCN = @"EufftRJSuWuVY7c6txzGifV9bJcfXHAFa7hXY5doXSn7";
+static NSString * const UserDomainEU = @"E.SP.4294967410";
+static NSString * const UserSecretEU = @"3aRNUwWahjyANa7WfBK2wCCkxCexB6nXxKJwXxfePvzf";
+static NSString * const UserDomainNA = @"U.SP.8589934603";
+static NSString * const UserSecretNA = @"pUTp5goB1bLinprRQMmK3EPiiuPiGrJtKUNptWRXVmP";
 
 @interface LoginViewController ()
 

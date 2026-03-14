@@ -14,6 +14,7 @@
 #import <QuecSmartHomeKit/QuecSmartHomeKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Toast/Toast.h>
+#import "QuecPaypalViewController.h"
 
 @interface CommonTestViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -54,6 +55,7 @@
         [self.items quec_safeAddObject:@"分组"];
     }
     [self.items quec_safeAddObject:@"OTA"];
+    [self.items quec_safeAddObject:@"PayPal"];
     [self.tableView reloadData];
 }
 
@@ -159,6 +161,8 @@
         vc = [[DeviceGroupViewController alloc]init];
     } else if ([item isEqualToString:@"OTA"]) {
         vc = [[QuecOTAViewController alloc]init];
+    } else if ([item isEqualToString:@"PayPal"]) {
+        vc = QuecPaypalViewController.new;
     }
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
