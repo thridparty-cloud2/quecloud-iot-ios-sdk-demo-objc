@@ -71,13 +71,6 @@
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"error ==> %@", error);
     }];
-    NSLog(@"===============> %@", NSClassFromString(@"QuecPaypalPayment"));
-    NSLog(@"===============> %@", NSClassFromString(@"QuecWeChatPayment"));
-    [QuecPaymentService.sharedManager payWithWxMiniWithAppId:@"" withMiniId:@"" withPath:@"pages/app/payment/index?token=1." mode:0 stateCallBack:^(BOOL isSuccess) {
-        
-    } completion:^(id  _Nonnull result) {
-        
-    }];
 }
 
 /*
