@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '14.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/thridparty-cloud2/QuecPublicSpecs.git'
 #source 'ssh://git@gitlab.quectel.com:8061/frontend/QuecPublicSpecs.git'
@@ -16,15 +16,13 @@ end
 target 'QuecIoTAppSdkDemo' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  
-  
   commpod
   # Pods for QuecIoTAppSdkDemo
   # IotSdk Manager All OpenKit
   
 #  pod 'MQTTClient' , '~> 0.15.4'
 
-  pod 'QuecIotSdk', '2.19.4'
+  pod 'QuecIotSdk', '3.3.3'
   
   pod 'QuecSmartHomeKit', '~> 2.1.0'
   pod 'QuecSceneKit', '~> 0.4.0'
@@ -34,7 +32,7 @@ target 'QuecIoTAppSdkDemo' do
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14'
         config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
         config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
         config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"

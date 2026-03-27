@@ -11,6 +11,7 @@
 #import "MyCenterViewController.h"
 #import "CommonTestViewController.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import <QuecLogKit/QuecLogKit.h>
 
 @interface AppDelegate ()
 
@@ -61,10 +62,17 @@
         @quec_strongify(self);
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     }];
-    
+    [self setupLogKit];
     [[IQKeyboardManager sharedManager] setEnable:YES];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     return YES;
+}
+
+- (void)setupLogKit{
+    QuecLogConfig *config = [[QuecLogConfig alloc] init];
+    config.nameprefix = quec_MainBundleId();
+    config.consoleLogOpen = YES;
+    [QuecLog setupLogWithConfig:config];
 }
 
 + (UIViewController *)getMainController {
