@@ -1,18 +1,18 @@
 PODS:
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
+  - AFNetworking (4.0.3):
+    - AFNetworking/NSURLSession (= 4.0.3)
+    - AFNetworking/Reachability (= 4.0.3)
+    - AFNetworking/Security (= 4.0.3)
+    - AFNetworking/Serialization (= 4.0.3)
+    - AFNetworking/UIKit (= 4.0.3)
+  - AFNetworking/NSURLSession (4.0.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
+  - AFNetworking/Reachability (4.0.3)
+  - AFNetworking/Security (4.0.3)
+  - AFNetworking/Serialization (4.0.3)
+  - AFNetworking/UIKit (4.0.3):
     - AFNetworking/NSURLSession
   - BRPickerView (2.9.9):
     - BRPickerView/All (= 2.9.9)
@@ -92,7 +92,7 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (3.3.5-beta.2):
+  - QuecIotSdk (3.3.5-beta.3):
     - QuecBleChannelKit (= 2.0.9)
     - QuecCommonUtil (= 1.0.2)
     - QuecConnectivityKit (= 0.4.3)
@@ -101,7 +101,7 @@ PODS:
     - QuecIotChannelKit (= 0.9.3)
     - QuecLogKit (= 2.1.0)
     - QuecMQTTChannelKit (= 0.0.9)
-    - QuecNetworkChannelKit (= 1.2.0)
+    - QuecNetworkChannelKit (= 1.2.1)
     - QuecOTAUpgradeKit (= 1.1.2)
     - QuecSdkConfig (= 0.4.4)
     - QuecSmartConfigKit (= 1.0.3)
@@ -118,8 +118,8 @@ PODS:
     - QuecSdkConfig
     - SocketRocket
     - YYModel
-  - QuecNetworkChannelKit (1.2.0):
-    - AFNetworking
+  - QuecNetworkChannelKit (1.2.1):
+    - AFNetworking (= 4.0.3)
     - QuecLogKit
   - QuecOTAUpgradeKit (1.1.2):
     - QuecBleChannelKit
@@ -186,7 +186,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.2.0)
   - QuecAutomateKit (~> 0.3.0)
   - QuecGroupKit (~> 0.5.3)
-  - QuecIotSdk (= 3.3.5-beta.2)
+  - QuecIotSdk (= 3.3.5-beta.3)
   - QuecSceneKit (~> 0.4.0)
   - QuecSmartHomeKit (~> 2.2.2)
   - SDWebImage (~> 5.11.1)
@@ -194,7 +194,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AFNetworking
     - BRPickerView
     - CocoaAsyncSocket
     - IQKeyboardManager
@@ -205,6 +204,7 @@ SPEC REPOS:
     - Toast
     - YYModel
   https://github.com/thridparty-cloud2/QuecPublicSpecs.git:
+    - AFNetworking
     - MQTTClient
     - QuecAutomateKit
     - QuecBleChannelKit
@@ -228,7 +228,7 @@ SPEC REPOS:
     - QuecWebSocketChannelKit
 
 SPEC CHECKSUMS:
-  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  AFNetworking: 9af05c61e7415d179391b52215fd60cdf7a86899
   BRPickerView: 84b2effb81f3b9ebd27f1d31de867ae0b37024f7
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
@@ -243,10 +243,10 @@ SPEC CHECKSUMS:
   QuecFoundationKit: 43962fe900d8722ccd606fee90b0c4e98287a244
   QuecGroupKit: 4948bc5594bbca838035bfca6b298b231e1860d6
   QuecIotChannelKit: bda996f39ad18c818f7cea42884e1dbbae963d04
-  QuecIotSdk: 232b89400abc9990d8a7ae58773c5579f43daed9
+  QuecIotSdk: d554687573dfb9e2427fbe51dc16c1214500b1a9
   QuecLogKit: 4307cb5aada565905a300a0592b258239231865b
   QuecMQTTChannelKit: 097ebd989d979ddc48538c0b1ec8999bfcdde27f
-  QuecNetworkChannelKit: bf970bd64651185879ad4f06e8eb341634684135
+  QuecNetworkChannelKit: 0c9a68bb04caebd3e57ae0121f450e2aabda2069
   QuecOTAUpgradeKit: e62ade8bcb289bc5253d1b32d98e6d622b05b2f7
   QuecSceneKit: e91a18a5d666266431feeb07c134a77341c90fa6
   QuecSdkConfig: a4b96468bd267a9be0c859a13fc306e0106d9708
@@ -260,6 +260,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 1b4bdc8d172b20af71d95d932a7ba2a919fdc9a2
+PODFILE CHECKSUM: 8b5f15c1329b1466e59b9e7f47c23676e59ce72f
 
 COCOAPODS: 1.16.0
