@@ -22,7 +22,7 @@ target 'QuecIoTAppSdkDemo' do
   
 #  pod 'MQTTClient' , '~> 0.15.4'
 
-  pod 'QuecIotSdk', '3.3.5-beta.1'
+  pod 'QuecIotSdk', '3.3.5-beta.2'
   
   pod 'QuecSmartHomeKit', '~> 2.2.2'
   pod 'QuecSceneKit', '~> 0.4.0'
