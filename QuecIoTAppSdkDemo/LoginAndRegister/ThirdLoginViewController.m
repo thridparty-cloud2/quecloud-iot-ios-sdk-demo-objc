@@ -23,14 +23,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"第三方登录";
+    self.title = QLS(@"title_third_login");
     self.view.backgroundColor = [UIColor whiteColor];
     CGFloat viewWidth = self.view.frame.size.width;
     
     self.countryCodeField = [[UITextField alloc] initWithFrame:CGRectMake(30, 150,viewWidth - 60, 50)];
     self.countryCodeField.borderStyle = UITextBorderStyleRoundedRect;
-    self.countryCodeField.placeholder = @"请输入国家码";
+    self.countryCodeField.placeholder = QLS(@"placeholder_country_code");
     self.countryCodeField.keyboardType = UIKeyboardTypeNumberPad;
     self.countryCodeField.textColor = [UIColor lightGrayColor];
     self.countryCodeField.font = [UIFont systemFontOfSize:16];
@@ -39,7 +38,7 @@
     
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 230,viewWidth - 60, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.phoneTextField.placeholder = @"请输入authCode";
+    self.phoneTextField.placeholder = QLS(@"placeholder_auth_code");
     self.phoneTextField.textColor = [UIColor lightGrayColor];
     self.phoneTextField.font = [UIFont systemFontOfSize:16];
     self.phoneTextField.returnKeyType = UIReturnKeyDone;
@@ -50,7 +49,7 @@
     loginButton.layer.cornerRadius = 10.0;
     loginButton.layer.borderColor = [UIColor grayColor].CGColor;
     loginButton.layer.borderWidth = 0.5;
-    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton setTitle:QLS(@"btn_login") forState:UIControlStateNormal];
     loginButton.frame = CGRectMake(30, 430, viewWidth - 60, 44);
     [loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -63,7 +62,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] loginByAuthCode:self.phoneTextField.text success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_login_success") duration:3 position:CSToastPositionCenter];
         [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];
         [[NSUserDefaults standardUserDefaults] setObject:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" forKey:@"QuecCountryCode"];
         [[NSUserDefaults standardUserDefaults] synchronize];

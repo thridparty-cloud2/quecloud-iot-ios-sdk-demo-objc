@@ -26,9 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"手机号注册";
+    self.title = QLS(@"title_phone_register");
     self.nationId = 0;
     self.languageId = 0;
     self.timeZoneId = 0;
@@ -36,14 +35,14 @@
     CGFloat buttonWidth = (viewWidth - 80) / 3.0;
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 200, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.phoneTextField.placeholder = @"请输入手机号";
+    self.phoneTextField.placeholder = QLS(@"placeholder_phone");
     self.phoneTextField.textColor = [UIColor lightGrayColor];
     self.phoneTextField.font = [UIFont systemFontOfSize:16];
     self.phoneTextField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:self.phoneTextField];
     
     UIButton *checkPhoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [checkPhoneButton setTitle:@"检验手机号+国家码" forState:UIControlStateNormal];
+    [checkPhoneButton setTitle:QLS(@"btn_check_phone_country") forState:UIControlStateNormal];
     checkPhoneButton.frame = CGRectMake(viewWidth - 150, 210, 120, 30);
     [checkPhoneButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     checkPhoneButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -52,14 +51,14 @@
     
     self.smsTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 280,viewWidth - 210, 50)];
     self.smsTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.smsTextField.placeholder = @"请输入验证码";
+    self.smsTextField.placeholder = QLS(@"placeholder_sms_code");
     self.smsTextField.textColor = [UIColor lightGrayColor];
     self.smsTextField.font = [UIFont systemFontOfSize:16];
     self.smsTextField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:self.smsTextField];
     
     UIButton *smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [smsButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [smsButton setTitle:QLS(@"btn_get_sms_code") forState:UIControlStateNormal];
     smsButton.frame = CGRectMake(viewWidth - 110, 290, 80, 30);
     [smsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     smsButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -67,7 +66,7 @@
     [self.view addSubview:smsButton];
     
     UIButton *checksmsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [checksmsButton setTitle:@"校验验证码" forState:UIControlStateNormal];
+    [checksmsButton setTitle:QLS(@"btn_verify_sms") forState:UIControlStateNormal];
     checksmsButton.frame = CGRectMake(viewWidth - 180, 290, 70, 30);
     [checksmsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     checksmsButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -77,7 +76,7 @@
     
     self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 360,viewWidth - 30, 50)];
     self.pswTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.pswTextField.placeholder = @"请输入密码";
+    self.pswTextField.placeholder = QLS(@"placeholder_password");
     self.pswTextField.textColor = [UIColor lightGrayColor];
     self.pswTextField.font = [UIFont systemFontOfSize:16];
     self.pswTextField.returnKeyType = UIReturnKeyDone;
@@ -88,7 +87,7 @@
     registerButton.layer.cornerRadius = 10.0;
     registerButton.layer.borderColor = [UIColor grayColor].CGColor;
     registerButton.layer.borderWidth = 0.5;
-    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [registerButton setTitle:QLS(@"btn_register") forState:UIControlStateNormal];
     registerButton.frame = CGRectMake(30, 510, viewWidth - 60, 44);
     [registerButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     registerButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -102,7 +101,7 @@
                                              internationalCode:@"86"
                                                        success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"手机号验证成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_phone_valid") duration:3 position:CSToastPositionCenter];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
@@ -112,7 +111,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] validateSmsCode:self.phoneTextField.text ? : @"" smsCode:self.smsTextField.text ? : @"" internationalCode:@"86" type:1 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"短信验证码有效" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_sms_valid") duration:3 position:CSToastPositionCenter];
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
@@ -127,7 +126,7 @@
                                   internationalCode:@"86"
                                             success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"注册成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_register_success") duration:3 position:CSToastPositionCenter];
         [self.navigationController popoverPresentationController];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -142,7 +141,7 @@
                                                      type:QuecVerifyCodeTypeRegister
                                                   success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_sms_sent") duration:3 position:CSToastPositionCenter];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];

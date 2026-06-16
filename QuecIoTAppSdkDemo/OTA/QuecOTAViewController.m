@@ -16,7 +16,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-    self.title = @"OTA列表";
+    self.title = QLS(@"title_ota_list");
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -66,17 +66,17 @@
         NSLog(@"==============>state: %d   progress: %.2f", planInfo.state, planInfo.progress);
         switch (planInfo.state) {
             case QuecOTAUpgrading:
-                desc = [NSString stringWithFormat:@"升级中: %.0f%@", planInfo.progress *100., @"%"];
+                desc = [NSString stringWithFormat:QLS(@"ota_upgrading"), planInfo.progress *100., @"%"];
                 break;
             case QuecOTAUpgradeSuccess:
-                desc = @"升级成功";
+                desc = QLS(@"ota_success");
                 break;
             case QuecOTAUpgradeFailure:
             case QuecOTAUpgradeExpired:
-                desc = @"升级失败";
+                desc = QLS(@"ota_failure");
                 break;
             default:
-                desc = @"待升级";
+                desc = QLS(@"ota_pending");
                 break;
         }
         cell.detailTextLabel.text = desc;

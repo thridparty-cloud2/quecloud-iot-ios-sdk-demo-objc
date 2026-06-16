@@ -1,35 +1,34 @@
-
-<!--# quec-app-advanced-baidu-map-->
-
 ## Quec iOS IoTSDK Demo for Objective-C
 </br>
 
-#### 此demo演示如何使用QuecIoTAppSDK从头开始构建物联网应用程序。QuecIoTAppSDK分为几个功能组，让开发人员清楚地了解不同功能的实现，包括用户注册过程、设备绑定和控制、设备群组设置。可绑定蜂窝设备或者WIFI/蓝牙设备。对于设备控制，可基于HTTP和WebSocket进行控制。
+> 📖 中文文档请参阅 [README_zh.md](./README_zh.md)
+
+#### This demo illustrates how to build an IoT application from scratch using QuecIoTAppSDK. QuecIoTAppSDK is divided into several functional groups, giving developers a clear understanding of the implementation of different features, including user registration, device binding and control, and device group management. Both cellular devices and Wi-Fi/Bluetooth devices can be bound. For device control, both HTTP and WebSocket are supported.
 
 
-### 要求
-- Xcode 12.0 及更高版本
-- iOS 12 及更高版本
+### Requirements
+- Xcode 13 or later
+- iOS 14 or later
 
 
-### 使用
+### Usage
 
-#### 1. 此demo依赖 CocoaPods，若未安装，可执行以下指令安装
+#### 1. This demo depends on CocoaPods. If not installed, run the following commands to install it:
 ```
 sudo gem install cocoapods
 pod setup
 ```
 
-#### 2. 克隆或者下载此demo，进入到项目包含Podfile的文件夹
+#### 2. Clone or download this demo, then navigate to the folder containing the Podfile and run:
 ```
 pod install
 ```
 
-#### 3.  此demo需要在[移远云平台](https://iot-cloud.quectel.com/)注册开发者账号，并获取userDomain和userDomainSecret
+#### 3. A developer account is required on the [Quectel Cloud Platform](https://aiot.quectel.com/). Obtain your `userDomain` and `userDomainSecret` from the platform.
 
-#### 4. 打开 QuecIoTAppSdkDemo.xworkspace
+#### 4. Open `QuecIoTAppSdkDemo.xcworkspace`
 
-#### 5.  补充LoginViewController文件中初始化userDomain、userDomainSecret配置，启动后选择对应数据中心
+#### 5. Fill in the `userDomain` and `userDomainSecret` configuration in `LoginViewController`, then select the corresponding data center after launch:
 
 ```
    static NSString * const UserDomainCN = @"";
@@ -39,5 +38,3 @@ pod install
    static NSString * const UserDomainNA = @"";
    static NSString * const UserSecretNA = @"";
 ```
-### 参考
-关于移远云IoTSDK的更多信息，请参见[API](https://github.com/thridparty-cloud2/quecloud-iot-ios-sdk-demo-objc/blob/master/API.md)。

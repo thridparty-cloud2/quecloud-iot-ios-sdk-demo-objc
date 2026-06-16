@@ -21,11 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分享信息";
+    self.title = QLS(@"title_share_info");
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setTitle:@"获取分享码" forState:UIControlStateNormal];
+    [shareButton setTitle:QLS(@"btn_get_share_code") forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(20, 100, 80, 50);
     [shareButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     shareButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -44,7 +44,7 @@
     
     
     UILabel *ptomptLabel = [[UILabel alloc] init];
-    ptomptLabel.text = @"管理分享权限";
+    ptomptLabel.text = QLS(@"label_manage_share");
     ptomptLabel.textColor = [UIColor lightGrayColor];
     ptomptLabel.font = [UIFont systemFontOfSize:15];
     ptomptLabel.frame = CGRectMake(20, 330, 200, 50);
@@ -61,7 +61,7 @@
 - (void)tapShareCode {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     [pasteboard setString:self.shareCodeLabel.text];
-    [self.view makeToast:@"已复制" duration:3 position:CSToastPositionCenter];
+    [self.view makeToast:QLS(@"msg_copied") duration:3 position:CSToastPositionCenter];
 }
 
 - (void)getData {
@@ -115,7 +115,7 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self deleteShareUserWithRow:indexPath.row];
     }];
     deleteRowAction.backgroundColor = [UIColor redColor];

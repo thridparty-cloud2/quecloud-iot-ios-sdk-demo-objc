@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的";
+    self.title = QLS(@"tab_mine");
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.hidden = YES;
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -96,22 +96,22 @@
     cell.textLabel.text = @"";
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"修改昵称";
+            cell.textLabel.text = QLS(@"menu_update_nickname");
             break;
         case 1:
-            cell.textLabel.text = @"修改地址";
+            cell.textLabel.text = QLS(@"menu_update_address");
             break;
         case 2:
-            cell.textLabel.text = @"修改密码";
+            cell.textLabel.text = QLS(@"menu_update_password");
             break;
         case 3:
-            cell.textLabel.text = @"修改手机号";
+            cell.textLabel.text = QLS(@"menu_update_phone");
             break;
         case 4:
-            cell.textLabel.text = @"注销账号";
+            cell.textLabel.text = QLS(@"menu_cancel_account");
             break;
         case 5:
-            cell.textLabel.text = @"退出登录";
+            cell.textLabel.text = QLS(@"menu_logout");
             break;
             
         default:
@@ -214,13 +214,13 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-        UIAlertAction *camera = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self checkCameraPermission];//检查相机权限
+        UIAlertAction *camera = [UIAlertAction actionWithTitle:QLS(@"btn_camera") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self checkCameraPermission]; // Check camera permission
         }];
-        UIAlertAction *album = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-             [self checkAlbumPermission];//检查相册权限
+        UIAlertAction *album = [UIAlertAction actionWithTitle:QLS(@"btn_album") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+             [self checkAlbumPermission]; // Check photo album permission
         }];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
 
@@ -249,7 +249,7 @@
 }
 
 - (void)takePhoto {
-    //判断相机是否可用，防止模拟器点击【相机】导致崩溃
+    // Check if camera is available to prevent crash on simulator
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -282,7 +282,7 @@
 }
 
 - (void)selectAlbum {
-    //判断相册是否可用
+    // Check if photo library is available
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self presentViewController:self.imagePickerController animated:YES completion:^{
@@ -292,7 +292,7 @@
 }
 
 - (void)alertAlbum {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请在设置中打开相册" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:QLS(@"msg_open_album_in_settings") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -307,7 +307,7 @@
 //    self.avatar.image = image;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSURL *imageURL = [info objectForKey:UIImagePickerControllerImageURL]; // iOS 11+ 专用
+    NSURL *imageURL = [info objectForKey:UIImagePickerControllerImageURL]; // iOS 11+ only
     NSString *imagePath = [imageURL path];
     [QuecUserService.sharedInstance updateUserIconWithImagePath:imagePath success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -318,12 +318,12 @@
 }
 
 - (void)showCancellationAlert {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"确认注销账号吗？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_tip") message:QLS(@"msg_confirm_cancel_account") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     
-    UIAlertAction *confrimAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confrimAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm_action") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self confirmCancellation];
     }];
     [alertVc addAction:cancleAction];

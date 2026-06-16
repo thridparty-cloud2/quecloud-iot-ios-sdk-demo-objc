@@ -29,9 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"场景";
+    self.title = QLS(@"title_scene");
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加场景" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add_scene") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -108,7 +108,7 @@
     }
     
     UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [actionButton setTitle:@"执行场景" forState:UIControlStateNormal];
+    [actionButton setTitle:QLS(@"btn_execute_scene") forState:UIControlStateNormal];
     actionButton.frame = CGRectMake(ScreenWidth - 100, 10, 80, 40);
     actionButton.backgroundColor = UIColor.systemBlueColor;
     actionButton.tag = indexPath.row;
@@ -133,7 +133,7 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self deleteGroupWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor redColor];
@@ -162,9 +162,9 @@
     @quec_weakify(self);
     [QuecSceneService.sharedInstance executeSceneWithSceneId:model.sceneInfo.sceneId success:^(QuecActionExecuteResultModel * _Nonnull executeResultModel) {
         if (executeResultModel.executeResult) {
-            [self.view makeToast:@"执行成功" duration:1 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_execute_success") duration:1 position:CSToastPositionCenter];
         }else {
-            [self.view makeToast:@"执行失败" duration:1 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_execute_failure") duration:1 position:CSToastPositionCenter];
         }
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:1 position:CSToastPositionCenter];

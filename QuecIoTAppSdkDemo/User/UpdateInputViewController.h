@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdateInputViewController : UIViewController
 
-// 1 昵称 2 地址 3 邮箱
+// type: 1=Nickname  2=Address  3=Email
 @property (nonatomic, assign) NSInteger type;
 @end
 

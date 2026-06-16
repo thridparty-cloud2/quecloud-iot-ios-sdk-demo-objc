@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"通用模块";
+    self.title = QLS(@"title_common_module");
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.isFamilyMode = QuecSmartHomeService.sharedInstance.enable;
@@ -48,10 +48,10 @@
 
 - (void)refreshItems{
     [self.items removeAllObjects];
-    [self.items quec_safeAddObject:@"场景"];
-    [self.items quec_safeAddObject:@"自动化"];
+    [self.items quec_safeAddObject:QLS(@"title_scene")];
+    [self.items quec_safeAddObject:QLS(@"title_automate")];
     if (!self.isFamilyMode) {
-        [self.items quec_safeAddObject:@"分组"];
+        [self.items quec_safeAddObject:QLS(@"title_group")];
     }
     [self.items quec_safeAddObject:@"OTA"];
     [self.tableView reloadData];
@@ -86,7 +86,7 @@
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightRegular];
     label.textColor = [UIColor darkTextColor];
-    label.text = @"家居模式:";
+    label.text = QLS(@"label_home_mode");
     [label sizeToFit];
     label.frame = CGRectMake(20, (65 - label.frame.size.height) / 2.0, label.frame.size.width, label.frame.size.height);
     [header addSubview:label];
@@ -151,11 +151,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *item = [self.items quec_safeObjectAtIndex:indexPath.row];
     UIViewController *vc;
-    if ([item isEqualToString:@"场景"]) {
+    if ([item isEqualToString:QLS(@"title_scene")]) {
         vc = [[SceneViewController alloc]init];
-    } else if ([item isEqualToString:@"自动化"]) {
+    } else if ([item isEqualToString:QLS(@"title_automate")]) {
         vc = [[AutomateViewController alloc]init];
-    } else if ([item isEqualToString:@"分组"]) {
+    } else if ([item isEqualToString:QLS(@"title_group")]) {
         vc = [[DeviceGroupViewController alloc]init];
     } else if ([item isEqualToString:@"OTA"]) {
         vc = [[QuecOTAViewController alloc]init];

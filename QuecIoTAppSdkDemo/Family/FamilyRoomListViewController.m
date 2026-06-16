@@ -20,10 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"房间管理";
+    self.title = QLS(@"title_room_management");
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -53,15 +53,15 @@
 }
 
 - (void)addButtonClick {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"添加房间" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_add_room") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self addRoom:alertVc];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入房间名";
+        textField.placeholder = QLS(@"placeholder_room_name");
     }];
     [alertVc addAction:sureAction];
     [alertVc addAction:cancleAction];
@@ -123,7 +123,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(self.view.bounds.size.width - 120 , 10, 100, 40);
-    [btn setTitle:@"删除房间" forState:UIControlStateNormal];
+    [btn setTitle:QLS(@"btn_delete_room") forState:UIControlStateNormal];
     [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     btn.backgroundColor = UIColor.redColor;
     btn.tag = indexPath.row;

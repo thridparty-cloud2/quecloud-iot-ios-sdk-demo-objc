@@ -25,15 +25,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"邮箱密码登录";
+    self.title = QLS(@"title_email_login");
     self.view.backgroundColor = [UIColor whiteColor];
-    
     CGFloat viewWidth = self.view.frame.size.width;
     CGFloat viewHeight = self.view.frame.size.height;
+    self.countryCodeField.placeholder = QLS(@"placeholder_country_code");
     
     self.countryCodeField = [[UITextField alloc] initWithFrame:CGRectMake(30, 150,viewWidth - 60, 50)];
     self.countryCodeField.borderStyle = UITextBorderStyleRoundedRect;
-    self.countryCodeField.placeholder = @"请输入国家码";
+    self.countryCodeField.placeholder = QLS(@"placeholder_country_code");
     self.countryCodeField.keyboardType = UIKeyboardTypeNumberPad;
     self.countryCodeField.textColor = [UIColor lightGrayColor];
     self.countryCodeField.font = [UIFont systemFontOfSize:16];
@@ -42,7 +42,7 @@
     
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 230,viewWidth - 60, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.phoneTextField.placeholder = @"请输入邮箱";
+    self.phoneTextField.placeholder = QLS(@"placeholder_email");
     self.phoneTextField.textColor = [UIColor lightGrayColor];
     self.phoneTextField.font = [UIFont systemFontOfSize:16];
     self.phoneTextField.returnKeyType = UIReturnKeyDone;
@@ -50,26 +50,25 @@
     
     self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 310,viewWidth - 60, 50)];
     self.pswTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.pswTextField.placeholder = @"请输入密码";
+    self.pswTextField.placeholder = QLS(@"placeholder_password");
     self.pswTextField.textColor = [UIColor lightGrayColor];
     self.pswTextField.font = [UIFont systemFontOfSize:16];
     self.pswTextField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:self.pswTextField];
     
     UIButton *forgetPswButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [forgetPswButton setTitle:@"忘记密码" forState:UIControlStateNormal];
+    [forgetPswButton setTitle:QLS(@"btn_forget_password") forState:UIControlStateNormal];
     forgetPswButton.frame = CGRectMake(viewWidth - 130, 380, 100, 30);
     [forgetPswButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     forgetPswButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [forgetPswButton addTarget:self action:@selector(forgetPswButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:forgetPswButton];
     
-    
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     loginButton.layer.cornerRadius = 10.0;
     loginButton.layer.borderColor = [UIColor grayColor].CGColor;
     loginButton.layer.borderWidth = 0.5;
-    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton setTitle:QLS(@"btn_login") forState:UIControlStateNormal];
     loginButton.frame = CGRectMake(30, 450, viewWidth - 60, 44);
     [loginButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     loginButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -77,8 +76,8 @@
     [self.view addSubview:loginButton];
     
     UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
-    registerButton.frame = CGRectMake(30, viewHeight - 74 , viewWidth - 60, 30);
+    [registerButton setTitle:QLS(@"btn_register_now") forState:UIControlStateNormal];
+    registerButton.frame = CGRectMake(30, viewHeight - 74, viewWidth - 60, 30);
     [registerButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     registerButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -96,15 +95,15 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] loginByEmail:self.phoneTextField.text ? : @"" password:self.pswTextField.text ? : @"" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"登录成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_login_success") duration:3 position:CSToastPositionCenter];
         [[QuecIoTAppSDK sharedInstance] setCountryCode:self.countryCodeField.text.length ? self.countryCodeField.text : @"86"];
         [[NSUserDefaults standardUserDefaults] setObject:self.countryCodeField.text.length ? self.countryCodeField.text : @"86" forKey:@"QuecCountryCode"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self loginSuccess];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
-        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
+    }];
 }
 
 - (void)registerButtonClick {

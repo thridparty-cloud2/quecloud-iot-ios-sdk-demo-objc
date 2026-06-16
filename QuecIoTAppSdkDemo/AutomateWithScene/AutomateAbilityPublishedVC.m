@@ -21,10 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设置设备动作";
+    self.title = QLS(@"title_set_device_action");
     self.view.backgroundColor = UIColor.whiteColor;
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"保存" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_save") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 60, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];

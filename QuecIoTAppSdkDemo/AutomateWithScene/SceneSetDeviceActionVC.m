@@ -21,10 +21,10 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = UIColor.whiteColor;
-    self.title = @"设置设备动作";
+    self.title = QLS(@"title_set_device_action");
     
     UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [createButton setTitle:@"确定" forState:UIControlStateNormal];
+    [createButton setTitle:QLS(@"btn_confirm") forState:UIControlStateNormal];
     createButton.frame = CGRectMake(0, 0, 50, 50);
     [createButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     createButton.titleLabel.font = [UIFont systemFontOfSize:14];

@@ -48,10 +48,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设备控制";
+    self.title = QLS(@"title_device_control");
     self.view.backgroundColor = [UIColor whiteColor];
     UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [detailButton setTitle:@"设置" forState:UIControlStateNormal];
+    [detailButton setTitle:QLS(@"btn_settings") forState:UIControlStateNormal];
     detailButton.frame = CGRectMake(0, 0, 50, 50);
     [detailButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     detailButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -59,11 +59,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
     
     
-    //初始化日期选择器
+    // Initialize date picker
     _datePickerView = [[BRDatePickerView alloc]init];
-    // 2.设置属性
+    // 2. Set properties
     _datePickerView.pickerMode = BRDatePickerModeYMDHMS;
-    _datePickerView.title = @"选择时间";
+    _datePickerView.title = QLS(@"picker_select_time");
     _datePickerView.selectDate = [NSDate date];
     _datePickerView.minDate = [NSDate br_setYear:1949 month:3 day:12];
     _datePickerView.isAutoSelect = YES;
@@ -257,32 +257,29 @@
     [self sendDps:@[dataPoint]];
 }
 
-- (void)sendDps:(NSArray<QuecIotDataPoint*> *)dps{
+- (void)sendDps:(NSArray<QuecIotDataPoint*> *)dps {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.currentDevice writeDps:dps success:^{
         quec_async_on_main(^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:@"下发成功" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_send_success") duration:3 position:CSToastPositionCenter];
         });
     } failure:^(NSError * _Nonnull error) {
         quec_async_on_main(^{
-            NSLog(@"111222===========%@", error.localizedDescription);
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.view makeToast:@"下发失败" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_send_failure") duration:3 position:CSToastPositionCenter];
         });
     }];
 }
 
-- (void)showTextInputWithText:(NSString *)text row:(NSInteger)row  {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请输入文本" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+- (void)showTextInputWithText:(NSString *)text row:(NSInteger)row {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_input_text") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self updateTextWithText:alertVc.textFields.firstObject.text row:row];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入名称";
+        textField.placeholder = QLS(@"placeholder_name");
         textField.text = text;
     }];
     [alertVc addAction:sureAction];
@@ -301,7 +298,7 @@
 }
 
 - (void)showActionSheet {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请选择枚举" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_select_enum") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     QuecProductTSLPropertyModel *model = self.dataArray[self.enumIndex];
     for (int i = 0; i < model.formatSpecs.count; i ++) {
         QuecProductTSLSpecModel *specModel = model.formatSpecs[i];
@@ -311,9 +308,7 @@
         [alertVc addAction:action];
     }
     
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
     [alertVc addAction:cancleAction];
     [self presentViewController:alertVc animated:true completion:nil];
 }

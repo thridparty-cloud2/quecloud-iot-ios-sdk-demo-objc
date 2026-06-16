@@ -21,13 +21,13 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.hidden = NO;
-    self.title = @"修改";
+    self.title = QLS(@"title_update");
     CGFloat viewWidth = self.view.frame.size.width;
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 60, 50)];
     self.textField.borderStyle = UITextBorderStyleRoundedRect;
     self.textField.textColor = [UIColor lightGrayColor];
     self.textField.font = [UIFont systemFontOfSize:16];
-    self.textField.placeholder = @"请输入";
+    self.textField.placeholder = QLS(@"placeholder_input");
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.delegate = self;
     [self.view addSubview:self.textField];
@@ -37,7 +37,7 @@
     sureButton.layer.cornerRadius = 10.0;
     sureButton.layer.borderColor = [UIColor grayColor].CGColor;
     sureButton.layer.borderWidth = 0.5;
-    [sureButton setTitle:@"确定" forState:UIControlStateNormal];
+    [sureButton setTitle:QLS(@"btn_confirm") forState:UIControlStateNormal];
     sureButton.frame = CGRectMake(30, 510, viewWidth - 60, 44);
     [sureButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     sureButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -50,7 +50,7 @@
         case 1: {
             [[QuecUserService sharedInstance] updateUserNickName:self.textField.text success:^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
+                [self.view makeToast:QLS(@"msg_update_success") duration:3 position:CSToastPositionCenter];
                 [self.navigationController popViewControllerAnimated:YES];
                         } failure:^(NSError *error) {
                             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -61,7 +61,7 @@
         case 2: {
             [[QuecUserService sharedInstance] updateUserAddress:self.textField.text success:^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
+                [self.view makeToast:QLS(@"msg_update_success") duration:3 position:CSToastPositionCenter];
                 [self.navigationController popViewControllerAnimated:YES];
                         } failure:^(NSError *error) {
                             [MBProgressHUD hideHUDForView:self.view animated:YES];

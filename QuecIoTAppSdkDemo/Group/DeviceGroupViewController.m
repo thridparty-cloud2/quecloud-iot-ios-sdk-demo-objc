@@ -27,9 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"分组";
+    self.title = QLS(@"title_group");
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加分组" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add_group") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -58,24 +58,24 @@
 }
 
 - (void)showGroupNameInput:(BOOL)isUpdate row:(NSInteger)row {
-    NSString *title = @"新建分组";
+    NSString *title = QLS(@"alert_new_group");
     NSString *text = @"";
     NSString *dgid = @"";
     if (isUpdate) {
-        title = @"更改分组名称";
+        title = QLS(@"alert_rename_group");
         QuecDeviceGroupInfoModel *model = self.dataArray[row];
         text = model.name;
         dgid = model.dgid;
     }
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self updateGroupWithName:alertVc.textFields.firstObject.text isUpdate:isUpdate dgid:dgid];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入名称";
+        textField.placeholder = QLS(@"placeholder_name");
         textField.text = text;
     }];
     [alertVc addAction:sureAction];
@@ -156,13 +156,13 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //重命名
-    UITableViewRowAction *renameRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"重命名" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    // Rename
+    UITableViewRowAction *renameRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:QLS(@"btn_rename") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self showGroupNameInput:YES row:indexPath.row];
     }];
     renameRowAction.backgroundColor = [UIColor lightGrayColor];
-    //解绑
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    // Delete group
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self deleteGroupWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor redColor];

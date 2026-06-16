@@ -33,7 +33,7 @@
     self.title = self.automateModel.name;
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_edit") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 60, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -59,14 +59,14 @@
     
     self.detailModel.fid = fid;
     
-    long long timestamp = (long long)quec_TimestampMSEC();//获取毫秒级时间戳
+    long long timestamp = (long long)quec_TimestampMSEC(); // Get millisecond-level timestamp
     self.detailModel.name = [NSString stringWithFormat:@"%@%lld",@"就改了个名_",timestamp];
     
     @quec_weakify(self);
     [QuecAutomateService.sharedInstance editAutomationWithModel:self.detailModel success:^{
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"编辑成功" duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_edit_success") duration:2 position:CSToastPositionCenter];
         [self.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSError *error) {
@@ -75,7 +75,7 @@
     }];
 }
 
-//仅做接口数据展示，具体编辑效果及UI交互根据自身业务需求自行开发
+// For API data display only; implement actual editing UI/UX based on your business needs
 - (void)getData {
     NSString *fid = @"";
     if (QuecSmartHomeService.sharedInstance.enable) {
@@ -119,7 +119,7 @@
         QuecAutomationConditionModel *conditionModel = self.dataOneArray[indexPath.row];
         NSString *typeStr = @"";
         if (conditionModel.type == 0) {
-            typeStr = @"设备";
+            typeStr = QLS(@"type_device");
         }else {
             typeStr = @"时间";
         }
@@ -130,11 +130,11 @@
         if (actionModel.type == 1) {
             typeStr = @"延时";
         }else if (actionModel.type == 2) {
-            typeStr = @"设备";
+            typeStr = QLS(@"type_device");
         }else if (actionModel.type == 3) {
-            typeStr = @"群组";
+            typeStr = QLS(@"type_group");
         }else {
-            typeStr = @"场景";
+            typeStr = QLS(@"type_scene");
         }
         cell.textLabel.text = [NSString stringWithFormat:@"执行类型：%@，名称：%@",typeStr, actionModel.name];
     }

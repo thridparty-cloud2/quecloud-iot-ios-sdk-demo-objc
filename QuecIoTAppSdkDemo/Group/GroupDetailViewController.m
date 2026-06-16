@@ -30,11 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分组详情";
+    self.title = QLS(@"title_group_detail");
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加设备" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add_device") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 70, 50);
     [addButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -51,7 +51,7 @@
     
     
     UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    promptLabel.text = @"   设备列表";
+    promptLabel.text = QLS(@"label_device_list");
     promptLabel.textColor = [UIColor lightGrayColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 220, self.view.frame.size.width, self.view.frame.size.height - 220) style:UITableViewStylePlain];
@@ -125,8 +125,8 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //删除
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    // Delete device from group
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self deleteDeviceFromGroupWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor redColor];
@@ -139,7 +139,7 @@
                                                                        deviceList:@[@{@"dk":deviceModel.deviceKey, @"pk": deviceModel.productKey}]
                                                                           success:^(QuecOperateDeviceToGroupModel * _Nonnull model) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"删除成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_delete_success") duration:3 position:CSToastPositionCenter];
         [self getDeviceList];
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];

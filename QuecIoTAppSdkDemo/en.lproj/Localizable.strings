@@ -1,0 +1,240 @@
+/* ==================== Tab Bar ==================== */
+"tab_home" = "Home";
+"tab_common" = "Common";
+"tab_mine" = "Mine";
+
+/* ==================== Navigation Titles ==================== */
+"title_password_login" = "Password Login";
+"title_sms_login" = "SMS Login";
+"title_email_login" = "Email Login";
+"title_third_login" = "Third-Party Login";
+"title_phone_register" = "Phone Register";
+"title_email_register" = "Email Register";
+"title_forget_password" = "Forgot Password";
+"title_device_list" = "Device List";
+"title_device_detail" = "Device Detail";
+"title_device_control" = "Device Control";
+"title_network_config" = "Network Config";
+"title_share_info" = "Share Info";
+"title_common_module" = "Common";
+"title_group" = "Groups";
+"title_group_detail" = "Group Detail";
+"title_ota_list" = "OTA List";
+"title_scene" = "Scenes";
+"title_automate" = "Automation";
+"title_create_scene" = "Create Scene";
+"title_add_automate" = "Add Automation";
+"title_set_device_action" = "Set Device Action";
+"title_family_list" = "Family List";
+"title_room_management" = "Room Management";
+"title_update" = "Edit";
+"title_update_phone" = "Update Phone";
+"title_update_password" = "Change Password";
+"title_config" = "Configure";
+"title_wifi_bind" = "WiFi Device Binding";
+"title_share_bind" = "Share Device Binding";
+"title_sn_bind" = "SN Device Binding";
+"title_add_device_select" = "Add Device";
+
+/* ==================== Data Center ==================== */
+"btn_private_cloud" = "Private Cloud";
+"data_center_china" = "Data Center: China";
+"data_center_europe" = "Data Center: Europe";
+"data_center_north_america" = "Data Center: North America";
+"dc_china" = "China";
+"dc_europe" = "Europe";
+"dc_north_america" = "North America";
+"alert_select_data_center" = "Select Data Center";
+
+/* ==================== Buttons ==================== */
+"btn_login" = "Login";
+"btn_register" = "Register";
+"btn_register_now" = "Register Now";
+"btn_sms_login" = "SMS Login";
+"btn_email_login" = "Email Login";
+"btn_forget_password" = "Forgot Password";
+"btn_other_login" = "Other Login";
+"btn_verify" = "Verify";
+"btn_get_sms_code" = "Get Code";
+"btn_verify_sms" = "Verify Code";
+"btn_check_phone_country" = "Check Phone+Country";
+"btn_confirm" = "Confirm";
+"btn_cancel" = "Cancel";
+"btn_confirm_action" = "Confirm";
+"btn_add_device" = "Add Device";
+"btn_edit" = "Edit";
+"btn_rename" = "Rename";
+"btn_delete" = "Delete";
+"btn_share" = "Share";
+"btn_settings" = "Settings";
+"btn_scan" = "Scan";
+"btn_get_share_code" = "Get Share Code";
+"btn_add" = "Add";
+"btn_add_group" = "Add Group";
+"btn_add_scene" = "Add Scene";
+"btn_add_automate" = "Add Automation";
+"btn_create_group" = "Create Group";
+"btn_config_network" = "Config Network";
+"btn_execute_scene" = "Execute Scene";
+"btn_camera" = "Camera";
+"btn_album" = "Album";
+"btn_save" = "Save";
+"btn_family_detail" = "Family Detail";
+"btn_delete_family" = "Delete";
+"btn_delete_room" = "Delete Room";
+
+/* ==================== Placeholders ==================== */
+"placeholder_country_code" = "Enter Country Code";
+"placeholder_phone" = "Enter Phone Number";
+"placeholder_password" = "Enter Password";
+"placeholder_sms_code" = "Enter Verification Code";
+"placeholder_email" = "Enter Email";
+"placeholder_auth_code" = "Enter authCode";
+"placeholder_name" = "Enter Name";
+"placeholder_input" = "Enter";
+"placeholder_wifi_name" = "Enter WiFi Name";
+"placeholder_wifi_password" = "Enter WiFi Password";
+"placeholder_user_domain" = "Enter userDomain";
+"placeholder_user_domain_secret" = "Enter userDomainSecret";
+"placeholder_base_url" = "Enter baseUrl";
+"placeholder_ws_url" = "Enter webSocketUrl";
+"placeholder_ws_v2_url" = "Enter webSocketV2Url";
+"placeholder_mcc" = "Enter mcc";
+"placeholder_tcp_addr" = "Enter tcpAddr";
+"placeholder_psk_addr" = "Enter pskAddr";
+"placeholder_tls_addr" = "Enter tlsAddr";
+"placeholder_cer_addr" = "Enter cerAddr";
+"placeholder_dk" = "Enter dk";
+"placeholder_pk" = "Enter pk";
+"placeholder_device_name_optional" = "Enter device name (optional)";
+"placeholder_share_code" = "Enter share_code";
+"placeholder_sn" = "Enter sn";
+"placeholder_current_phone" = "Enter Current Phone";
+"placeholder_current_phone_code" = "Enter Current Phone Code";
+"placeholder_new_phone" = "Enter New Phone";
+"placeholder_new_phone_code" = "Enter New Phone Code";
+"placeholder_old_password" = "Enter Old Password";
+"placeholder_new_password" = "Enter New Password";
+"placeholder_family_name" = "Enter Family Name";
+"placeholder_room_name" = "Enter Room Name";
+"placeholder_scene_name" = "Enter Scene Name";
+
+/* ==================== Alert Titles ==================== */
+"alert_rename" = "Rename";
+"alert_input_text" = "Enter Text";
+"alert_select_enum" = "Select Value";
+"alert_select_device_type" = "Select Device Type";
+"alert_new_group" = "New Group";
+"alert_rename_group" = "Rename Group";
+"alert_tip" = "Reminder";
+"alert_create_family" = "Create Family";
+"alert_input_wifi_info" = "Enter WiFi Info";
+
+/* ==================== Toast Messages ==================== */
+"msg_login_success" = "Login Successful";
+"msg_register_success" = "Registration Successful";
+"msg_sms_sent" = "Verification Code Sent";
+"msg_phone_registered" = "Phone Number Already Registered";
+"msg_phone_not_registered" = "Phone Number Not Registered";
+"msg_phone_valid" = "Phone Number Valid";
+"msg_sms_valid" = "SMS Code Valid";
+"msg_password_reset_success" = "Password Set Successfully";
+"msg_update_success" = "Updated Successfully";
+"msg_unbind_success" = "Unbound Successfully";
+"msg_bind_success" = "Binding Successful";
+"msg_send_success" = "Command Sent";
+"msg_send_failure" = "Command Failed";
+"msg_copied" = "Copied";
+"msg_family_mode_required" = "Only available in Family Mode";
+"msg_query_group_success" = "Group Info Retrieved";
+"msg_confirm_cancel_account" = "Confirm account cancellation?";
+"msg_open_album_in_settings" = "Please enable Photos access in Settings";
+"msg_execute_success" = "Executed Successfully";
+"msg_execute_failure" = "Execution Failed";
+"msg_delete_success" = "Deleted Successfully";
+"msg_edit_success" = "Edited Successfully";
+"msg_create_success" = "Created Successfully";
+"msg_add_success" = "Added Successfully";
+"msg_phone_updated" = "Phone Number Updated";
+"msg_password_updated" = "Password Updated";
+"msg_wifi_name_required" = "Please Enter WiFi Name";
+"msg_wifi_password_required" = "Please Enter WiFi Password";
+"msg_scene_name_required" = "Please Enter Scene Name";
+"msg_device_required" = "Please Select a Device";
+"msg_trigger_required" = "Please select at least one trigger event";
+"msg_action_device_required" = "Please select at least one action device";
+"msg_action_config_required" = "Please configure actions for trigger devices";
+"msg_scene_or_device_required" = "Select at least one device or scene in actions";
+"msg_device_not_support_linkage" = "This device does not support linkage";
+"msg_multi_bind_not_support_scene" = "Multi-bind, shared, and pure BLE devices cannot be added to scenes";
+"msg_multi_bind_not_support_automate" = "Multi-bind, shared, and pure BLE devices cannot be added to automation";
+
+/* ==================== Status / Labels ==================== */
+"status_online" = "Online";
+"status_offline" = "Offline";
+"label_manage_share" = "Manage Share Permissions";
+"label_home_mode" = "Home Mode:";
+"room_common" = "Common";
+"picker_select_time" = "Select Time";
+"device_group_name_format" = "Group: %@";
+"device_type_wifi_ble" = "WiFi/BLE Device";
+
+/* ==================== OTA ==================== */
+"ota_upgrading" = "Upgrading: %.0f%%";
+"ota_success" = "Upgrade Successful";
+"ota_failure" = "Upgrade Failed";
+"ota_pending" = "Pending Upgrade";
+
+/* ==================== My Center ==================== */
+"menu_update_nickname" = "Edit Nickname";
+"menu_update_address" = "Edit Address";
+"menu_update_password" = "Change Password";
+"menu_update_phone" = "Change Phone";
+"menu_cancel_account" = "Delete Account";
+"menu_logout" = "Log Out";
+
+/* ==================== Automation ==================== */
+"automate_trigger_event" = "Trigger Event";
+"automate_timer" = "Timer";
+"automate_device" = "Device";
+"automate_action" = "Actions";
+"automate_action_device" = "Action Device";
+"automate_open_scene" = "Enable Scene";
+"automate_add_delay" = "Add Delay";
+"automate_not_set" = "Not Set";
+
+/* ==================== Family ==================== */
+"family_name" = "Family Name";
+"family_location" = "Family Location";
+"family_room_management" = "Room Management";
+"family_members" = "Family Members";
+"room_count_format" = "%lu Rooms";
+"label_device_list" = "   Device List";
+
+/* ==================== Additional ==================== */
+"msg_timer_trigger_added" = "Timer trigger added";
+"msg_no_scene_data" = "No scene data available";
+"msg_scene_action_added" = "Scene action added";
+"msg_delay_action_added" = "Delay action added";
+"msg_confirm_delete_family" = "Confirm delete? All related data will be cleared!";
+"member_role_creator" = "Creator";
+"member_role_admin" = "Admin";
+"member_role_member" = "Member";
+
+"msg_timer_trigger_added" = "Timer trigger added";
+"msg_no_scene_data" = "No scene data available";
+"msg_scene_action_added" = "Scene action added";
+"msg_delay_action_added" = "Delay action added";
+"msg_confirm_delete_family" = "Confirm delete? All related data will be cleared!";
+"member_role_creator" = "Creator";
+"member_role_admin" = "Admin";
+"member_role_member" = "Member";
+"btn_start_bind" = "Start Binding";
+"status_binding" = "Binding...";
+"status_bind_success" = "Bound";
+"alert_add_room" = "Add Room";
+"type_device" = "Device";
+"type_group" = "Group";
+"type_scene" = "Scene";
+"tsl_rw_text" = "Read/Write Text";
+"tsl_ro_text" = "Read-Only Text";

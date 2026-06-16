@@ -14,31 +14,15 @@ PODS:
   - AFNetworking/Serialization (4.0.3)
   - AFNetworking/UIKit (4.0.3):
     - AFNetworking/NSURLSession
-  - BRPickerView (2.9.9):
-    - BRPickerView/All (= 2.9.9)
-  - BRPickerView/All (2.9.9):
-    - BRPickerView/Default
-    - BRPickerView/Deprecated
-  - BRPickerView/Core (2.9.9)
-  - BRPickerView/DatePicker (2.9.9):
+  - BRPickerView (3.0.0):
+    - BRPickerView/Default (= 3.0.0)
+  - BRPickerView/Core (3.0.0)
+  - BRPickerView/DatePicker (3.0.0):
     - BRPickerView/Core
-  - BRPickerView/Default (2.9.9):
+  - BRPickerView/Default (3.0.0):
     - BRPickerView/DatePicker
     - BRPickerView/TextPicker
-  - BRPickerView/Deprecated (2.9.9):
-    - BRPickerView/Core
-    - BRPickerView/Deprecated/AddressPickerView (= 2.9.9)
-    - BRPickerView/Deprecated/Base (= 2.9.9)
-    - BRPickerView/Deprecated/StringPickerView (= 2.9.9)
-  - BRPickerView/Deprecated/AddressPickerView (2.9.9):
-    - BRPickerView/Core
-    - BRPickerView/Deprecated/Base
-  - BRPickerView/Deprecated/Base (2.9.9):
-    - BRPickerView/Core
-  - BRPickerView/Deprecated/StringPickerView (2.9.9):
-    - BRPickerView/Core
-    - BRPickerView/Deprecated/Base
-  - BRPickerView/TextPicker (2.9.9):
+  - BRPickerView/TextPicker (3.0.0):
     - BRPickerView/Core
   - CocoaAsyncSocket (7.6.5)
   - IQKeyboardManager (6.5.19)
@@ -92,7 +76,7 @@ PODS:
     - QuecSocketChannelKit
     - QuecWebSocketChannelKit
     - YYModel
-  - QuecIotSdk (3.3.5-beta.3):
+  - QuecIotSdk (3.3.5):
     - QuecBleChannelKit (= 2.0.9)
     - QuecCommonUtil (= 1.0.2)
     - QuecConnectivityKit (= 0.4.3)
@@ -186,7 +170,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.2.0)
   - QuecAutomateKit (~> 0.3.0)
   - QuecGroupKit (~> 0.5.3)
-  - QuecIotSdk (= 3.3.5-beta.3)
+  - QuecIotSdk (= 3.3.5)
   - QuecSceneKit (~> 0.4.0)
   - QuecSmartHomeKit (~> 2.2.2)
   - SDWebImage (~> 5.11.1)
@@ -229,7 +213,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 9af05c61e7415d179391b52215fd60cdf7a86899
-  BRPickerView: 84b2effb81f3b9ebd27f1d31de867ae0b37024f7
+  BRPickerView: cd2e0e3aa87af062bc7a1b6f78d3dfd5f04f04bb
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -243,7 +227,7 @@ SPEC CHECKSUMS:
   QuecFoundationKit: 43962fe900d8722ccd606fee90b0c4e98287a244
   QuecGroupKit: 4948bc5594bbca838035bfca6b298b231e1860d6
   QuecIotChannelKit: bda996f39ad18c818f7cea42884e1dbbae963d04
-  QuecIotSdk: d554687573dfb9e2427fbe51dc16c1214500b1a9
+  QuecIotSdk: c78791620aeb998474c34118554778efec22bd59
   QuecLogKit: 4307cb5aada565905a300a0592b258239231865b
   QuecMQTTChannelKit: 097ebd989d979ddc48538c0b1ec8999bfcdde27f
   QuecNetworkChannelKit: 0c9a68bb04caebd3e57ae0121f450e2aabda2069
@@ -260,6 +244,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 8b5f15c1329b1466e59b9e7f47c23676e59ce72f
+PODFILE CHECKSUM: a08545ff889ae9d30b03d43e24203542a6b1414e
 
 COCOAPODS: 1.16.0

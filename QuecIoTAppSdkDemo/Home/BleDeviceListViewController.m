@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSMutableArray<BleDeviceBindModel *> *dataArray;
 @property (nonatomic, copy) NSString *ssid;
 @property (nonatomic, copy) NSString *pwd;
-@property (nonatomic, copy) NSString *fid; // 当前家庭id
+@property (nonatomic, copy) NSString *fid; // Current family ID
 
 @end
 
@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"设备列表";
+    self.title = QLS(@"title_device_list");
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -49,7 +49,7 @@
     self.dataArray = @[].mutableCopy;
     self.fid = [QuecSmartHomeService sharedInstance].currentFamily.fid;
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"扫描" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_scan") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
     [addButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -62,7 +62,7 @@
 - (void)startScan {
     [self.dataArray removeAllObjects];
     [self.tableView reloadData];
-    /// 需要打开系统及App蓝牙权限
+    /// Bluetooth permission is required (system and app level)
     [QuecDevicePairingService.sharedInstance scanWithFilier:nil];
 }
 
@@ -157,26 +157,24 @@
     });
 }
 
-- (void)configWifiWithIndex:(NSIndexPath *)index{
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请输入wifi信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+- (void)configWifiWithIndex:(NSIndexPath *)index {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_input_wifi_info") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.ssid = alertVc.textFields[0].text;
         self.pwd = alertVc.textFields[1].text;
         if (self.ssid.length == 0) {
-            [self.view makeToast:@"请输入wifi名称" duration:1.0f position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_wifi_name_required") duration:1.0f position:CSToastPositionCenter];
             [self presentViewController:alertVc animated:true completion:nil];
             return;
         }
         [self startBinding:index];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = QLS(@"placeholder_wifi_name");
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入wifi名称";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入wifi密码";
+        textField.placeholder = QLS(@"placeholder_wifi_password");
     }];
     [alertVc addAction:sureAction];
     [alertVc addAction:cancleAction];

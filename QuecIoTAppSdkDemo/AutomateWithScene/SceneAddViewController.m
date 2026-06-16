@@ -30,7 +30,7 @@ static int const kSceneNoExistErrorCode = 6046;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-    self.title = @"创建场景";
+    self.title = QLS(@"title_create_scene");
     
     [self createUI];
     
@@ -60,7 +60,7 @@ static int const kSceneNoExistErrorCode = 6046;
 - (void)createUI {
     
     UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [createButton setTitle:@"保存" forState:UIControlStateNormal];
+    [createButton setTitle:QLS(@"btn_save") forState:UIControlStateNormal];
     createButton.frame = CGRectMake(0, 0, 50, 50);
     [createButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     createButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -75,7 +75,7 @@ static int const kSceneNoExistErrorCode = 6046;
     UIView *headerView = [[UIView alloc]init];
     headerView.frame = CGRectMake(0, 0, ScreenWidth, 60);
     self.nameTextField = [[UITextField alloc]initWithFrame:CGRectMake(20, 20, ScreenWidth - 40, 40)];
-    self.nameTextField.placeholder = @"请填写场景名称";
+    self.nameTextField.placeholder = QLS(@"placeholder_scene_name");
     [headerView addSubview:self.nameTextField];
     self.tableView.tableHeaderView = headerView;
     
@@ -84,7 +84,7 @@ static int const kSceneNoExistErrorCode = 6046;
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addBtn.frame = CGRectMake(20, 20, ScreenWidth - 40, 40);
     addBtn.backgroundColor = UIColor.systemBlueColor;
-    [addBtn setTitle:@"添加设备" forState:UIControlStateNormal];
+    [addBtn setTitle:QLS(@"btn_add_device") forState:UIControlStateNormal];
     [addBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(onPushNext) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:addBtn];
@@ -94,12 +94,12 @@ static int const kSceneNoExistErrorCode = 6046;
 
 - (void)createButtonClick {
     if (self.nameTextField.text.length == 0) {
-        [self.view makeToast:@"请填写场景名称" duration:1 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_scene_name_required") duration:1 position:CSToastPositionCenter];
         return;
     }
     
     if (self.dataArray.count == 0) {
-        [self.view makeToast:@"请选择设备" duration:1 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_device_required") duration:1 position:CSToastPositionCenter];
         return;
     }
     
@@ -110,7 +110,7 @@ static int const kSceneNoExistErrorCode = 6046;
     
     NSMutableArray *metaDataList = @[].mutableCopy;
     for (QuecDeviceModel *deviceModel in self.dataArray) {
-        //写死的一个物模型动作，仅做接口请求示例。具体请根据业务需求自行通过 获取设备物模型 接口获取设备物模型类型，自行筛选
+        // Hardcoded TSL action for API demo only. In production, use the 'Get Device TSL' API to fetch and filter the device model type
         QuecSceneActionModel *action = [[QuecSceneActionModel alloc]init];
         action.subType = @"RW";
         action.dataType = @"BOOL";
@@ -134,7 +134,7 @@ static int const kSceneNoExistErrorCode = 6046;
     sceneInfoModel.name = self.nameTextField.text;
     sceneInfoModel.icon = @"https://iot-oss.quectelcn.com/quec_scene_1.png";
     sceneInfoModel.metaDataList = metaDataList.copy;
-    if (self.upSceneModel) {//编辑
+    if (self.upSceneModel) { // Edit mode
         sceneInfoModel.sceneId = self.upSceneModel.sceneInfo.sceneId;
         fid = self.upSceneModel.fid;
     }
@@ -147,7 +147,7 @@ static int const kSceneNoExistErrorCode = 6046;
     @quec_weakify(self);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    if (self.upSceneModel) {//编辑
+    if (self.upSceneModel) { // Edit mode
         [QuecSceneService.sharedInstance editSceneWithSceneModel:sceneModel success:^{
             @quec_strongify(self);
             [MBProgressHUD hideHUDForView:self.view animated:YES];

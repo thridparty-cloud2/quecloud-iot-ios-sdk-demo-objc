@@ -36,7 +36,7 @@
     }
     
     UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [createButton setTitle:@"确定" forState:UIControlStateNormal];
+    [createButton setTitle:QLS(@"btn_confirm") forState:UIControlStateNormal];
     createButton.frame = CGRectMake(0, 0, 50, 50);
     [createButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     createButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -64,7 +64,7 @@
 
 - (void)getData {
     
-    if (QuecSmartHomeService.sharedInstance.enable) {//开启了家具模式
+    if (QuecSmartHomeService.sharedInstance.enable) { // Family Mode is enabled
         [self getCurrentFamilyWithFid:[QuecSmartHomeService sharedInstance].currentFamily.fid];
     }else {
         QuecDeviceListParamsModel *paramsModel = [[QuecDeviceListParamsModel alloc]init];
@@ -96,13 +96,13 @@
     }];
 }
 
-//查询家庭中的房间列表
+// Query room list in family
 - (void)getFamilyRoomList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
     [QuecSmartHomeService.sharedInstance getFamilyRoomListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecFamilyRoomItemModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
         QuecFamilyRoomItemModel *model = [[QuecFamilyRoomItemModel alloc]init];
-        model.roomName = @"常用";
+        model.roomName = QLS(@"room_common");
         model.frid = @"常用ID";
         self.currentRoomModel = model;
         NSMutableArray *array = [NSMutableArray arrayWithArray:list];
@@ -114,7 +114,7 @@
     }];
 }
 
-//查询常用设备列表
+// Query commonly used device list
 - (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
     [QuecSmartHomeService.sharedInstance getCommonUsedDeviceListWithFid:model.fid pageNumber:1 pageSize:1000 isGroupDeviceShow:NO success:^(NSArray<QuecDeviceModel *> *list, NSInteger total) {
@@ -126,7 +126,7 @@
     }];
 }
 
-//查询房间中设备列表
+// Query device list in room
 - (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self);
@@ -227,17 +227,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     QuecDeviceModel *model = self.dataArray[indexPath.row];
-    /// 多绑设备和分享设备以及纯蓝牙设备不支持加入场景
+    /// Multi-bind, shared, and pure BLE devices cannot be added to scenes/automation
     if (self.isScene && (model.isShared || model.bindMode == 1 || model.capabilitiesBitmask == 4)) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.view makeToast:@"多绑设备和分享设备以及纯蓝牙设备不支持加入场景" duration:1 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_multi_bind_not_support_scene") duration:1 position:CSToastPositionCenter];
         return;
     }
     
-    /// 多绑设备和分享设备以及纯蓝牙设备不支持加入场景
+    /// Multi-bind, shared, and pure BLE devices cannot be added to scenes/automation
     if (self.isAutomate && (model.isShared || model.bindMode == 1 || model.capabilitiesBitmask == 4)) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.view makeToast:@"多绑设备和分享设备以及纯蓝牙设备不支持加入自动化" duration:1 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_multi_bind_not_support_automate") duration:1 position:CSToastPositionCenter];
         return;
     }
     

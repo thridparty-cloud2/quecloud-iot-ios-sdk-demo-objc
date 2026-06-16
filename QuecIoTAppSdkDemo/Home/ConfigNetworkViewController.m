@@ -41,38 +41,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"网络配置";
-    
+    self.title = QLS(@"title_network_config");
     _wifiNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200, self.view.frame.size.width - 60, 50)];
     _wifiNameTextField.borderStyle = UITextBorderStyleRoundedRect;
-    _wifiNameTextField.placeholder = @"请输入wifi名称";
+    _wifiNameTextField.placeholder = QLS(@"placeholder_wifi_name");
     [self.view addSubview:_wifiNameTextField];
-    
     _wifiPsdTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 280, self.view.frame.size.width - 60, 50)];
     _wifiPsdTextField.borderStyle = UITextBorderStyleRoundedRect;
-    _wifiPsdTextField.placeholder = @"请输入wifi密码";
+    _wifiPsdTextField.placeholder = QLS(@"placeholder_wifi_password");
     [self.view addSubview:_wifiPsdTextField];
-    
     UIButton *config = [UIButton buttonWithType:UIButtonTypeCustom];
-    [config setTitle:@"配网" forState:UIControlStateNormal];
+    [config setTitle:QLS(@"btn_config_network") forState:UIControlStateNormal];
     [config setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     config.titleLabel.font = [UIFont systemFontOfSize:18];
     config.frame = CGRectMake(30, 360, self.view.frame.size.width - 60, 50);
     [config addTarget:self action:@selector(startConfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:config];
-    
-//    [[QuecConfigureNetworkManager sharedInstance] getConnectWifiName:^(NSString *wifiName) {
-//        self.wifiNameTextField.text = wifiName;
-//       }];
 }
 
 - (void)startConfig {
     if (!self.wifiNameTextField.text.length) {
-        [self.view makeToast:@"请输入wifi名称" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_wifi_name_required") duration:3 position:CSToastPositionCenter];
         return;
     }
     if (!self.wifiPsdTextField.text.length) {
-        [self.view makeToast:@"请输入wifi密码" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_wifi_password_required") duration:3 position:CSToastPositionCenter];
         return;
     }
     [self.wifiNameTextField resignFirstResponder];
@@ -88,4 +81,3 @@
 
 
 @end
-

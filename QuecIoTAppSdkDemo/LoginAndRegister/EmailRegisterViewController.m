@@ -20,11 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"邮箱注册";
+    self.title = QLS(@"title_email_register");
     CGFloat viewWidth = self.view.frame.size.width;
     self.phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 200,viewWidth - 60, 50)];
     self.phoneTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.phoneTextField.placeholder = @"请输入邮箱";
+    self.phoneTextField.placeholder = QLS(@"placeholder_email");
     self.phoneTextField.textColor = [UIColor lightGrayColor];
     self.phoneTextField.font = [UIFont systemFontOfSize:16];
     self.phoneTextField.returnKeyType = UIReturnKeyDone;
@@ -32,14 +32,14 @@
     
     self.smsTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 280,viewWidth - 180, 50)];
     self.smsTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.smsTextField.placeholder = @"请输入验证码";
+    self.smsTextField.placeholder = QLS(@"placeholder_sms_code");
     self.smsTextField.textColor = [UIColor lightGrayColor];
     self.smsTextField.font = [UIFont systemFontOfSize:16];
     self.smsTextField.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:self.smsTextField];
     
     UIButton *smsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [smsButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [smsButton setTitle:QLS(@"btn_get_sms_code") forState:UIControlStateNormal];
     smsButton.frame = CGRectMake(viewWidth - 120, 290, 90, 30);
     [smsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     smsButton.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -48,7 +48,7 @@
     
     self.pswTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 360,viewWidth - 30, 50)];
     self.pswTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.pswTextField.placeholder = @"请输入密码";
+    self.pswTextField.placeholder = QLS(@"placeholder_password");
     self.pswTextField.textColor = [UIColor lightGrayColor];
     self.pswTextField.font = [UIFont systemFontOfSize:16];
     self.pswTextField.returnKeyType = UIReturnKeyDone;
@@ -59,7 +59,7 @@
     registerButton.layer.cornerRadius = 10.0;
     registerButton.layer.borderColor = [UIColor grayColor].CGColor;
     registerButton.layer.borderWidth = 0.5;
-    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [registerButton setTitle:QLS(@"btn_register") forState:UIControlStateNormal];
     registerButton.frame = CGRectMake(30, 510, viewWidth - 60, 44);
     [registerButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     registerButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -71,7 +71,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] registerByEmail:self.phoneTextField.text ? : @"" code:self.smsTextField.text ? : @"" password:self.pswTextField.text ? : @"" nationality:0 lang:0 timezone:0 success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"注册成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_register_success") duration:3 position:CSToastPositionCenter];
         [self.navigationController popoverPresentationController];
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -83,7 +83,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[QuecUserService sharedInstance] sendEmailWithType:QuecEmailCodeTypeRegister email:self.phoneTextField.text ? : @"" success:^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"验证码发送成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_sms_sent") duration:3 position:CSToastPositionCenter];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"家庭列表";
+    self.title = QLS(@"title_family_list");
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -35,7 +35,7 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -45,15 +45,15 @@
 }
 
 - (void)addButtonClick {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"创建家庭" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_create_family") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self addFamily:alertVc];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入家庭名";
+        textField.placeholder = QLS(@"placeholder_family_name");
     }];
     [alertVc addAction:sureAction];
     [alertVc addAction:cancleAction];
@@ -125,7 +125,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(self.view.bounds.size.width - 120 , 10, 100, 40);
-    [btn setTitle:@"家庭详情" forState:UIControlStateNormal];
+    [btn setTitle:QLS(@"btn_family_detail") forState:UIControlStateNormal];
     btn.backgroundColor = UIColor.systemBlueColor;
     btn.tag = indexPath.row;
     [btn addTarget:self action:@selector(pushNextPage:) forControlEvents:UIControlEventTouchUpInside];

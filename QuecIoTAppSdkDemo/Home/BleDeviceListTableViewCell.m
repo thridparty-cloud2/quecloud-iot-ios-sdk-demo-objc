@@ -45,11 +45,11 @@
             break;
         case QuecBinding:
             self.subTitleLabel.hidden = NO;
-            self.subTitleLabel.text = @"绑定中..";
+            self.subTitleLabel.text = QLS(@"status_binding");
             break;
         case QuecBindingSucc:
             self.subTitleLabel.hidden = NO;
-            self.subTitleLabel.text = @"绑定成功";
+            self.subTitleLabel.text = QLS(@"status_bind_success");
             break;
         case QuecBindingFail:
             self.subTitleLabel.hidden = NO;
@@ -81,7 +81,7 @@
 - (UIButton *)bindButton{
     if (!_bindButton){
         _bindButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_bindButton setTitle:@"开始绑定" forState:(UIControlStateNormal)];
+        [_bindButton setTitle:QLS(@"btn_start_bind") forState:(UIControlStateNormal)];
         [_bindButton setTitleColor:UIColor.blackColor forState:(UIControlStateNormal)];
         _bindButton.layer.borderWidth = 1.f;
         _bindButton.layer.borderColor = UIColor.blackColor.CGColor;

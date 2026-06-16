@@ -37,7 +37,7 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"删除" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_delete_family") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -66,11 +66,11 @@
 }
 
 - (void)deleteButtonClick {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"确定删除当前房间？删除后所有房间相关数据都会被清空！！！" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"msg_confirm_delete_family") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self deleteFamily];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertVc addAction:sureAction];
@@ -123,7 +123,7 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 20)];
     label.textColor = UIColor.lightGrayColor;
     label.font = [UIFont systemFontOfSize:12];
-    label.text = @"家庭成员";
+    label.text = QLS(@"family_members");
     [view addSubview:label];
     
     return view;
@@ -138,16 +138,16 @@
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"家庭名称";
+                cell.textLabel.text = QLS(@"family_name");
                 cell.detailTextLabel.text = self.upModel.familyName;
                 break;
             case 1:
-                cell.textLabel.text = @"家庭位置";
+                cell.textLabel.text = QLS(@"family_location");
                 cell.detailTextLabel.text = self.upModel.familyLocation;
                 break;
             case 2:
-                cell.textLabel.text = @"房间管理";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu个房间", (unsigned long)self.roomDataArray.count];
+                cell.textLabel.text = QLS(@"family_room_management");
+                cell.detailTextLabel.text = [NSString stringWithFormat:QLS(@"room_count_format"), (unsigned long)self.roomDataArray.count];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
                 
@@ -156,7 +156,7 @@
         }
     }else {
         QuecFamilyMemberItemModel *itemModel = self.dataArray[indexPath.row];
-        NSString *textStr = itemModel.memberRole == 1 ? @"创建者" : (itemModel.memberRole == 3 ? @"普通成员" : @"管理员");
+        NSString *textStr = itemModel.memberRole == 1 ? QLS(@"member_role_creator") : (itemModel.memberRole == 3 ? QLS(@"member_role_member") : QLS(@"member_role_admin"));
         cell.textLabel.text = [NSString stringWithFormat:@"%@-%@",itemModel.nikeName, textStr];
         cell.detailTextLabel.text = itemModel.phone;
     }

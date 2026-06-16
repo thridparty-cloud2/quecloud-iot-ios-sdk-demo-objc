@@ -53,13 +53,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFamilyMode = NO;
-    self.title = @"设备列表";
+    self.title = QLS(@"title_device_list");
     self.view.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshList) name:@"Home_List_Refresh_Notification" object:nil];
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加设备" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add_device") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, 50, 50);
     [addButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -67,8 +67,8 @@
     self.addBarButton = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
     UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
-    [editButton setTitle:@"取消" forState:UIControlStateSelected];
+    [editButton setTitle:QLS(@"btn_edit") forState:UIControlStateNormal];
+    [editButton setTitle:QLS(@"btn_cancel") forState:UIControlStateSelected];
     editButton.frame = CGRectMake(0, 0, 50, 50);
     [editButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateNormal];
     editButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -101,9 +101,8 @@
 }
 
 - (void)editClick:(UIButton *)sender {
-    
     if (!self.isFamilyMode) {
-        [self.view makeToast:@"仅家庭模式下可编辑群组" duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_family_mode_required") duration:2 position:CSToastPositionCenter];
         return;
     }
     
@@ -134,7 +133,7 @@
     }
     
     BOOL isEnabled = YES;
-    if (self.isFamilyMode && self.currentFamilyModel.memberRole == 3) {//家庭模式下普通成员不可编辑
+    if (self.isFamilyMode && self.currentFamilyModel.memberRole == 3) {// Regular members cannot edit in Family Mode
         isEnabled = NO;
     }else if(![self canCreateGroupWithDevices:self.editDeviceList]) {
         isEnabled = NO;
@@ -155,22 +154,22 @@
     BOOL result = true;
     NSString *preSecondCode = nil;
     for (QuecDeviceModel * device in devices) {
-        if (device.isGroupDevice) {//群组不可再创建群组
+        if (device.isGroupDevice) {// Groups cannot be used to create another group
             return false;
         }
         
-        if (!device.groupState) {//二级品类开关未开启
+        if (!device.groupState) {// Secondary category switch is not enabled
             return false;
         }
         
-        if (device.bindMode == 1) {//多绑不可以创建群组
+        if (device.bindMode == 1) {// Multi-bind devices cannot create a group
             return false;
         }
         
-        if (device.isShared) {//分享设备不可以创建群组
+        if (device.isShared) {// Shared devices cannot create a group
             return false;
         }
-        if (device.capabilitiesBitmask == 4) {//纯蓝牙设备不可以创建群组
+        if (device.capabilitiesBitmask == 4) {// Pure BLE devices cannot create a group
             return false;
         }
         
@@ -196,7 +195,7 @@
     }
     
     QuecGroupCreateBean *createModel = [[QuecGroupCreateBean alloc]init];
-    long long timestamp = (long long)quec_TimestampMSEC();//获取毫秒级时间戳
+    long long timestamp = (long long)quec_TimestampMSEC();// Get millisecond-level timestamp
     createModel.groupDeviceName = [NSString stringWithFormat:@"%@%lld",@"随意群组命名_",timestamp];
     
     NSString *fid = @"";
@@ -218,123 +217,95 @@
         [self.view makeToast:error.description duration:1 position:CSToastPositionCenter];
     }];
 }
-//查询群组基础信息
+// Query group basic info
 - (void)getGroupDeviceInfoWithId:(NSString *)gid {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     @quec_weakify(self);
     [QuecGroupService.sharedInstance getGroupInfoWithId:gid success:^(QuecGroupBean * _Nonnull result) {
         @quec_strongify(self);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"查询群组基础信息成功" duration:2 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_query_group_success") duration:2 position:CSToastPositionCenter];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.view makeToast:error.description duration:1 position:CSToastPositionCenter];
     }];
 }
 
-// WIFI设备绑定
-- (void)jumpToAuthCodeDKPK{
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"WIFI设备绑定" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+// WiFi device binding
+- (void)jumpToAuthCodeDKPK {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"title_wifi_bind") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *authCode = alertVc.textFields[0].text;
         NSString *dk = alertVc.textFields[1].text;
         NSString *pk = alertVc.textFields[2].text;
         NSString *name = alertVc.textFields[3].text;
         if (authCode.length == 0) {
-            [self.view makeToast:@"请输入authCode" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
+            [self.view makeToast:QLS(@"placeholder_auth_code") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
         }
         if (dk.length == 0) {
-            [self.view makeToast:@"请输入dk" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
+            [self.view makeToast:QLS(@"placeholder_dk") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
         }
         if (pk.length == 0) {
-            [self.view makeToast:@"请输入pk" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
+            [self.view makeToast:QLS(@"placeholder_pk") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
         }
         [self requestBindDeviceByAuthCode:authCode pk:pk dk:dk name:name];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入authCode";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入dk";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入pk";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入设备名称, 可以不输入";
-    }];
-    [alertVc addAction:sureAction];
-    [alertVc addAction:cancleAction];
-    [self presentViewController:alertVc animated:true completion:nil];
-}
-// 分享设备绑定
-- (void)jumpToShare_code{
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"分享设备绑定" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *share_code = alertVc.textFields[0].text;
-        if (share_code.length == 0) {
-            [self.view makeToast:@"请输入share_code" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        [self requestBindDeviceByShare_code:share_code];
-    }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入share_code";
-    }];
-    [alertVc addAction:sureAction];
-    [alertVc addAction:cancleAction];
-    [self presentViewController:alertVc animated:true completion:nil];
-}
-// SN设备绑定
-- (void)jumpToSNAndPK{
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"SN设备绑定" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *sn = alertVc.textFields[0].text;
-        NSString *pk = alertVc.textFields[1].text;
-        NSString *name = alertVc.textFields[2].text;
-        if (sn.length == 0) {
-            [self.view makeToast:@"请输入sn" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        if (pk.length == 0) {
-            [self.view makeToast:@"请输入pk" duration:1.0f position:CSToastPositionCenter];
-            [self presentViewController:alertVc animated:true completion:nil];
-            return;
-        }
-        [self requestBindDeviceBySn:sn pk:pk name:name];
-    }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入sn";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入pk";
-    }];
-    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入设备名称, 可以不输入";
-    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_auth_code"); }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_dk"); }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_pk"); }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_device_name_optional"); }];
     [alertVc addAction:sureAction];
     [alertVc addAction:cancleAction];
     [self presentViewController:alertVc animated:true completion:nil];
 }
 
-// WIFI/蓝牙设备
+- (void)jumpToShare_code {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"title_share_bind") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *share_code = alertVc.textFields[0].text;
+        if (share_code.length == 0) {
+            [self.view makeToast:QLS(@"placeholder_share_code") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
+        }
+        [self requestBindDeviceByShare_code:share_code];
+    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_share_code"); }];
+    [alertVc addAction:sureAction];
+    [alertVc addAction:cancleAction];
+    [self presentViewController:alertVc animated:true completion:nil];
+}
+
+- (void)jumpToSNAndPK {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"title_sn_bind") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *sn = alertVc.textFields[0].text;
+        NSString *pk = alertVc.textFields[1].text;
+        NSString *name = alertVc.textFields[2].text;
+        if (sn.length == 0) {
+            [self.view makeToast:QLS(@"placeholder_sn") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
+        }
+        if (pk.length == 0) {
+            [self.view makeToast:QLS(@"placeholder_pk") duration:1.0f position:CSToastPositionCenter];
+            [self presentViewController:alertVc animated:true completion:nil]; return;
+        }
+        [self requestBindDeviceBySn:sn pk:pk name:name];
+    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_sn"); }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_pk"); }];
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) { textField.placeholder = QLS(@"placeholder_device_name_optional"); }];
+    [alertVc addAction:sureAction];
+    [alertVc addAction:cancleAction];
+    [self presentViewController:alertVc animated:true completion:nil];
+}
+
+// WiFi/BLE device
 - (void)jumpToAddBle {
     BleDeviceListViewController *addVc = [[BleDeviceListViewController alloc] init];
     addVc.hidesBottomBarWhenPushed = YES;
@@ -342,36 +313,25 @@
 }
 
 - (void)showActionSheet {
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"请选择设备类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_select_device_type") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     QuecWeakSelf(self);
-    
-    UIAlertAction *authCodeDKPKAction = [UIAlertAction actionWithTitle:@"WIFI设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        QuecStrongSelf(self);
-        [self jumpToAuthCodeDKPK];
+    UIAlertAction *authCodeDKPKAction = [UIAlertAction actionWithTitle:QLS(@"title_wifi_bind") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self); [self jumpToAuthCodeDKPK];
     }];
     [alertVc addAction:authCodeDKPKAction];
-    
-    UIAlertAction *share_codeAction = [UIAlertAction actionWithTitle:@"分享设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        QuecStrongSelf(self);
-        [self jumpToShare_code];
+    UIAlertAction *share_codeAction = [UIAlertAction actionWithTitle:QLS(@"title_share_bind") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self); [self jumpToShare_code];
     }];
     [alertVc addAction:share_codeAction];
-    
-    UIAlertAction *jumpSNAndPKAction = [UIAlertAction actionWithTitle:@"SN设备绑定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        QuecStrongSelf(self);
-        [self jumpToSNAndPK];
+    UIAlertAction *jumpSNAndPKAction = [UIAlertAction actionWithTitle:QLS(@"title_sn_bind") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self); [self jumpToSNAndPK];
     }];
     [alertVc addAction:jumpSNAndPKAction];
-    
-    UIAlertAction *bleAction = [UIAlertAction actionWithTitle:@"WIFI/蓝牙设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        QuecStrongSelf(self);
-        [self jumpToAddBle];
+    UIAlertAction *bleAction = [UIAlertAction actionWithTitle:QLS(@"device_type_wifi_ble") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        QuecStrongSelf(self); [self jumpToAddBle];
     }];
     [alertVc addAction:bleAction];
-    
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
     [alertVc addAction:cancleAction];
     [self presentViewController:alertVc animated:true completion:nil];
 }
@@ -425,14 +385,14 @@
     }];
 }
 
-//查询家庭中的房间列表
+// Query room list in family
 - (void)getFamilyRoomList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
     [QuecSmartHomeService.sharedInstance getFamilyRoomListWithFid:model.fid pageNumber:1 pageSize:1000 success:^(NSArray<QuecFamilyRoomItemModel *> *list, NSInteger total) {
         QuecStrongSelf(self);
         QuecFamilyRoomItemModel *model = [[QuecFamilyRoomItemModel alloc]init];
-        model.roomName = @"常用";
-        model.frid = @"常用ID";
+        model.roomName = QLS(@"room_common");
+        model.frid = @"room_common_id";
         self.currentRoomModel = model;
         NSMutableArray *array = [NSMutableArray arrayWithArray:list];
         [array insertObject:model atIndex:0];
@@ -443,7 +403,7 @@
     }];
 }
 
-//查询常用设备列表
+// Query commonly used device list
 - (void)getCommonUsedDeviceList:(QuecFamilyItemModel *)model {
     QuecWeakSelf(self);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -463,7 +423,7 @@
     }];
     
 }
- //查询房间中设备列表
+ // Query device list in room
 - (void)getFamilyRoomDeviceListWithFrid:(NSString *)frid {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self);
@@ -504,7 +464,7 @@
     
     self.currentRoomModel = model;
     
-    if ([self.currentRoomModel.frid isEqualToString:@"常用ID"]) {
+    if ([self.currentRoomModel.frid isEqualToString:@"room_common_id"]) {
         [self getCommonUsedDeviceList:self.currentFamilyModel];
     }else {
         [self getFamilyRoomDeviceListWithFrid:self.currentRoomModel.frid];
@@ -613,10 +573,10 @@
     QuecDeviceModel *model = self.dataArray[indexPath.row];
     cell.textLabel.text = model.deviceName;
     if (model.gdid && model.gdid.length > 0) {
-        cell.textLabel.text = [NSString stringWithFormat:@"群组：%@",model.deviceName];
+        cell.textLabel.text = [NSString stringWithFormat:QLS(@"device_group_name_format"), model.deviceName];
     }
     cell.textLabel.textColor = [UIColor lightGrayColor];
-    cell.detailTextLabel.text = model.onlineChannelState ?  @"在线" : @"离线";
+    cell.detailTextLabel.text = model.onlineChannelState ? QLS(@"status_online") : QLS(@"status_offline");
     return cell;
 }
 
@@ -652,21 +612,16 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //重命名
     QuecWeakSelf(self)
-    UITableViewRowAction *renameRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"重命名" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        QuecStrongSelf(self)
-        [self updateDeviceNameWithRow:indexPath.row];
+    UITableViewRowAction *renameRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:QLS(@"btn_rename") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        QuecStrongSelf(self) [self updateDeviceNameWithRow:indexPath.row];
     }];
     renameRowAction.backgroundColor = [UIColor lightGrayColor];
-    //解绑
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        QuecStrongSelf(self)
-        [self unbindDeviceWithRow:indexPath.row];
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        QuecStrongSelf(self) [self unbindDeviceWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor blueColor];
-    //分享
-    UITableViewRowAction *shareRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"分享" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *shareRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:QLS(@"btn_share") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         QuecStrongSelf(self)
         ShareInfoViewController *shareInfoVc = [[ShareInfoViewController alloc] init];
         shareInfoVc.hidesBottomBarWhenPushed = YES;
@@ -679,17 +634,14 @@
 
 - (void)updateDeviceNameWithRow:(NSInteger)row {
     QuecDeviceModel *model = self.dataArray[row];
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"修改名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:QLS(@"alert_rename") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:QLS(@"btn_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self updateDeviceNameWithName:alertVc.textFields.firstObject.text row:row];
     }];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:QLS(@"btn_cancel") style:UIAlertActionStyleCancel handler:nil];
     [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入名称";
+        textField.placeholder = QLS(@"placeholder_name");
         textField.text = model.deviceName;
-      
     }];
     [alertVc addAction:sureAction];
     [alertVc addAction:cancleAction];
@@ -703,7 +655,7 @@
     if (model.deviceType == 1) {
         [[QuecDeviceService sharedInstance] updateDeviceName:deviceName productKey:model.productKey deviceKey:model.deviceKey success:^{
             QuecStrongSelf(self)
-            [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_update_success") duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
@@ -711,11 +663,10 @@
             [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
-    }
-    else {
+    } else {
         [QuecDeviceShareService.sharedInstance updateDeviceNameByShareUserWithDeviceName:deviceName shareCode:model.shareCode success:^{
             QuecStrongSelf(self)
-            [self.view makeToast:@"修改成功" duration:3 position:CSToastPositionCenter];
+            [self.view makeToast:QLS(@"msg_update_success") duration:3 position:CSToastPositionCenter];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self getData];
         } failure:^(NSError *error) {
@@ -724,20 +675,16 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }];
     }
-  
 }
 
 - (void)unbindDeviceWithRow:(NSInteger)row {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecDeviceModel *model = [self.dataArray quec_safeObjectAtIndex:row];
     @quec_weakify(self);
-    NSString *fid = @"";
-    if (model.fid) {
-        fid = model.fid;
-    }
+    NSString *fid = model.fid ? : @"";
     [QuecDeviceClient batchRemoveWithFid:fid isInit:NO deviceList:@[model] success:^{
         @quec_strongify(self);
-        [self.view makeToast:@"解绑成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_unbind_success") duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError * _Nonnull error) {
@@ -754,13 +701,13 @@
     [self.navigationController pushViewController:deviceControlVc animated:YES];
 }
 
-// 发起蓝牙设备绑定
+// Initiate BLE device binding
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk passwod:(NSString *)password name:(NSString *)name{
 //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //    QuecWeakSelf(self)
 //    [[QuecDeviceService sharedInstance] bindDeviceByAuthCode:authCode productKey:pk deviceKey:dk password:password deviceName:name success:^{
 //        QuecStrongSelf(self)
-//        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+//        [self.view makeToast:QLS(@"msg_bind_success") duration:3 position:CSToastPositionCenter];
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
 //        [self getData];
 //    } failure:^(NSError *error) {
@@ -769,13 +716,13 @@
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
 //    }];
 }
-// 发起WIFI设备绑定
+// Initiate WiFi device binding
 - (void)requestBindDeviceByAuthCode:(NSString *)authCode pk:(NSString *)pk dk:(NSString *)dk name:(NSString *)name{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self)
     [QuecDeviceService.sharedInstance bindWifiDeviceWithAuthCode:authCode productKey:pk deviceKey:dk deviceName:name capabilitiesBitmask:0 success:^(QuecDeviceBindAuthCodeModel *model) {
         QuecStrongSelf(self)
-        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_bind_success") duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {
@@ -784,13 +731,13 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
-// 发起分享设备绑定
+// Initiate shared device binding
 - (void)requestBindDeviceByShare_code:(NSString *)share_code{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     QuecWeakSelf(self)
     [QuecDeviceShareService.sharedInstance acceptShareByShareUserWithShareCode:share_code deviceName:@"Test Share Bind" success:^{
         QuecStrongSelf(self)
-        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_bind_success") duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {
@@ -799,13 +746,13 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
-// 发起SN设备绑定
+// Initiate SN device binding
 - (void)requestBindDeviceBySn:(NSString *)sn pk:(NSString *)pk name:(NSString *)name{
     QuecWeakSelf(self)
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [QuecDeviceService.sharedInstance bindDeviceWithSerialNumber:sn productKey:pk deviceName:name success:^(QuecDeviceBindSNModel *model) {
         QuecStrongSelf(self)
-        [self.view makeToast:@"绑定成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_bind_success") duration:3 position:CSToastPositionCenter];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self getData];
     } failure:^(NSError *error) {
@@ -820,7 +767,7 @@
     if (!_createGroupsBtn) {
         _createGroupsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _createGroupsBtn.frame = CGRectMake(40, 40, ScreenWidth - 80, 40);
-        [_createGroupsBtn setTitle:@"创建群组" forState:UIControlStateNormal];
+        [_createGroupsBtn setTitle:QLS(@"btn_create_group") forState:UIControlStateNormal];
         _createGroupsBtn.backgroundColor = UIColor.systemBlueColor;
         [_createGroupsBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [_createGroupsBtn addTarget:self action:@selector(createGroupsAction) forControlEvents:UIControlEventTouchUpInside];

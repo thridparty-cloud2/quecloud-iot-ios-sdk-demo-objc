@@ -1,0 +1,240 @@
+/* ==================== Tab Bar ==================== */
+"tab_home" = "首页";
+"tab_common" = "通用";
+"tab_mine" = "我的";
+
+/* ==================== Navigation Titles ==================== */
+"title_password_login" = "密码登录";
+"title_sms_login" = "验证码登录";
+"title_email_login" = "邮箱密码登录";
+"title_third_login" = "第三方登录";
+"title_phone_register" = "手机号注册";
+"title_email_register" = "邮箱注册";
+"title_forget_password" = "忘记密码";
+"title_device_list" = "设备列表";
+"title_device_detail" = "设备详情";
+"title_device_control" = "设备控制";
+"title_network_config" = "网络配置";
+"title_share_info" = "分享信息";
+"title_common_module" = "通用模块";
+"title_group" = "分组";
+"title_group_detail" = "分组详情";
+"title_ota_list" = "OTA列表";
+"title_scene" = "场景";
+"title_automate" = "自动化";
+"title_create_scene" = "创建场景";
+"title_add_automate" = "添加自动化";
+"title_set_device_action" = "设置设备动作";
+"title_family_list" = "家庭列表";
+"title_room_management" = "房间管理";
+"title_update" = "修改";
+"title_update_phone" = "修改手机号";
+"title_update_password" = "修改密码";
+"title_config" = "配置";
+"title_wifi_bind" = "WIFI设备绑定";
+"title_share_bind" = "分享设备绑定";
+"title_sn_bind" = "SN设备绑定";
+"title_add_device_select" = "添加设备";
+
+/* ==================== Data Center ==================== */
+"btn_private_cloud" = "私有云";
+"data_center_china" = "数据中心: 国内";
+"data_center_europe" = "数据中心: 欧洲";
+"data_center_north_america" = "数据中心: 北美";
+"dc_china" = "国内";
+"dc_europe" = "欧洲";
+"dc_north_america" = "北美";
+"alert_select_data_center" = "请选择数据中心";
+
+/* ==================== Buttons ==================== */
+"btn_login" = "登录";
+"btn_register" = "注册";
+"btn_register_now" = "立即注册";
+"btn_sms_login" = "验证码登录";
+"btn_email_login" = "邮箱登录";
+"btn_forget_password" = "忘记密码";
+"btn_other_login" = "其他登录";
+"btn_verify" = "校验";
+"btn_get_sms_code" = "获取验证码";
+"btn_verify_sms" = "校验验证码";
+"btn_check_phone_country" = "检验手机号+国家码";
+"btn_confirm" = "确定";
+"btn_cancel" = "取消";
+"btn_confirm_action" = "确认";
+"btn_add_device" = "添加设备";
+"btn_edit" = "编辑";
+"btn_rename" = "重命名";
+"btn_delete" = "删除";
+"btn_share" = "分享";
+"btn_settings" = "设置";
+"btn_scan" = "扫描";
+"btn_get_share_code" = "获取分享码";
+"btn_add" = "添加";
+"btn_add_group" = "添加分组";
+"btn_add_scene" = "添加场景";
+"btn_add_automate" = "添加自动化";
+"btn_create_group" = "创建群组";
+"btn_config_network" = "配网";
+"btn_execute_scene" = "执行场景";
+"btn_camera" = "相机";
+"btn_album" = "相册";
+"btn_save" = "保存";
+"btn_family_detail" = "家庭详情";
+"btn_delete_family" = "删除";
+"btn_delete_room" = "删除房间";
+
+/* ==================== Placeholders ==================== */
+"placeholder_country_code" = "请输入国家码";
+"placeholder_phone" = "请输入手机号";
+"placeholder_password" = "请输入密码";
+"placeholder_sms_code" = "请输入验证码";
+"placeholder_email" = "请输入邮箱";
+"placeholder_auth_code" = "请输入authCode";
+"placeholder_name" = "请输入名称";
+"placeholder_input" = "请输入";
+"placeholder_wifi_name" = "请输入wifi名称";
+"placeholder_wifi_password" = "请输入wifi密码";
+"placeholder_user_domain" = "请输入userDomain";
+"placeholder_user_domain_secret" = "请输入userDomainSecret";
+"placeholder_base_url" = "请输入baseUrl";
+"placeholder_ws_url" = "请输入webSocketUrl";
+"placeholder_ws_v2_url" = "请输入webSocketV2Url";
+"placeholder_mcc" = "请输入mcc";
+"placeholder_tcp_addr" = "请输入tcpAddr";
+"placeholder_psk_addr" = "请输入pskAddr";
+"placeholder_tls_addr" = "请输入tlsAddr";
+"placeholder_cer_addr" = "请输入cerAddr";
+"placeholder_dk" = "请输入dk";
+"placeholder_pk" = "请输入pk";
+"placeholder_device_name_optional" = "请输入设备名称, 可以不输入";
+"placeholder_share_code" = "请输入share_code";
+"placeholder_sn" = "请输入sn";
+"placeholder_current_phone" = "请输入当前手机号";
+"placeholder_current_phone_code" = "请输入当前手机号验证码";
+"placeholder_new_phone" = "请输入新手机号";
+"placeholder_new_phone_code" = "请输入新手机号验证码";
+"placeholder_old_password" = "请输入旧密码";
+"placeholder_new_password" = "请输入新密码";
+"placeholder_family_name" = "请输入家庭名";
+"placeholder_room_name" = "请输入房间名";
+"placeholder_scene_name" = "请填写场景名称";
+
+/* ==================== Alert Titles ==================== */
+"alert_rename" = "修改名称";
+"alert_input_text" = "请输入文本";
+"alert_select_enum" = "请选择枚举";
+"alert_select_device_type" = "请选择设备类型";
+"alert_new_group" = "新建分组";
+"alert_rename_group" = "更改分组名称";
+"alert_tip" = "温馨提示";
+"alert_create_family" = "创建家庭";
+"alert_input_wifi_info" = "请输入wifi信息";
+
+/* ==================== Toast Messages ==================== */
+"msg_login_success" = "登录成功";
+"msg_register_success" = "注册成功";
+"msg_sms_sent" = "验证码发送成功";
+"msg_phone_registered" = "手机号已注册";
+"msg_phone_not_registered" = "手机号未注册";
+"msg_phone_valid" = "手机号验证成功";
+"msg_sms_valid" = "短信验证码有效";
+"msg_password_reset_success" = "密码设置成功";
+"msg_update_success" = "修改成功";
+"msg_unbind_success" = "解绑成功";
+"msg_bind_success" = "绑定成功";
+"msg_send_success" = "下发成功";
+"msg_send_failure" = "下发失败";
+"msg_copied" = "已复制";
+"msg_family_mode_required" = "仅家庭模式下可编辑群组";
+"msg_query_group_success" = "查询群组基础信息成功";
+"msg_confirm_cancel_account" = "确认注销账号吗？";
+"msg_open_album_in_settings" = "请在设置中打开相册";
+"msg_execute_success" = "执行成功";
+"msg_execute_failure" = "执行失败";
+"msg_delete_success" = "删除成功";
+"msg_edit_success" = "编辑成功";
+"msg_create_success" = "创建成功";
+"msg_add_success" = "添加成功";
+"msg_phone_updated" = "手机号修改成功";
+"msg_password_updated" = "密码修改成功";
+"msg_wifi_name_required" = "请输入wifi名称";
+"msg_wifi_password_required" = "请输入wifi密码";
+"msg_scene_name_required" = "请填写场景名称";
+"msg_device_required" = "请选择设备";
+"msg_trigger_required" = "请至少点击选择一个触发事件";
+"msg_action_device_required" = "请至少选择一个执行设备";
+"msg_action_config_required" = "触发事件中的设备请设置执行动作";
+"msg_scene_or_device_required" = "执行任务中设备和场景至少要选择一个";
+"msg_device_not_support_linkage" = "该设备暂不支持联动配置";
+"msg_multi_bind_not_support_scene" = "多绑设备和分享设备以及纯蓝牙设备不支持加入场景";
+"msg_multi_bind_not_support_automate" = "多绑设备和分享设备以及纯蓝牙设备不支持加入自动化";
+
+/* ==================== Status / Labels ==================== */
+"status_online" = "在线";
+"status_offline" = "离线";
+"label_manage_share" = "管理分享权限";
+"label_home_mode" = "家居模式:";
+"room_common" = "常用";
+"picker_select_time" = "选择时间";
+"device_group_name_format" = "群组：%@";
+"device_type_wifi_ble" = "WIFI/蓝牙设备";
+
+/* ==================== OTA ==================== */
+"ota_upgrading" = "升级中: %.0f%%";
+"ota_success" = "升级成功";
+"ota_failure" = "升级失败";
+"ota_pending" = "待升级";
+
+/* ==================== My Center ==================== */
+"menu_update_nickname" = "修改昵称";
+"menu_update_address" = "修改地址";
+"menu_update_password" = "修改密码";
+"menu_update_phone" = "修改手机号";
+"menu_cancel_account" = "注销账号";
+"menu_logout" = "退出登录";
+
+/* ==================== Automation ==================== */
+"automate_trigger_event" = "触发事件";
+"automate_timer" = "定时";
+"automate_device" = "设备";
+"automate_action" = "执行任务";
+"automate_action_device" = "执行设备";
+"automate_open_scene" = "开启场景";
+"automate_add_delay" = "添加延时";
+"automate_not_set" = "未设置";
+
+/* ==================== Family ==================== */
+"family_name" = "家庭名称";
+"family_location" = "家庭位置";
+"family_room_management" = "房间管理";
+"family_members" = "家庭成员";
+"room_count_format" = "%lu个房间";
+"label_device_list" = "   设备列表";
+
+/* ==================== Additional ==================== */
+"msg_timer_trigger_added" = "定时触发事件添加成功";
+"msg_no_scene_data" = "没有场景数据可选";
+"msg_scene_action_added" = "添加场景执行任务成功";
+"msg_delay_action_added" = "添加延时执行任务成功";
+"msg_confirm_delete_family" = "确定删除当前房间？删除后所有房间相关数据都会被清空！！！";
+"member_role_creator" = "创建者";
+"member_role_admin" = "管理员";
+"member_role_member" = "普通成员";
+
+"msg_timer_trigger_added" = "定时触发事件添加成功";
+"msg_no_scene_data" = "没有场景数据可选";
+"msg_scene_action_added" = "添加场景执行任务成功";
+"msg_delay_action_added" = "添加延时执行任务成功";
+"msg_confirm_delete_family" = "确定删除当前房间？删除后所有房间相关数据都会被清空！！！";
+"member_role_creator" = "创建者";
+"member_role_admin" = "管理员";
+"member_role_member" = "普通成员";
+"btn_start_bind" = "开始绑定";
+"status_binding" = "绑定中..";
+"status_bind_success" = "绑定成功";
+"alert_add_room" = "添加房间";
+"type_device" = "设备";
+"type_group" = "群组";
+"type_scene" = "场景";
+"tsl_rw_text" = "读写文本";
+"tsl_ro_text" = "只读文本";

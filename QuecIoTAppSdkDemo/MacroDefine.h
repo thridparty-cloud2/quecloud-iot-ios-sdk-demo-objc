@@ -14,4 +14,7 @@
 #define QuecWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define QuecStrongSelf(type) __strong typeof(type) type = weak##type;
 
+/// Shorthand for NSLocalizedString. Usage: QLS(@"key")
+#define QLS(key) NSLocalizedString(key, nil)
+
 #endif /* MacroDefine_h */

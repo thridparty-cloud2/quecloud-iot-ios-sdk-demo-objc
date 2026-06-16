@@ -33,9 +33,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.whiteColor;
-    self.title = @"自动化";
+    self.title = QLS(@"title_automate");
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setTitle:@"添加自动化" forState:UIControlStateNormal];
+    [addButton setTitle:QLS(@"btn_add_automate") forState:UIControlStateNormal];
     addButton.frame = CGRectMake(0, 0, ScreenWidth, 50);
     [addButton setTitleColor:UIColor.systemBlueColor forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -130,7 +130,7 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:QLS(@"btn_delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self deleteGroupWithRow:indexPath.row];
     }];
     unbindRowAction.backgroundColor = [UIColor redColor];

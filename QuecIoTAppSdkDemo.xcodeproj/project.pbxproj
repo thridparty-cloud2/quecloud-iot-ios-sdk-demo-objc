@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2EF7090AB3D40C0B8B315D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9687321FFA8347DAAEEFE052 /* Localizable.strings */; };
 		12664E44689E279A75F91379 /* Pods_QuecIoTAppSdkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7CBB9692D119C9996C7B293 /* Pods_QuecIoTAppSdkDemo.framework */; };
 		2236138127D5956800817F50 /* DeviceSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137C27D5956800817F50 /* DeviceSelectViewController.m */; };
 		2236138227D5956800817F50 /* DeviceGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2236137E27D5956800817F50 /* DeviceGroupViewController.m */; };
@@ -80,6 +81,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39D5D90DDD854AA8B2561D60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D74944F8843D49B0A5319419 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2236136E27D5917700817F50 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2236137027D5918400817F50 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		2236137227D5918F00817F50 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -159,8 +162,8 @@
 		22D2F24D2DBE0134002DB15A /* QuecOtaPlanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuecOtaPlanModel.m; sourceTree = "<group>"; };
 		22E0E92D2A399CAE0074B60C /* BleDeviceListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleDeviceListTableViewCell.h; sourceTree = "<group>"; };
 		22E0E92E2A399CAE0074B60C /* BleDeviceListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleDeviceListTableViewCell.m; sourceTree = "<group>"; };
-		22E1AC172DC071C5000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		22E1AC182DC071C6000EBCA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		22E1AC172DC071C5000EBCA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		22E1AC182DC071C6000EBCA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		276FE8B2C30E7991441F8ACD /* Pods_QuecIoTAppSdkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuecIoTAppSdkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		302DA6492A3B0BDA00D7EF8E /* ThirdLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdLoginViewController.h; sourceTree = "<group>"; };
 		302DA64A2A3B0BDA00D7EF8E /* ThirdLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdLoginViewController.m; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 		22B0F7C527D2FE08001368DF /* QuecIoTAppSdkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				9687321FFA8347DAAEEFE052 /* Localizable.strings */,
 				6476AA972CF40EF500AFE2B2 /* AutomateWithScene */,
 				6443DB6B2CEE132700C8B128 /* Family */,
 				640481A52CE1B02B00AD521D /* OTA */,
@@ -545,6 +549,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				Base,
 				en,
 				"zh-Hans",
 			);
@@ -565,6 +570,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2EF7090AB3D40C0B8B315D8 /* Localizable.strings in Resources */,
 				22B0F7D627D2FE09001368DF /* LaunchScreen.storyboard in Resources */,
 				22B0F7D327D2FE09001368DF /* Assets.xcassets in Resources */,
 				22B0F7D127D2FE08001368DF /* Main.storyboard in Resources */,
@@ -809,10 +815,19 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9687321FFA8347DAAEEFE052 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				39D5D90DDD854AA8B2561D60 /* en */,
+				D74944F8843D49B0A5319419 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		22B0F7CF27D2FE08001368DF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				22E1AC172DC071C5000EBCA3 /* zh-Hans */,
+				22E1AC172DC071C5000EBCA3 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -820,7 +835,7 @@
 		22B0F7D427D2FE09001368DF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				22E1AC182DC071C6000EBCA3 /* zh-Hans */,
+				22E1AC182DC071C6000EBCA3 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

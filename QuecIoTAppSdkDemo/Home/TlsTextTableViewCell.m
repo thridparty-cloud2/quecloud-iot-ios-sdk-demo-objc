@@ -47,11 +47,11 @@
 
 - (void)refreshCellWithModel:(QuecProductTSLPropertyModel *)model {
     self.dataModel = model;
-    NSString *subType = @"读写";
+    NSString *subType = QLS(@"tsl_rw_text");
     if ([QuecProductionTslSubTypeR isEqualToString:model.subType]) {
-        subType = @"只读";
+        subType = QLS(@"tsl_ro_text");
     }
-    self.titleLabel.text = [NSString stringWithFormat:@"%@文本",subType];
+    self.titleLabel.text = subType;
     _content.text = [NSString deletEmpty:model.attributeValue];
 }
 

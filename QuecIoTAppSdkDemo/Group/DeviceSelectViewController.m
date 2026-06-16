@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"添加设备";
+    self.title = QLS(@"title_add_device_select");
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -77,7 +77,7 @@
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //添加
+    // Add device to group
     UITableViewRowAction *unbindRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"加入分组" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self addDeviceToGroupWithRow:indexPath.row];
     }];
@@ -89,7 +89,7 @@
     QuecDeviceModel *model = self.dataArray[row];
     [QuecDeviceGroupService.sharedInstance addDeviceToGroupWithDeviceGroupId:self.dataModel.dgid deviceList:@[@{@"dk":model.deviceKey, @"pk": model.productKey}] success:^(QuecOperateDeviceToGroupModel * _Nonnull model) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.view makeToast:@"添加成功" duration:3 position:CSToastPositionCenter];
+        [self.view makeToast:QLS(@"msg_add_success") duration:3 position:CSToastPositionCenter];
         [self getDeviceList];
     } failure:^(NSError *error) {
         [self.view makeToast:error.localizedDescription duration:3 position:CSToastPositionCenter];

@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设备详情";
+    self.title = QLS(@"title_device_detail");
     self.view.backgroundColor = [UIColor whiteColor];
     _textView = [[UITextView alloc] init];
     _textView.textColor = [UIColor lightGrayColor];
